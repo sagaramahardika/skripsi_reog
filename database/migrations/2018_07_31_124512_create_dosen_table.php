@@ -14,12 +14,13 @@ class CreateDosenTable extends Migration
     public function up()
     {
         Schema::create('dosen', function (Blueprint $table) {
-            $table->integer('nik');
+            $table->increments('nik');
             $table->integer('kd_prodi');
             $table->string('nama');
             $table->string('email');
             $table->string('no_tlpn');
             $table->enum('jabatan', ['dosen', 'kaprodi', 'guest'] );
+            $table->string('username');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
@@ -33,6 +34,6 @@ class CreateDosenTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('dosens');
+        Schema::dropIfExists('dosen');
     }
 }

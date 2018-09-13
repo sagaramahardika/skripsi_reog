@@ -24,6 +24,15 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}"></script>
+        <script>
+            // global routing js + token
+            var config = {
+                routes: {
+                    fakultas : "{{ route('fakultas.all') }}",
+                },
+                token : "{{ Session::token() }}",
+            };
+        </script>
         <script src="{{ asset('js/admin.js') }}"></script>
         @yield('scripts')
     </body>

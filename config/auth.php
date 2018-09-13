@@ -92,12 +92,12 @@ return [
 
         'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
+            'model' => App\Admin::class,
         ],
         
         'dosens' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Dosen::class,
+            'model' => App\Dosen::class,
         ],
     ],
 

@@ -16,6 +16,10 @@
             </a>
         </div>
 
-        
+        @if( Request::is("admin") || Request::is("admin/*") )
+            @include('includes.admin_menu')
+        @else
+            
+        @endif
     </div>
 </nav>

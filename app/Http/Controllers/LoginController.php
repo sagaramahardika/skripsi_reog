@@ -10,7 +10,11 @@ class LoginController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest:admin');
+        if ( Auth::guard('admin')->check() ) {
+            $this->middleware('guest:admin');
+        } else {
+            $this->middleware('guest:dosen');
+        }
     }
 
     public function index() 
@@ -22,14 +26,14 @@ class LoginController extends Controller
     {
         // Validate the form data
       $this->validate($request, [
-        'username'  => 'required|email',
-        'password'  => 'required|min:6'
+        'username'  => 'required',
+        'password'  => 'required'
       ]);
       
       if ( Auth::guard('admin')->attempt( ['username' => $request->username, 'password' => $request->password], $request->remember) ) {
         // Success attempt to login admin & redirect to admin dashboard
         return redirect()->intended(route('admin.dashboard'));
-      } elseif( Auth::guard('dosen')->attempt( ['email' => $request->email, 'password' => $request->password], $request->remember) ) {
+      } elseif( Auth::guard('dosen')->attempt( ['username' => $request->username, 'password' => $request->password], $request->remember) ) {
         // Success attempt to login dosen & redirect to dosen dashboard
         return redirect()->intended(route('admin.dashboard'));
       } else { 
