@@ -1,7 +1,7 @@
 @extends("layouts.admin")
 
 @section('title')
-    Fakultas
+    Prodi
 @endsection
 
 @section('styles')
@@ -22,10 +22,11 @@
                     </div>
                 @endif
 
-                <table id="fakultas" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <table id="prodi" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <th>ID</th>
                         <th>Fakultas</th>
+                        <th>Prodi</th>
                         <th>Options</th>
                     </thead>
                 </table>

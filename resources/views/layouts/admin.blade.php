@@ -12,8 +12,6 @@
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/bold.css') }}" rel="stylesheet">
         @yield('styles')
     </head>
     <body>
@@ -29,6 +27,7 @@
             var config = {
                 routes: {
                     fakultas : "{{ route('fakultas.all') }}",
+                    prodi : "{{ route('prodi.all') }}",
                 },
                 token : "{{ Session::token() }}",
             };

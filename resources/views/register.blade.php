@@ -7,9 +7,28 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
 
+                @if ( count($errors) > 0)
+                    <div class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                            <p>{{ $error }}</p>
+                        @endforeach
+                    </div>
+                @endif
+
                 <div class="panel-body">
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
+
+                        <div class="form-group">
+                            <label for="name" class="col-md-4 control-label">Prodi</label>
+                            <div class="col-md-6">
+                                <select class="form-control" id="kd_prodi" name="kd_prodi" placeholder="Enter Prodi">
+                                    @foreach ( $allProdi as $prodi )
+                                        <option value="{{ $prodi->kd_prodi }}"> {{ $prodi->nama_prodi }} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="form-group{{ $errors->has('nik') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">NIK</label>
@@ -62,20 +81,6 @@
                                 @if ($errors->has('no_tlpn'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('no_tlpn') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                            <label for="Username" class="col-md-4 control-label">Username</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
                                     </span>
                                 @endif
                             </div>

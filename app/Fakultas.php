@@ -12,4 +12,5 @@ class Fakultas extends Model
      * @var string
      */
     protected $table = 'fakultas';
+    protected $primaryKey = 'kd_fakultas';
 }

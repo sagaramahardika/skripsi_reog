@@ -19,8 +19,7 @@ class CreateDosenTable extends Migration
             $table->string('nama');
             $table->string('email');
             $table->string('no_tlpn');
-            $table->enum('jabatan', ['dosen', 'kaprodi', 'guest'] );
-            $table->string('username');
+            $table->enum('jabatan', ['kaprodi', 'dosen', 'guest'] );
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

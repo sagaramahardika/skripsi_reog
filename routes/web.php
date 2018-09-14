@@ -22,7 +22,7 @@ Route::post('/', [
     'as'    => 'login',
 ]);
 
-// Login Routes
+// Register Routes
 Route::get('/register', [ 
     'uses'  => 'RegisterController@index',
     'as'    => 'register-form',
@@ -31,6 +31,11 @@ Route::get('/register', [
 Route::post('/register', [ 
     'uses'  => 'RegisterController@register',
     'as'    => 'register',
+]);
+
+Route::get('/logout', [
+    'uses'  => 'LoginController@logout',
+    'as'    => 'logout',
 ]);
 
 Route::group( ['prefix' => 'admin'], function() {
@@ -73,4 +78,52 @@ Route::group( ['prefix' => 'admin'], function() {
         ]);
     });
 
+    Route::group( ['prefix' => 'prodi'], function() {
+        Route::get('/', [
+            'uses'  => 'ProdiController@index',
+            'as'    => 'prodi.index',
+        ]);
+        Route::get('/add', [
+            'uses'  => 'ProdiController@create',
+            'as'    => 'prodi.create',
+        ]);
+        Route::get('/edit/{id}', [
+            'uses'  => 'ProdiController@edit',
+            'as'    => 'prodi.edit',
+        ]);
+        
+        Route::post('/', [
+            'uses'  => 'ProdiController@all',
+            'as'    => 'prodi.all',
+        ]);
+        Route::post('/store', [
+            'uses'  => 'ProdiController@store',
+            'as'    => 'prodi.store',
+        ]);
+
+        Route::patch('/update/{id}', [
+            'uses'  => 'ProdiController@update',
+            'as'    => 'prodi.update',
+        ]);
+
+        Route::delete('/delete/{id}', [
+            'uses'  => 'ProdiController@delete',
+            'as'    => 'prodi.delete',
+        ]);
+    });
+
+});
+
+Route::group( ['prefix' => 'dosen'], function() {
+    Route::get('/', [ 
+        'uses'  => 'DosenController@index',
+        'as'    => 'dosen.dashboard',
+    ]);
+});
+
+Route::group( ['prefix' => 'kaprodi'], function() {
+    Route::get('/', [ 
+        'uses'  => 'KaprodiController@index',
+        'as'    => 'kaprodi.dashboard',
+    ]);
 });

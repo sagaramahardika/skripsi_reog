@@ -10,11 +10,7 @@ class LoginController extends Controller
 {
     public function __construct()
     {
-        if ( Auth::guard('admin')->check() ) {
-            $this->middleware('guest:admin');
-        } else {
-            $this->middleware('guest:dosen');
-        }
+        $this->middleware('guest:admin-dosen', ['except' => ['logout', 'getLogout'] ] );
     }
 
     public function index() 
@@ -26,16 +22,19 @@ class LoginController extends Controller
     {
         // Validate the form data
       $this->validate($request, [
-        'username'  => 'required',
+        'username'  => 'required|alpha_dash',
         'password'  => 'required'
       ]);
       
       if ( Auth::guard('admin')->attempt( ['username' => $request->username, 'password' => $request->password], $request->remember) ) {
         // Success attempt to login admin & redirect to admin dashboard
         return redirect()->intended(route('admin.dashboard'));
-      } elseif( Auth::guard('dosen')->attempt( ['username' => $request->username, 'password' => $request->password], $request->remember) ) {
+      } elseif ( Auth::guard('dosen')->attempt( ['nik' => $request->username, 'password' => $request->password, 'jabatan' => 1], $request->remember) ) {
+        // Success attempt to login kaprodi & redirect to kaprodi dashboard
+        return redirect()->intended(route('kaprodi.dashboard'));
+      } elseif ( Auth::guard('dosen')->attempt( ['nik' => $request->username, 'password' => $request->password, 'jabatan' => 2], $request->remember) ) {
         // Success attempt to login dosen & redirect to dosen dashboard
-        return redirect()->intended(route('admin.dashboard'));
+        return redirect()->intended(route('dosen.dashboard'));
       } else { 
         // Failed attempt to login either admin or dosen
         // Redirect back to login form
@@ -45,13 +44,11 @@ class LoginController extends Controller
     }
 
     public function logout() {
-
         if ( Auth::guard('admin')->check() ) {
             Auth::guard('admin')->logout();
         } else {
-            Auth::guard('dosen')->logout();
-        }
 
+        }
         return redirect('/');
     }
 }

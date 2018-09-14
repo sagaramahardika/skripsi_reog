@@ -15,7 +15,7 @@ class CreateFakultasTable extends Migration
     {
         Schema::create('fakultas', function (Blueprint $table) {
             $table->increments('kd_fakultas');
-            $table->string('nama');
+            $table->string('nama_fakultas');
             $table->timestamps();
         });
     }

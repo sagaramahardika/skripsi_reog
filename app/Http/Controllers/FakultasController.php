@@ -34,16 +34,15 @@ class FakultasController extends Controller
 
     public function store( Request $request ) {
         $this->validate($request, [
-            'nama'          => 'required|string', 
+            'nama_fakultas' => 'required|string', 
         ]);
 
         $fakultas = new Fakultas();
-        $fakultas->kd_fakultas = $request->input('');
-        $fakultas->nama = $request->input('nama');
+        $fakultas->nama_fakultas = $request->input('nama_fakultas');
         $fakultas->save();
 
         $request->session()->flash(
-            'success', "fakultas {$fakultas->nama} successfully added!"
+            'success', "fakultas {$fakultas->nama_fakultas} successfully added!"
         );
         return redirect()->route( 'fakultas.index' );
     }
@@ -59,15 +58,15 @@ class FakultasController extends Controller
         }
 
         $this->validate($request, [
-            'nama'      => 'required|alpha', 
+            'nama_fakultas' => 'required|string',
         ]);
 
-        $current_fakultas_nama = $fakultas->nama;
-        $fakultas->nama = $request->input('nama');
+        $current_fakultas_nama_fakultas = $fakultas->nama_fakultas;
+        $fakultas->nama_fakultas = $request->input('nama_fakultas');
         $fakultas->save();
 
         $request->session()->flash(
-            'success', "fakultas {$current_fakultas_nama} successfully updated!"
+            'success', "fakultas {$current_fakultas_nama_fakultas} successfully updated!"
         );
         return redirect()->route( 'fakultas.index' );
     }
@@ -82,11 +81,11 @@ class FakultasController extends Controller
             return redirect()->route( 'fakultas.index' );
         }
 
-        $current_fakultas_nama = $fakultas->nama;
+        $current_fakultas_nama_fakultas = $fakultas->nama_fakultas;
         $fakultas->delete();
 
         $request->session()->flash(
-            'success', "fakultas {$current_fakultas_nama} successfully deleted!"
+            'success', "fakultas {$current_fakultas_nama_fakultas} successfully deleted!"
         );
         return redirect()->route( 'fakultas.index' );
     }
@@ -95,7 +94,7 @@ class FakultasController extends Controller
     public function all( Request $request ) {
         $columns = array(
             0   => 'kd_fakultas', 
-            1   => 'nama',
+            1   => 'nama_fakultas',
             2   => 'kd_fakultas',
         );
 
@@ -116,14 +115,14 @@ class FakultasController extends Controller
             $search = $request->input('search.value'); 
 
             $fakultass = Fakultas::where('kd_fakultas','LIKE',"%{$search}%")
-            ->orWhere('nama', 'LIKE',"%{$search}%")
+            ->orWhere('nama_fakultas', 'LIKE',"%{$search}%")
             ->offset($start)
             ->limit($limit)
             ->orderBy($order,$dir)
             ->get();
 
             $totalFiltered = Fakultas::where('kd_fakultas','LIKE',"%{$search}%")
-            ->orWhere('nama', 'LIKE',"%{$search}%")
+            ->orWhere('nama_fakultas', 'LIKE',"%{$search}%")
             ->count();
         }
 
@@ -134,12 +133,12 @@ class FakultasController extends Controller
                 $delete =  route( 'fakultas.delete', $fakultas->kd_fakultas );
 
                 $nestedData['kd_fakultas'] = $fakultas->kd_fakultas;
-                $nestedData['nama'] = $fakultas->nama;
+                $nestedData['nama_fakultas'] = $fakultas->nama_fakultas;
                 $nestedData['options'] = "
                     <a href='{$edit}' title='EDIT' ><span class='glyphicon glyphicon-edit'></span></a>
                     <form action='{$delete}' method='POST' style='display:inline-block'>
-                        <input type='hidden' nama='_method' value='DELETE'>
-                        <input type='hidden' value='" . $request->session()->token() . "' nama='_token' />
+                        <input type='hidden' nama_fakultas='_method' value='DELETE'>
+                        <input type='hidden' value='" . $request->session()->token() . "' nama_fakultas='_token' />
                         <button class='button-options'>
                             <i class='glyphicon glyphicon-remove'></i>
                         </button>
