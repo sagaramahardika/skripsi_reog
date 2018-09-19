@@ -26,6 +26,7 @@
             // global routing js + token
             var config = {
                 routes: {
+                    dosen : "{{ route('admin_dosen.all') }}",
                     fakultas : "{{ route('fakultas.all') }}",
                     matkul : "{{ route('matkul.all') }}",
                     prodi : "{{ route('prodi.all') }}",

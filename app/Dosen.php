@@ -13,6 +13,7 @@ class Dosen extends Authenticatable
      */
     protected $table = 'dosen';
     protected $guard = 'dosen';
+    protected $primaryKey = 'nik';
 
     /**
      * The attributes that are mass assignable.

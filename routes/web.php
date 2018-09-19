@@ -44,6 +44,32 @@ Route::group( ['prefix' => 'admin'], function() {
         'as'    => 'admin.dashboard',
     ]);
 
+    Route::group( ['prefix' => 'dosen'], function() {
+        Route::get('/', [
+            'uses'  => 'AdminDosenController@index',
+            'as'    => 'admin_dosen.index',
+        ]);
+        Route::get('/edit/{id}', [
+            'uses'  => 'AdminDosenController@edit',
+            'as'    => 'admin_dosen.edit',
+        ]);
+        
+        Route::post('/', [
+            'uses'  => 'AdminDosenController@all',
+            'as'    => 'admin_dosen.all',
+        ]);
+
+        Route::patch('/update/{id}', [
+            'uses'  => 'AdminDosenController@update',
+            'as'    => 'admin_dosen.update',
+        ]);
+
+        Route::delete('/delete/{id}', [
+            'uses'  => 'AdminDosenController@delete',
+            'as'    => 'admin_dosen.delete',
+        ]);
+    });
+
     Route::group( ['prefix' => 'fakultas'], function() {
         Route::get('/', [
             'uses'  => 'FakultasController@index',
@@ -78,6 +104,40 @@ Route::group( ['prefix' => 'admin'], function() {
         ]);
     });
 
+    Route::group( ['prefix' => 'periode'], function() {
+        Route::get('/', [
+            'uses'  => 'PeriodeController@index',
+            'as'    => 'periode.index',
+        ]);
+        Route::get('/add', [
+            'uses'  => 'PeriodeController@create',
+            'as'    => 'periode.create',
+        ]);
+        Route::get('/edit/{id}', [
+            'uses'  => 'PeriodeController@edit',
+            'as'    => 'periode.edit',
+        ]);
+        
+        Route::post('/', [
+            'uses'  => 'PeriodeController@all',
+            'as'    => 'periode.all',
+        ]);
+        Route::post('/store', [
+            'uses'  => 'PeriodeController@store',
+            'as'    => 'periode.store',
+        ]);
+
+        Route::patch('/update/{id}', [
+            'uses'  => 'PeriodeController@update',
+            'as'    => 'periode.update',
+        ]);
+
+        Route::delete('/delete/{id}', [
+            'uses'  => 'PeriodeController@delete',
+            'as'    => 'periode.delete',
+        ]);
+    });
+
     Route::group( ['prefix' => 'prodi'], function() {
         Route::get('/', [
             'uses'  => 'ProdiController@index',
@@ -109,6 +169,40 @@ Route::group( ['prefix' => 'admin'], function() {
         Route::delete('/delete/{id}', [
             'uses'  => 'ProdiController@delete',
             'as'    => 'prodi.delete',
+        ]);
+    });
+
+    Route::group( ['prefix' => 'mahasiswa'], function() {
+        Route::get('/', [
+            'uses'  => 'MahasiswaController@index',
+            'as'    => 'mahasiswa.index',
+        ]);
+        Route::get('/add', [
+            'uses'  => 'MahasiswaController@create',
+            'as'    => 'mahasiswa.create',
+        ]);
+        Route::get('/edit/{id}', [
+            'uses'  => 'MahasiswaController@edit',
+            'as'    => 'mahasiswa.edit',
+        ]);
+        
+        Route::post('/', [
+            'uses'  => 'MahasiswaController@all',
+            'as'    => 'mahasiswa.all',
+        ]);
+        Route::post('/store', [
+            'uses'  => 'MahasiswaController@store',
+            'as'    => 'mahasiswa.store',
+        ]);
+
+        Route::patch('/update/{id}', [
+            'uses'  => 'MahasiswaController@update',
+            'as'    => 'mahasiswa.update',
+        ]);
+
+        Route::delete('/delete/{id}', [
+            'uses'  => 'MahasiswaController@delete',
+            'as'    => 'mahasiswa.delete',
         ]);
     });
 

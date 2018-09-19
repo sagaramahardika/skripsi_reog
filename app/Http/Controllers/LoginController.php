@@ -47,7 +47,7 @@ class LoginController extends Controller
         if ( Auth::guard('admin')->check() ) {
             Auth::guard('admin')->logout();
         } else {
-
+            Auth::guard('dosen')->logout();
         }
         return redirect('/');
     }
