@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Validator::extend('check_kaprodi', function($attribute, $value, $parameters, $validator) {
-            if ( $value == 0 ) {
+            if ( $value == 1 ) {
                 $check_kaprodi = Dosen::where('jabatan', 1)->first();
 
                 if ( empty($check_kaprodi) ) {

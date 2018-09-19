@@ -61,5 +61,11 @@
             </ul>
         </li>
     </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a href="{{ route('logout') }}"> Logout </a>
+        </li>
+    </ul>
     
 </div>
