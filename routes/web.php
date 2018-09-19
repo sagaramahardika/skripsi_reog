@@ -112,6 +112,44 @@ Route::group( ['prefix' => 'admin'], function() {
         ]);
     });
 
+    Route::group( ['prefix' => 'matkul'], function() {
+        Route::get('/', [
+            'uses'  => 'MataKuliahController@index',
+            'as'    => 'matkul.index',
+        ]);
+        Route::get('/add', [
+            'uses'  => 'MataKuliahController@create',
+            'as'    => 'matkul.create',
+        ]);
+        Route::get('/edit/{id}', [
+            'uses'  => 'MataKuliahController@edit',
+            'as'    => 'matkul.edit',
+        ]);
+        
+        Route::post('/', [
+            'uses'  => 'MataKuliahController@all',
+            'as'    => 'matkul.all',
+        ]);
+        Route::post('/store', [
+            'uses'  => 'MataKuliahController@store',
+            'as'    => 'matkul.store',
+        ]);
+        Route::post('/import', [
+            'uses'  => 'MataKuliahController@import',
+            'as'    => 'matkul.import',
+        ]);
+
+        Route::patch('/update/{id}', [
+            'uses'  => 'MataKuliahController@update',
+            'as'    => 'matkul.update',
+        ]);
+
+        Route::delete('/delete/{id}', [
+            'uses'  => 'MataKuliahController@delete',
+            'as'    => 'matkul.delete',
+        ]);
+    });
+
 });
 
 Route::group( ['prefix' => 'dosen'], function() {

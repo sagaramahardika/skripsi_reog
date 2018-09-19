@@ -152,8 +152,8 @@ class ProdiController extends Controller
                 $nestedData['options'] = "
                     <a href='{$edit}' title='EDIT' ><span class='glyphicon glyphicon-edit'></span></a>
                     <form action='{$delete}' method='POST' style='display:inline-block'>
-                        <input type='hidden' nama_prodi='_method' value='DELETE'>
-                        <input type='hidden' value='" . $request->session()->token() . "' nama_prodi='_token' />
+                        <input type='hidden' name='_method' value='DELETE'>
+                        <input type='hidden' value='" . $request->session()->token() . "' name='_token' />
                         <button class='button-options'>
                             <i class='glyphicon glyphicon-remove'></i>
                         </button>

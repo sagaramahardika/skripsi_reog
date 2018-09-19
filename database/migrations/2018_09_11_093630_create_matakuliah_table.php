@@ -14,12 +14,13 @@ class CreateMatakuliahTable extends Migration
     public function up()
     {
         Schema::create('matakuliah', function (Blueprint $table) {
-            $table->integer('kd_matkul');
+            $table->string('kd_matkul', 6);
             $table->integer('kd_prodi');
             $table->string('nama_matkul');
             $table->integer('sks');
             $table->integer('harga');
             $table->timestamps();
+            $table->primary('kd_matkul');
         });
     }
 

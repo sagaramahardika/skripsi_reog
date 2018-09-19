@@ -15,7 +15,7 @@ class CreateRencanaTable extends Migration
     {
         Schema::create('rencana', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_mengajar');
+            $table->integer('id_sub_matkul');
             $table->integer('pertemuan');
             $table->text('pembelajaran');
             $table->integer('waktu_mulai');

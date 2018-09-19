@@ -27,6 +27,7 @@
             var config = {
                 routes: {
                     fakultas : "{{ route('fakultas.all') }}",
+                    matkul : "{{ route('matkul.all') }}",
                     prodi : "{{ route('prodi.all') }}",
                 },
                 token : "{{ Session::token() }}",
