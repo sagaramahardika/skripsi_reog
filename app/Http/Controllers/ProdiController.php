@@ -68,10 +68,12 @@ class ProdiController extends Controller
         }
 
         $this->validate($request, [
+            'kd_fakultas'   => 'required',
             'nama_prodi'    => 'required|string',
         ]);
 
         $current_prodi_nama_prodi = $prodi->nama_prodi;
+        $prodi->kd_fakultas = $request->input('kd_fakultas');
         $prodi->nama_prodi = $request->input('nama_prodi');
         $prodi->save();
 
@@ -83,7 +85,7 @@ class ProdiController extends Controller
 
     public function delete($kd_prodi, Request $request) {
         try {
-            $prodi = prodi::findOrFail($kd_prodi);
+            $prodi = Prodi::findOrFail($kd_prodi);
         } catch ( Exception $e ) {
             $request->session()->flash(
                 'error', "Failed to delete Prodi with kd_prodi {$kd_prodi}!"
@@ -118,7 +120,7 @@ class ProdiController extends Controller
         $dir = $request->input('order.0.dir');
             
         if ( empty($request->input('search.value') )) {            
-            $prodis = prodi::with('fakultas')
+            $prodis = Prodi::with('fakultas')
             ->offset($start)
             ->limit($limit)
             ->orderBy($order,$dir)
@@ -126,7 +128,7 @@ class ProdiController extends Controller
         } else {
             $search = $request->input('search.value'); 
 
-            $prodis = prodi::with('fakultas')
+            $prodis = Prodi::with('fakultas')
             ->where('kd_prodi','LIKE',"%{$search}%")
             ->orWhere('nama_prodi', 'LIKE',"%{$search}%")
             ->offset($start)
@@ -134,7 +136,7 @@ class ProdiController extends Controller
             ->orderBy($order,$dir)
             ->get();
 
-            $totalFiltered = prodi::with('fakultas')
+            $totalFiltered = Prodi::with('fakultas')
             ->where('kd_prodi','LIKE',"%{$search}%")
             ->orWhere('nama_prodi', 'LIKE',"%{$search}%")
             ->count();

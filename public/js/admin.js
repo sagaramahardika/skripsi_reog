@@ -41,6 +41,26 @@ $(document).ready(function () {
         });
     }
 
+    if ( $('table#mahasiswa').length > 0 ) {
+        $('#mahasiswa').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": config.routes.mahasiswa,
+                "dataType": "json",
+                "type": "POST",
+                "data": {
+                    _token: config.token
+                }
+            },
+            "columns": [
+                { "data": "nim" },
+                { "data": "nama" },
+                { "data": "options" },
+            ]
+        });
+    }
+
     if ( $('table#matkul').length > 0 ) {
         $('#matkul').DataTable({
             "processing": true,

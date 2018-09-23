@@ -28,6 +28,7 @@
                 routes: {
                     dosen : "{{ route('admin_dosen.all') }}",
                     fakultas : "{{ route('fakultas.all') }}",
+                    mahasiswa : "{{ route('mahasiswa.all') }}",
                     matkul : "{{ route('matkul.all') }}",
                     prodi : "{{ route('prodi.all') }}",
                 },

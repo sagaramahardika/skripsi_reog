@@ -22,7 +22,12 @@ class RedirectIfAuthenticated
                 if ( Auth::guard('admin')->check() ) {
                     return redirect()->route('admin.dashboard');
                 } elseif ( Auth::guard('dosen')->check() ) {
-                    return redirect()->route('dosen.dashboard');
+                    $dosen = Auth::guard('dosen')->user();
+                    if ( $dosen->jabatan == 'kaprodi') {
+                        return redirect()->route('kaprodi.dashboard');
+                    } else {
+                        return redirect()->route('dosen.dashboard');
+                    }
                 }
                 break;
             default:

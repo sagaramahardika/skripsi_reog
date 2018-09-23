@@ -17,7 +17,6 @@ class CreateMahasiswaTable extends Migration
             $table->increments('nim');
             $table->integer('kd_prodi');
             $table->string('nama');
-            $table->string('username');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
