@@ -11,7 +11,7 @@
         <title> @yield('title') | {{ config('app.name', 'Laravel') }}</title>
 
         <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
         @yield('styles')
     </head>
     <body>
@@ -21,7 +21,8 @@
         </div>
 
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
         <script>
             // global routing js + token
             var config = {

@@ -111,7 +111,7 @@ class ProdiController extends Controller
             3   => 'kd_prodi',
         );
 
-        $totalData = prodi::count();
+        $totalData = Prodi::count();
         $totalFiltered = $totalData;
         
         $limit = $request->input('length');

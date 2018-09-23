@@ -15,7 +15,7 @@ class CreateSubMatkulTable extends Migration
     {
         Schema::create('sub_matkul', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('kd_matkul');
+            $table->string('kd_matkul', 6);
             $table->integer('id_periode');
             $table->enum('grup', ['A', 'B', 'C', 'D', 'E'] );
             $table->timestamps();

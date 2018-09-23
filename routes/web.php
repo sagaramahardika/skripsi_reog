@@ -104,40 +104,6 @@ Route::group( ['prefix' => 'admin'], function() {
         ]);
     });
 
-    Route::group( ['prefix' => 'periode'], function() {
-        Route::get('/', [
-            'uses'  => 'PeriodeController@index',
-            'as'    => 'periode.index',
-        ]);
-        Route::get('/add', [
-            'uses'  => 'PeriodeController@create',
-            'as'    => 'periode.create',
-        ]);
-        Route::get('/edit/{id}', [
-            'uses'  => 'PeriodeController@edit',
-            'as'    => 'periode.edit',
-        ]);
-        
-        Route::post('/', [
-            'uses'  => 'PeriodeController@all',
-            'as'    => 'periode.all',
-        ]);
-        Route::post('/store', [
-            'uses'  => 'PeriodeController@store',
-            'as'    => 'periode.store',
-        ]);
-
-        Route::patch('/update/{id}', [
-            'uses'  => 'PeriodeController@update',
-            'as'    => 'periode.update',
-        ]);
-
-        Route::delete('/delete/{id}', [
-            'uses'  => 'PeriodeController@delete',
-            'as'    => 'periode.delete',
-        ]);
-    });
-
     Route::group( ['prefix' => 'prodi'], function() {
         Route::get('/', [
             'uses'  => 'ProdiController@index',
@@ -258,4 +224,106 @@ Route::group( ['prefix' => 'kaprodi'], function() {
         'uses'  => 'KaprodiController@index',
         'as'    => 'kaprodi.dashboard',
     ]);
+
+    Route::group( ['prefix' => 'matkul'], function() {
+        Route::get('/', [
+            'uses'  => 'SubMatkulController@index',
+            'as'    => 'submatkul.index',
+        ]);
+        Route::get('/add', [
+            'uses'  => 'SubMatkulController@create',
+            'as'    => 'submatkul.create',
+        ]);
+        Route::get('/edit/{id}', [
+            'uses'  => 'SubMatkulController@edit',
+            'as'    => 'submatkul.edit',
+        ]);
+        
+        Route::post('/', [
+            'uses'  => 'SubMatkulController@all',
+            'as'    => 'submatkul.all',
+        ]);
+        Route::post('/store', [
+            'uses'  => 'SubMatkulController@store',
+            'as'    => 'submatkul.store',
+        ]);
+
+        Route::patch('/update/{id}', [
+            'uses'  => 'SubMatkulController@update',
+            'as'    => 'submatkul.update',
+        ]);
+
+        Route::delete('/delete/{id}', [
+            'uses'  => 'SubMatkulController@delete',
+            'as'    => 'submatkul.delete',
+        ]);
+    });
+
+    Route::group( ['prefix' => 'pengajar'], function() {
+        Route::get('/', [
+            'uses'  => 'MengajarController@index',
+            'as'    => 'mengajar.index',
+        ]);
+        Route::get('/add', [
+            'uses'  => 'MengajarController@create',
+            'as'    => 'mengajar.create',
+        ]);
+        Route::get('/edit/{id}', [
+            'uses'  => 'MengajarController@edit',
+            'as'    => 'mengajar.edit',
+        ]);
+        
+        Route::post('/', [
+            'uses'  => 'MengajarController@all',
+            'as'    => 'mengajar.all',
+        ]);
+        Route::post('/store', [
+            'uses'  => 'MengajarController@store',
+            'as'    => 'mengajar.store',
+        ]);
+
+        Route::patch('/update/{id}', [
+            'uses'  => 'MengajarController@update',
+            'as'    => 'mengajar.update',
+        ]);
+
+        Route::delete('/delete/{id}', [
+            'uses'  => 'MengajarController@delete',
+            'as'    => 'mengajar.delete',
+        ]);
+    });
+
+    Route::group( ['prefix' => 'periode'], function() {
+        Route::get('/', [
+            'uses'  => 'PeriodeController@index',
+            'as'    => 'periode.index',
+        ]);
+        Route::get('/add', [
+            'uses'  => 'PeriodeController@create',
+            'as'    => 'periode.create',
+        ]);
+        Route::get('/edit/{id}', [
+            'uses'  => 'PeriodeController@edit',
+            'as'    => 'periode.edit',
+        ]);
+        
+        Route::post('/', [
+            'uses'  => 'PeriodeController@all',
+            'as'    => 'periode.all',
+        ]);
+        Route::post('/store', [
+            'uses'  => 'PeriodeController@store',
+            'as'    => 'periode.store',
+        ]);
+
+        Route::patch('/update/{id}', [
+            'uses'  => 'PeriodeController@update',
+            'as'    => 'periode.update',
+        ]);
+
+        Route::delete('/delete/{id}', [
+            'uses'  => 'PeriodeController@delete',
+            'as'    => 'periode.delete',
+        ]);
+    });
 });
