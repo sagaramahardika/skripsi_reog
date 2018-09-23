@@ -5,7 +5,7 @@ $(document).ready(function () {
             "processing": true,
             "serverSide": true,
             "ajax": {
-                "url": config.routes.dosen,
+                "url": config.routes.admin.dosen,
                 "dataType": "json",
                 "type": "POST",
                 "data": {
@@ -26,7 +26,7 @@ $(document).ready(function () {
             "processing": true,
             "serverSide": true,
             "ajax": {
-                "url": config.routes.fakultas,
+                "url": config.routes.admin.fakultas,
                 "dataType": "json",
                 "type": "POST",
                 "data": {
@@ -46,7 +46,7 @@ $(document).ready(function () {
             "processing": true,
             "serverSide": true,
             "ajax": {
-                "url": config.routes.mahasiswa,
+                "url": config.routes.admin.mahasiswa,
                 "dataType": "json",
                 "type": "POST",
                 "data": {
@@ -66,7 +66,7 @@ $(document).ready(function () {
             "processing": true,
             "serverSide": true,
             "ajax": {
-                "url": config.routes.matkul,
+                "url": config.routes.admin.matkul,
                 "dataType": "json",
                 "type": "POST",
                 "data": {
@@ -88,7 +88,7 @@ $(document).ready(function () {
             "processing": true,
             "serverSide": true,
             "ajax": {
-                "url": config.routes.prodi,
+                "url": config.routes.admin.prodi,
                 "dataType": "json",
                 "type": "POST",
                 "data": {

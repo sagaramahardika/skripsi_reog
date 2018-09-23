@@ -18,6 +18,8 @@
 
         @if( Request::is("admin") || Request::is("admin/*") )
             @include('includes.admin_menu')
+        @elseif( Request::is("kaprodi") || Request::is("kaprodi/*") )
+            @include('includes.kaprodi_menu')
         @else
             
         @endif

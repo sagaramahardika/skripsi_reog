@@ -26,16 +26,25 @@
             // global routing js + token
             var config = {
                 routes: {
-                    dosen : "{{ route('admin_dosen.all') }}",
-                    fakultas : "{{ route('fakultas.all') }}",
-                    mahasiswa : "{{ route('mahasiswa.all') }}",
-                    matkul : "{{ route('matkul.all') }}",
-                    prodi : "{{ route('prodi.all') }}",
+                    admin: {
+                        dosen : "{{ route('admin_dosen.all') }}",
+                        fakultas : "{{ route('fakultas.all') }}",
+                        mahasiswa : "{{ route('mahasiswa.all') }}",
+                        matkul : "{{ route('matkul.all') }}",
+                        prodi : "{{ route('prodi.all') }}",
+                    },
+                    kaprodi: {
+                        matkul : "{{ route('submatkul.all') }}",
+                        pengajar : "{{ route('mengajar.all') }}",
+                        periode : "{{ route('periode.all') }}",
+                    },
+                    dosen: {
+                        
+                    }
                 },
                 token : "{{ Session::token() }}",
             };
         </script>
-        <script src="{{ asset('js/admin.js') }}"></script>
         @yield('scripts')
     </body>
 </html>

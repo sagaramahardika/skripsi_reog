@@ -1,4 +1,4 @@
-@extends("layouts.admin")
+@extends("layouts.app")
 
 @section('title')
     Prodi
@@ -36,6 +36,7 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('js/admin.js') }}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
 @endsection

@@ -1,4 +1,4 @@
-@extends("layouts.admin")
+@extends("layouts.app")
 
 @section('title')
     Edit Fakultas {{ $fakultas->nama_fakultas }}
