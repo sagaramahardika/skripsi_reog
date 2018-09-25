@@ -22,7 +22,7 @@
                     </div>
                 @endif
 
-                <table id="submatkul" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <table id="mengajar" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <th>Kode Matakuliah</th>
                         <th>Nama Matakuliah</th>

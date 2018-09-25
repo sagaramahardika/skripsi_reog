@@ -20,4 +20,8 @@ class SubMatkul extends Model
     public function matkul() {
         return $this->belongsTo( 'App\MataKuliah', 'kd_matkul', 'kd_matkul' );
     }
+
+    public function pengajar() {
+        return $this->hasMany( 'App\Mengajar', 'id_sub_matkul', 'id');
+    }
 }

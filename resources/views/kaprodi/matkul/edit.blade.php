@@ -12,7 +12,8 @@
                     <div class="panel-heading">Tambah Matakuliah per Periode</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" action="{{ route('submatkul.store') }}" method="POST">
+                        <form class="form-horizontal" action="{{ route('submatkul.update', $submatkul->id) }}" method="POST">
+                            <input type="hidden" name="_method" value="PATCH">
                             <input type="hidden" value="{{ Session::token() }}" name="_token" />
 
                             <div class="form-group">
@@ -21,11 +22,19 @@
                                     <select class="form-control" id="id_periode" name="id_periode" placeholder="Enter Prodi">
                                         @foreach ( $allPeriode as $periode )
                                             @php
+                                                if ( $submatkul->id_periode == $periode->id ) {
+                                                    $selected = "selected='selected'";
+                                                } else {
+                                                    $selected = '';
+                                                }
+
                                                 $thn_ajaran = intval(date('Y', $periode->thn_ajaran));
                                                 $thn_ajaran = $thn_ajaran . "/" . ($thn_ajaran+1);
                                                 $thn_ajaran .= " (" . ucfirst($periode->semester) . ")";
                                             @endphp
-                                            <option value="{{ $periode->id }}"> {{ $thn_ajaran }} </option>
+                                            <option value="{{ $periode->id }}" {{ $selected }}> 
+                                                {{ $thn_ajaran }} 
+                                            </option>
                                         @endforeach
                                     </select>
 
@@ -42,7 +51,14 @@
                                 <div class="col-md-6">
                                 <select class="form-control" id="kd_matkul" name="kd_matkul" placeholder="Enter Matakuliah">
                                         @foreach ( $allMatakuliah as $matakuliah )
-                                            <option value="{{ $matakuliah->kd_matkul }}"> {{ $matakuliah->nama_matkul }} </option>
+                                            @if ( $submatkul->kd_matkul == $matakuliah->kd_matkul )
+                                                {{ $selected = "selected='selected'" }}
+                                            @else
+                                                {{ $selected = "" }}
+                                            @endif
+                                            <option value="{{ $matakuliah->kd_matkul }}" {{ $selected }}> 
+                                                {{ $matakuliah->nama_matkul }} 
+                                            </option>
                                         @endforeach
                                     </select>
                                     
@@ -58,20 +74,26 @@
                                 <label for="name" class="col-md-4 control-label">Jabatan</label>
                                 <div class="col-md-6">
                                     <select class="form-control" id="grup" name="grup" placeholder="Enter Grup">
-                                        <option value="1" {{ ($dosen->jabatan == "kaprodi") ? "selected='selected'" : "" }} > 
-                                            Kaprodi 
+                                        <option value="1" {{ ($submatkul->grup == "A") ? "selected='selected'" : "" }} > 
+                                            A 
                                         </option>
-                                        <option value="2" {{ ($dosen->jabatan == "dosen") ? "selected='selected'" : "" }} > 
-                                            Dosen 
+                                        <option value="2" {{ ($submatkul->grup == "B") ? "selected='selected'" : "" }} > 
+                                            B 
                                         </option>
-                                        <option value="3" {{ ($dosen->jabatan == "guest") ? "selected='selected'" : "" }} > 
-                                            Guest 
+                                        <option value="3" {{ ($submatkul->grup == "C") ? "selected='selected'" : "" }} > 
+                                            C 
+                                        </option>
+                                        <option value="4" {{ ($submatkul->grup == "D") ? "selected='selected'" : "" }} > 
+                                            D 
+                                        </option>
+                                        <option value="5" {{ ($submatkul->grup == "E") ? "selected='selected'" : "" }} > 
+                                            E 
                                         </option>
                                     </select>
 
-                                    @if ($errors->has('jabatan'))
+                                    @if ($errors->has('grup'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('jabatan') }}</strong>
+                                            <strong>{{ $errors->first('grup') }}</strong>
                                         </span>
                                     @endif
                                 </div>

@@ -217,6 +217,56 @@ Route::group( ['prefix' => 'dosen'], function() {
         'uses'  => 'DosenController@index',
         'as'    => 'dosen.dashboard',
     ]);
+
+    Route::group( ['prefix' => 'rencana'], function() {
+        Route::get('/', [
+            'uses'  => 'RencanaController@index',
+            'as'    => 'rencana.index',
+        ]);
+        Route::get('/edit/{id}', [
+            'uses'  => 'RencanaController@edit',
+            'as'    => 'rencana.edit',
+        ]);
+        Route::get('/pencatatan/{id}', [
+            'uses'  => 'RencanaController@pencatatan',
+            'as'    => 'rencana.pencatatan'
+        ]);
+        Route::get('/rps/{id}', [
+            'uses'  => 'RencanaController@submatkul',
+            'as'    => 'rencana.rps'
+        ]);
+        Route::get('/rps/{id}/add', [
+            'uses'  => 'RencanaController@create',
+            'as'    => 'rencana.create',
+        ]);
+        
+        Route::post('/rencana_submatkul', [
+            'uses'  => 'RencanaController@rencanaSubMatkul',
+            'as'    => 'rencana.rencana_submatkul',
+        ]);
+        Route::post('/submatkul', [
+            'uses'  => 'RencanaController@subMatkulPeriode',
+            'as'    => 'rencana.submatkul',
+        ]);
+        Route::post('/store', [
+            'uses'  => 'RencanaController@store',
+            'as'    => 'rencana.store',
+        ]);
+        Route::post('/kuliah_store', [
+            'uses'  => 'RencanaController@kuliah_store',
+            'as'    => 'rencana.kuliah_store',
+        ]);
+
+        Route::patch('/update/{id}', [
+            'uses'  => 'RencanaController@update',
+            'as'    => 'rencana.update',
+        ]);
+
+        Route::delete('/delete/{id}', [
+            'uses'  => 'RencanaController@delete',
+            'as'    => 'rencana.delete',
+        ]);
+    });
 });
 
 Route::group( ['prefix' => 'kaprodi'], function() {
@@ -238,14 +288,30 @@ Route::group( ['prefix' => 'kaprodi'], function() {
             'uses'  => 'SubMatkulController@edit',
             'as'    => 'submatkul.edit',
         ]);
+        Route::get('/matkul/{id}/dosen', [
+            'uses'  => 'SubMatkulController@dosen',
+            'as'    => 'submatkul.dosen',
+        ]);
+        Route::get('/matkul/{id}/laporan', [
+            'uses'  => 'MengajarController@laporan',
+            'as'    => 'submatkul.laporan',
+        ]);
         
         Route::post('/', [
             'uses'  => 'SubMatkulController@all',
             'as'    => 'submatkul.all',
         ]);
+        Route::post('/dosen_submatkul', [
+            'uses'  => 'SubMatkulController@dosenSubMatkul',
+            'as'    => 'submatkul.dosen_submatkul',
+        ]);
         Route::post('/store', [
             'uses'  => 'SubMatkulController@store',
             'as'    => 'submatkul.store',
+        ]);
+        Route::post('/dosen_store', [
+            'uses'  => 'SubMatkulController@dosen_store',
+            'as'    => 'submatkul.dosen_store',
         ]);
 
         Route::patch('/update/{id}', [
@@ -256,6 +322,10 @@ Route::group( ['prefix' => 'kaprodi'], function() {
         Route::delete('/delete/{id}', [
             'uses'  => 'SubMatkulController@delete',
             'as'    => 'submatkul.delete',
+        ]);
+        Route::delete('/pengajar/delete/{id}', [
+            'uses'  => 'SubMatkulController@dosen_delete',
+            'as'    => 'submatkul.dosen_delete',
         ]);
     });
 
@@ -276,6 +346,10 @@ Route::group( ['prefix' => 'kaprodi'], function() {
         Route::post('/', [
             'uses'  => 'MengajarController@all',
             'as'    => 'mengajar.all',
+        ]);
+        Route::post('/submatkul_data', [
+            'uses'  => 'MengajarController@subMatkulPeriode',
+            'as'    => 'mengajar.submatkul_data',
         ]);
         Route::post('/store', [
             'uses'  => 'MengajarController@store',

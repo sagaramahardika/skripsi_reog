@@ -36,11 +36,13 @@
                     },
                     kaprodi: {
                         matkul : "{{ route('submatkul.all') }}",
-                        pengajar : "{{ route('mengajar.all') }}",
+                        pengajar : "{{ route('submatkul.dosen_submatkul') }}",
                         periode : "{{ route('periode.all') }}",
+                        submatkul_data : "{{ route('mengajar.submatkul_data') }}"
                     },
                     dosen: {
-                        
+                        rencana_submatkul : "{{ route('rencana.rencana_submatkul') }}",
+                        submatkul : "{{ route('rencana.submatkul') }}"
                     }
                 },
                 token : "{{ Session::token() }}",

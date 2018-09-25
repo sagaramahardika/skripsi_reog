@@ -20,8 +20,8 @@
             @include('includes.admin_menu')
         @elseif( Request::is("kaprodi") || Request::is("kaprodi/*") )
             @include('includes.kaprodi_menu')
-        @else
-            
+        @elseif ( Request::is("dosen") || Request::is("dosen/*") )
+            @include('includes.dosen_menu')
         @endif
     </div>
 </nav>
