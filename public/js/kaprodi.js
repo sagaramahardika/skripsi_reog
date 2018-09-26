@@ -46,6 +46,35 @@ $(document).ready(function () {
         });
     }
 
+    if ( $('table#laporan').length > 0 ) {
+        var id_sub_matkul = $("#id_sub_matkul").val();
+
+        $('#laporan').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": config.routes.kaprodi.laporan,
+                "dataType": "json",
+                "type": "POST",
+                "data": {
+                    id_sub_matkul: id_sub_matkul,
+                    _token: config.token
+                }
+            },
+            "columns": [
+                { "data": "pertemuan" },
+                { "data": "pembelajaran" },
+                { "data": "waktu_mulai_rencana" },
+                { "data": "waktu_selesai_rencana" },
+                { "data": "waktu_mulai_kuliah" },
+                { "data": "waktu_selesai_kuliah" },
+                { "data": "catatan" },
+                { "data": "nim" },
+                { "data": "keterangan" }
+            ]
+        });
+    }
+
     if ( $('div#timepicker_periode').length > 0 ) {
         $('#timepicker_periode').datetimepicker({
             viewMode: "years", 

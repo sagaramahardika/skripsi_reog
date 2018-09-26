@@ -8,6 +8,7 @@ use App\Dosen;
 use App\MataKuliah;
 use App\Mengajar;
 use App\Periode;
+use App\Rencana;
 use App\SubMatkul;
 Use Exception;
 
@@ -35,6 +36,19 @@ class SubMatkulController extends Controller
         return view( 'kaprodi.matkul.dosen', [
             'allDosen'  => $allDosen
         ])->with( 'submatkul', $submatkul );
+    }
+
+    public function laporan($id) {
+        $kaprodi = Auth::guard('dosen')->user();
+
+        try {
+            $submatkul = SubMatkul::findOrFail($id);
+        } catch ( Exception $e ) {
+            return redirect()->route( 'submatkul.index' )
+                ->with('error', "Failed to view Sub Matkul with ID {$id}");
+        }
+
+        return view( 'kaprodi.matkul.laporan' )->with( 'submatkul', $submatkul );
     }
 
     public function create() {
@@ -337,6 +351,82 @@ class SubMatkulController extends Controller
                         </button>
                     </form>
                 ";
+
+                $data[] = $nestedData;
+            }
+        }
+          
+        $json_data = array(
+            "draw"            => intval($request->input('draw')),  
+            "recordsTotal"    => intval($totalData),  
+            "recordsFiltered" => intval($totalFiltered), 
+            "data"            => $data   
+        );
+            
+        return response()->json( $json_data );
+    }
+
+    public function laporanSubMatkul( Request $request ) {
+        $id_sub_matkul = $request->input('id_sub_matkul');
+
+        $columns = array(
+            0   => 'id', 
+            1   => 'kd_matkul',
+            2   => 'nama_matkul',
+            3   => 'grup',
+            4   => 'dosen',
+            5   => 'id',
+        );
+
+        $totalData = Rencana::whereHas('kuliah', function ($query) {
+            $query->whereNotNull('nim');
+        })->where('id_sub_matkul', $id_sub_matkul)
+        ->count();
+        $totalFiltered = $totalData;
+        
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+            
+        if ( empty($request->input('search.value') )) {            
+            $rencanas = Rencana::whereHas('kuliah', function ($query) {
+                $query->whereNotNull('nim');
+            })->where('id_sub_matkul', $id_sub_matkul)
+            ->offset($start)
+            ->limit($limit)
+            ->orderBy($order,$dir)
+            ->get();
+        } else {
+            $search = $request->input('search.value'); 
+
+            $rencanas = Rencana::whereHas('kuliah', function ($query) {
+                $query->whereNotNull('nim');
+            })->where('id_sub_matkul', $id_sub_matkul)
+            ->offset($start)
+            ->limit($limit)
+            ->orderBy($order,$dir)
+            ->get();
+
+            $totalFiltered = Rencana::whereHas('kuliah', function ($query) {
+                $query->whereNotNull('nim');
+            })->where('id_sub_matkul', $id_sub_matkul)
+            ->count();
+        }
+
+        $data = array();
+        if(!empty($rencanas)) {
+            foreach ($rencanas as $rencana) {
+
+                $nestedData['pertemuan'] = $rencana->pertemuan;
+                $nestedData['pembelajaran'] = $rencana->pembelajaran;
+                $nestedData['waktu_mulai_rencana'] = date('d/m/Y H:i', $rencana->waktu_mulai );
+                $nestedData['waktu_selesai_rencana'] = date('d/m/Y H:i', $rencana->waktu_selesai);
+                $nestedData['waktu_mulai_kuliah'] = date('d/m/Y H:i', $rencana->kuliah->waktu_mulai);
+                $nestedData['waktu_selesai_kuliah'] = date('d/m/Y H:i', $rencana->kuliah->waktu_selesai);
+                $nestedData['catatan'] = $rencana->kuliah->catatan;
+                $nestedData['nim'] = $rencana->kuliah->nim;
+                $nestedData['keterangan'] = '-';
 
                 $data[] = $nestedData;
             }

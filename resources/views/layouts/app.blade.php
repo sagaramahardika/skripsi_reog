@@ -37,6 +37,7 @@
                     kaprodi: {
                         matkul : "{{ route('submatkul.all') }}",
                         pengajar : "{{ route('submatkul.dosen_submatkul') }}",
+                        laporan : "{{ route('submatkul.submatkul_laporan') }}",
                         periode : "{{ route('periode.all') }}",
                         submatkul_data : "{{ route('mengajar.submatkul_data') }}"
                     },

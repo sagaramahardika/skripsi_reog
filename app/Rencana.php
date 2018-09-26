@@ -12,4 +12,8 @@ class Rencana extends Model
      * @var string
      */
     protected $table = 'rencana';
+
+    public function kuliah() {
+        return $this->hasOne( 'App\Kuliah', 'id_rencana', 'id' );
+    }
 }

@@ -288,12 +288,12 @@ Route::group( ['prefix' => 'kaprodi'], function() {
             'uses'  => 'SubMatkulController@edit',
             'as'    => 'submatkul.edit',
         ]);
-        Route::get('/matkul/{id}/dosen', [
+        Route::get('/{id}/dosen', [
             'uses'  => 'SubMatkulController@dosen',
             'as'    => 'submatkul.dosen',
         ]);
-        Route::get('/matkul/{id}/laporan', [
-            'uses'  => 'MengajarController@laporan',
+        Route::get('/{id}/laporan', [
+            'uses'  => 'SubmatkulController@laporan',
             'as'    => 'submatkul.laporan',
         ]);
         
@@ -304,6 +304,10 @@ Route::group( ['prefix' => 'kaprodi'], function() {
         Route::post('/dosen_submatkul', [
             'uses'  => 'SubMatkulController@dosenSubMatkul',
             'as'    => 'submatkul.dosen_submatkul',
+        ]);
+        Route::post('/laporan', [
+            'uses'  => 'SubMatkulController@laporanSubMatkul',
+            'as'    => 'submatkul.submatkul_laporan',
         ]);
         Route::post('/store', [
             'uses'  => 'SubMatkulController@store',
