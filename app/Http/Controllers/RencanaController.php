@@ -175,17 +175,17 @@ class RencanaController extends Controller
 
     public function rencanaSubMatkul( Request $request ) {
         $dosen = Auth::guard('dosen')->user();
+        $id_sub_matkul = $request->input('id_sub_matkul');
 
         $columns = array(
-            0   => 'id', 
-            1   => 'kd_matkul',
-            2   => 'nama_matkul',
-            3   => 'grup',
-            4   => 'dosen',
-            5   => 'id',
+            0   => 'pertemuan', 
+            1   => 'pembelajaran',
+            2   => 'waktu_mulai',
+            3   => 'waktu_selesai',
+            4   => 'pertemuan',
         );
 
-        $totalData = Rencana::count();
+        $totalData = Rencana::where('id_sub_matkul', $id_sub_matkul)->count();
         $totalFiltered = $totalData;
         
         $limit = $request->input('length');
@@ -194,22 +194,21 @@ class RencanaController extends Controller
         $dir = $request->input('order.0.dir');
             
         if ( empty($request->input('search.value') )) {            
-            $rencanas = Rencana::offset($start)
+            $rencanas = Rencana::where('id_sub_matkul', $id_sub_matkul)
+            ->offset($start)
             ->limit($limit)
             ->orderBy($order,$dir)
             ->get();
         } else {
             $search = $request->input('search.value'); 
 
-            $rencanas = Rencana::where('nama_matkul', 'LIKE',"%{$search}%")
-            ->orWhere('grup', 'LIKE', "${$search}%")
+            $rencanas = Rencana::where('id_sub_matkul', $id_sub_matkul)
             ->offset($start)
             ->limit($limit)
             ->orderBy($order,$dir)
             ->get();
 
-            $totalFiltered = Rencana::where('nama_matkul', 'LIKE',"%{$search}%")
-            ->orWhere('grup', 'LIKE', "${$search}%")
+            $totalFiltered = Rencana::where('id_sub_matkul', $id_sub_matkul)
             ->count();
         }
 

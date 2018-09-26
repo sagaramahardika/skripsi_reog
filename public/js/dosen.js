@@ -24,6 +24,8 @@ $(document).ready(function () {
     }
     
     if ( $('table#rencana').length > 0 ) {
+        var id_sub_matkul = $("#id_sub_matkul").val();
+
         $('#rencana').DataTable({
             "processing": true,
             "serverSide": true,
@@ -32,7 +34,8 @@ $(document).ready(function () {
                 "dataType": "json",
                 "type": "POST",
                 "data": {
-                    _token: config.token
+                    _token: config.token,
+                    id_sub_matkul: id_sub_matkul
                 }
             },
             "columns": [

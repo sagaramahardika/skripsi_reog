@@ -22,6 +22,7 @@
                     </div>
                 @endif
 
+                <input type="hidden" id="id_sub_matkul" value="{{ $submatkul->id }}">
                 <a href="{{ route('rencana.create', $submatkul->id) }}" class="btn btn-info">Tambah Rencana</a>
 
                 <table id="rencana" class="table table-striped table-bordered" cellspacing="0" width="100%">

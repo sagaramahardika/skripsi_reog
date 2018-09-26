@@ -16,10 +16,10 @@ class CreateKuliahTable extends Migration
         Schema::create('kuliah', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_rencana');
-            $table->integer('nim');
-            $table->text('catatan');
+            $table->integer('nim')->nullable();
+            $table->text('catatan')->nullable();
             $table->integer('waktu_mulai');
-            $table->integer('waktu_selesai');
+            $table->integer('waktu_selesai')->nullable();
             $table->timestamps();
         });
     }
