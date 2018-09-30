@@ -12,23 +12,29 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                @if( Session::has('error') )
-                    <div class="alert alert-danger">
-                        <p> {{ Session::get('error') }} </p>
-                    </div>
-                @elseif ( Session::has('success') )
-                    <div class="alert alert-success">
-                        <p> {{ Session::get('success') }} </p>
-                    </div>
-                @endif
+                <div class="panel panel-default">
+                    <div class="panel-heading">Fakultas</div>
 
-                <table id="fakultas" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                    <thead>
-                        <th>ID</th>
-                        <th>Fakultas</th>
-                        <th>Options</th>
-                    </thead>
-                </table>
+                    <div class="panel-body">
+                        @if( Session::has('error') )
+                            <div class="alert alert-danger">
+                                <p> {{ Session::get('error') }} </p>
+                            </div>
+                        @elseif ( Session::has('success') )
+                            <div class="alert alert-success">
+                                <p> {{ Session::get('success') }} </p>
+                            </div>
+                        @endif
+
+                        <table id="fakultas" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <th>Kode Fakultas</th>
+                                <th>Nama Fakultas</th>
+                                <th>Options</th>
+                            </thead>
+                        </table>
+                    </div>
+                </div>      
             </div>
         </div>
     </div>

@@ -24,8 +24,20 @@ class AdminDosenController extends Controller
                 ->with('error', "Failed to view dosen with nik {$nik}");
         }
 
-        return view( 'admin.dosen.edit' )
-            ->with( 'dosen', $dosen );
+        $kaprodi = Dosen::where('kd_prodi', $dosen->kd_prodi)
+        ->where('jabatan', 1)
+        ->first();
+
+        if ( empty($kaprodi) ) {
+            $jabatan[] = array( "value" => 1, "label" => "kaprodi" );
+        }
+
+        $jabatan[] = array( "value" => 2, "label" => "dosen" );
+        $jabatan[] = array( "value" => 3, "label" => "guest" );
+
+        return view( 'admin.dosen.edit', [
+            'jabatan'   => $jabatan
+        ])->with( 'dosen', $dosen );
     }
 
     public function update($nik, Request $request ) {
@@ -39,7 +51,7 @@ class AdminDosenController extends Controller
         }
 
         $this->validate($request, [
-            'jabatan' => 'required|check_kaprodi',
+            'jabatan' => 'required',
         ]);
 
         $nama_dosen = $dosen->nama;
@@ -120,13 +132,11 @@ class AdminDosenController extends Controller
                 $nestedData['nama'] = $dosen->nama;
                 $nestedData['jabatan'] = ucfirst($dosen->jabatan);
                 $nestedData['options'] = "
-                    <a href='{$edit}' title='EDIT' ><span class='glyphicon glyphicon-edit'></span></a>
+                    <a href='{$edit}' title='EDIT' class='btn btn-info' > Edit </a>
                     <form action='{$delete}' method='POST' style='display:inline-block'>
                         <input type='hidden' name='_method' value='DELETE'>
                         <input type='hidden' value='" . $request->session()->token() . "' name='_token' />
-                        <button class='button-options'>
-                            <i class='glyphicon glyphicon-remove'></i>
-                        </button>
+                        <button class='btn btn-danger'> Delete </button>
                     </form>
                 ";
 

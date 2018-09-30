@@ -18,37 +18,41 @@
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label">NIK</label>
-                                <label class="col-md-6 control-label">{{ $dosen->nik }}</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" value="{{ $dosen->nik }}" disabled>
+                                </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Nama</label>
-                                <label class="col-md-6 control-label">{{ $dosen->nama }}</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" value="{{ $dosen->nama }}" disabled>
+                                </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Email</label>
-                                <label class="col-md-6 control-label">{{ $dosen->email }}</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" value="{{ $dosen->email }}" disabled>
+                                </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label">No Tlpn</label>
-                                <label class="col-md-6 control-label">{{ $dosen->no_tlpn }}</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" value="{{ $dosen->no_tlpn }}" disabled>
+                                </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="name" class="col-md-4 control-label">Jabatan</label>
                                 <div class="col-md-6">
                                     <select class="form-control" id="jabatan" name="jabatan" placeholder="Enter Jabatan">
-                                        <option value="1" {{ ($dosen->jabatan == "kaprodi") ? "selected='selected'" : "" }} > 
-                                            Kaprodi 
-                                        </option>
-                                        <option value="2" {{ ($dosen->jabatan == "dosen") ? "selected='selected'" : "" }} > 
-                                            Dosen 
-                                        </option>
-                                        <option value="3" {{ ($dosen->jabatan == "guest") ? "selected='selected'" : "" }} > 
-                                            Guest 
-                                        </option>
+                                        @for( $i = 0; $i < count($jabatan); $i++ )
+                                            <option value="{{ $jabatan[$i]['value'] }}" {{ $jabatan[$i]['label'] == $dosen->jabatan }}>
+                                                {{ ucfirst($jabatan[$i]['label']) }}
+                                            </option>
+                                        @endfor
                                     </select>
 
                                     @if ($errors->has('jabatan'))

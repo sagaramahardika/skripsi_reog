@@ -217,6 +217,15 @@ Route::group( ['prefix' => 'dosen'], function() {
         'uses'  => 'DosenController@index',
         'as'    => 'dosen.dashboard',
     ]);
+    Route::get('/edit/{id}', [ 
+        'uses'  => 'DosenController@edit',
+        'as'    => 'dosen.edit',
+    ]);
+
+    Route::patch('/update/{id}', [ 
+        'uses'  => 'DosenController@update',
+        'as'    => 'dosen.update',
+    ]);
 
     Route::group( ['prefix' => 'rencana'], function() {
         Route::get('/', [

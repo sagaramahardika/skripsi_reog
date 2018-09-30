@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Fakultas;
 Use Exception;
+use Validator;
 
 class FakultasController extends Controller
 {
@@ -25,7 +27,7 @@ class FakultasController extends Controller
             $fakultas = Fakultas::findOrFail($kd_fakultas);
         } catch ( Exception $e ) {
             return redirect()->route( 'fakultas.index' )
-                ->with('error', "Failed to view fakultas with kode fakultas {$kd_fakultas}");
+                ->with('error', "Failed to view Fakultas with kode fakultas {$kd_fakultas}");
         }
 
         return view( 'admin.fakultas.edit' )
@@ -34,10 +36,12 @@ class FakultasController extends Controller
 
     public function store( Request $request ) {
         $this->validate($request, [
-            'nama_fakultas' => 'required|string', 
+            'kd_fakultas'   => 'required|digits:1|unique:fakultas',
+            'nama_fakultas' => 'required|string',
         ]);
 
         $fakultas = new Fakultas();
+        $fakultas->kd_fakultas = $request->input('kd_fakultas');
         $fakultas->nama_fakultas = $request->input('nama_fakultas');
         $fakultas->save();
 
@@ -52,21 +56,33 @@ class FakultasController extends Controller
             $fakultas = Fakultas::findOrFail($kd_fakultas);
         } catch ( Exception $e ) {
             $request->session()->flash(
-                'error', "Failed to update fakultas with kd_fakultas {$kd_fakultas}!"
+                'error', "Failed to update Fakultas with kode fakultas {$kd_fakultas}!"
             );
             return redirect()->route( 'fakultas.index' );
         }
 
-        $this->validate($request, [
-            'nama_fakultas' => 'required|string',
+        $data['kd_fakultas'] = $request->input('kd_fakultas');
+        $data['nama_fakultas'] = $request->input('nama_fakultas');
+
+        Validator::make($data, [
+            'kd_fakultas'   => [
+                'required',
+                'digits:1',
+                Rule::unique('fakultas')->ignore($fakultas->kd_fakultas, 'kd_fakultas'),
+            ],
+            'nama_fakultas' => [
+                'required',
+                'string',
+            ],
         ]);
 
-        $current_fakultas_nama_fakultas = $fakultas->nama_fakultas;
+        $current_nama_fakultas = $fakultas->nama_fakultas;
+        $fakultas->kd_fakultas = $request->input('kd_fakultas');
         $fakultas->nama_fakultas = $request->input('nama_fakultas');
         $fakultas->save();
 
         $request->session()->flash(
-            'success', "fakultas {$current_fakultas_nama_fakultas} successfully updated!"
+            'success', "fakultas {$current_nama_fakultas} successfully updated!"
         );
         return redirect()->route( 'fakultas.index' );
     }
@@ -76,16 +92,16 @@ class FakultasController extends Controller
             $fakultas = Fakultas::findOrFail($kd_fakultas);
         } catch ( Exception $e ) {
             $request->session()->flash(
-                'error', "Failed to delete fakultas with kd_fakultas {$kd_fakultas}!"
+                'error', "Failed to delete Fakultas with kd_fakultas {$kd_fakultas}!"
             );
             return redirect()->route( 'fakultas.index' );
         }
 
-        $current_fakultas_nama_fakultas = $fakultas->nama_fakultas;
+        $current_nama_fakultas = $fakultas->nama_fakultas;
         $fakultas->delete();
 
         $request->session()->flash(
-            'success', "fakultas {$current_fakultas_nama_fakultas} successfully deleted!"
+            'success', "Fakultas {$current_nama_fakultas} successfully deleted!"
         );
         return redirect()->route( 'fakultas.index' );
     }
@@ -135,13 +151,11 @@ class FakultasController extends Controller
                 $nestedData['kd_fakultas'] = $fakultas->kd_fakultas;
                 $nestedData['nama_fakultas'] = $fakultas->nama_fakultas;
                 $nestedData['options'] = "
-                    <a href='{$edit}' title='EDIT' ><span class='glyphicon glyphicon-edit'></span></a>
+                    <a href='{$edit}' title='EDIT' class='btn btn-info' > Edit </a>
                     <form action='{$delete}' method='POST' style='display:inline-block'>
                         <input type='hidden' name='_method' value='DELETE'>
                         <input type='hidden' value='" . $request->session()->token() . "' name='_token' />
-                        <button class='button-options'>
-                            <i class='glyphicon glyphicon-remove'></i>
-                        </button>
+                        <button class='btn btn-danger'> Delete </button>
                     </form>
                 ";
 
