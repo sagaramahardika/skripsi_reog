@@ -96,7 +96,7 @@ class MahasiswaController extends Controller
             $mahasiswa = Mahasiswa::findOrFail($nim);
         } catch ( Exception $e ) {
             $request->session()->flash(
-                'error', "Failed to delete mahasiswa with nim {$nim}!"
+                'error', "Failed to delete Mahasiswa with nim {$nim}!"
             );
             return redirect()->route( 'mahasiswa.index' );
         }
@@ -155,13 +155,11 @@ class MahasiswaController extends Controller
                 $nestedData['nim'] = $mahasiswa->nim;
                 $nestedData['nama'] = $mahasiswa->nama;
                 $nestedData['options'] = "
-                    <a href='{$edit}' title='EDIT' ><span class='glyphicon glyphicon-edit'></span></a>
+                    <a href='{$edit}' title='EDIT' class='btn btn-info' > Edit </a>
                     <form action='{$delete}' method='POST' style='display:inline-block'>
                         <input type='hidden' name='_method' value='DELETE'>
                         <input type='hidden' value='" . $request->session()->token() . "' name='_token' />
-                        <button class='button-options'>
-                            <i class='glyphicon glyphicon-remove'></i>
-                        </button>
+                        <button class='btn btn-danger'> Delete </button>
                     </form>
                 ";
 

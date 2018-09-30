@@ -61,16 +61,17 @@ $(document).ready(function () {
         });
     }
 
-    if ( $('table#matkul').length > 0 ) {
-        $('#matkul').DataTable({
+    if ( $('#matkul-index').length > 0 ) {
+        matkulDataTable = $('#matkul').DataTable({
             "processing": true,
             "serverSide": true,
             "ajax": {
                 "url": config.routes.admin.matkul,
                 "dataType": "json",
                 "type": "POST",
-                "data": {
-                    _token: config.token
+                "data": function (data) {
+                    data.kd_prodi = $('#kd_prodi').val(),
+                    data._token =  config.token
                 }
             },
             "columns": [
@@ -80,6 +81,17 @@ $(document).ready(function () {
                 { "data": "harga" },
                 { "data": "options" },
             ]
+        });
+
+        $('#kd_prodi').on('change', function() {
+
+            matkulDataTable.ajax.reload();
+            if ( !$('#matkul-data').is(':hidden') ) {
+                $('#matkul-data').css('visibility', 'visible');
+            }
+            $("#kd_prodi_form").val( $(this).val() );
+
+            return false;
         });
     }
 

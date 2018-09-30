@@ -16,7 +16,11 @@ class MataKuliahController extends Controller
     }
 
     public function index() {
-        return view( 'admin.matkul.index' );
+        $allProdi = Prodi::all();
+
+        return view( 'admin.matkul.index', [
+            'allProdi' => $allProdi,
+        ]);
     }
 
     public function create() {
@@ -117,6 +121,8 @@ class MataKuliahController extends Controller
 
     // get all matakuliah for Datatable
     public function all( Request $request ) {
+        $kd_prodi = $request->input('kd_prodi');
+
         $columns = array(
             0   => 'kd_matkul', 
             1   => 'nama_matkul',
@@ -125,7 +131,7 @@ class MataKuliahController extends Controller
             4   => 'kd_matkul',
         );
 
-        $totalData = Matakuliah::count();
+        $totalData = Matakuliah::where('kd_prodi', $kd_prodi)->count();
         $totalFiltered = $totalData;
         
         $limit = $request->input('length');
@@ -134,14 +140,16 @@ class MataKuliahController extends Controller
         $dir = $request->input('order.0.dir');
             
         if ( empty($request->input('search.value') )) {            
-            $matakuliahs = Matakuliah::offset($start)
+            $matakuliahs = Matakuliah::where('kd_prodi', $kd_prodi)
+            ->offset($start)
             ->limit($limit)
             ->orderBy($order,$dir)
             ->get();
         } else {
             $search = $request->input('search.value'); 
 
-            $matakuliahs = Matakuliah::where('kd_matkul','LIKE',"%{$search}%")
+            $matakuliahs = Matakuliah::where('kd_prodi', $kd_prodi)
+            ->orWhere('kd_matkul','LIKE',"%{$search}%")
             ->orWhere('nama_matkul', 'LIKE',"%{$search}%")
             ->orWhere('sks', 'LIKE',"%{$search}%")
             ->orWhere('harga', 'LIKE',"%{$search}%")
@@ -150,7 +158,8 @@ class MataKuliahController extends Controller
             ->orderBy($order,$dir)
             ->get();
 
-            $totalFiltered = Matakuliah::where('kd_matkul','LIKE',"%{$search}%")
+            $totalFiltered = Matakuliah::where('kd_prodi', $kd_prodi)
+            ->orWhere('kd_matkul','LIKE',"%{$search}%")
             ->orWhere('nama_matkul', 'LIKE',"%{$search}%")
             ->orWhere('sks', 'LIKE',"%{$search}%")
             ->orWhere('harga', 'LIKE',"%{$search}%")
@@ -168,13 +177,11 @@ class MataKuliahController extends Controller
                 $nestedData['sks'] = $matkul->sks;
                 $nestedData['harga'] = $matkul->harga;
                 $nestedData['options'] = "
-                    <a href='{$edit}' title='EDIT' ><span class='glyphicon glyphicon-edit'></span></a>
+                    <a href='{$edit}' title='EDIT' class='btn btn-info' > Edit </a>
                     <form action='{$delete}' method='POST' style='display:inline-block'>
                         <input type='hidden' name='_method' value='DELETE'>
                         <input type='hidden' value='" . $request->session()->token() . "' name='_token' />
-                        <button class='button-options'>
-                            <i class='glyphicon glyphicon-remove'></i>
-                        </button>
+                        <button class='btn btn-danger'> Delete </button>
                     </form>
                 ";
 
@@ -194,6 +201,7 @@ class MataKuliahController extends Controller
 
     function import(Request $request) {
         $this->validate($request, [
+            'kd_prodi'         => 'required',
             'import_file'      => 'required', 
         ]);
 
@@ -203,14 +211,12 @@ class MataKuliahController extends Controller
                 foreach ($reader->toArray() as $index => $row) {
                     $validator = Validator::make(
                         array(
-                            'kd_prodi'      => $row['kd_prodi'],
                             'kd_matkul'     => $row['kd_matkul'],
                             'nama_matkul'   => $row['nama_matkul'],
                             'sks'           => $row['sks'],
                             'harga'         => $row['harga'],
                         ),
                         array(
-                            'kd_prodi'      => 'required',
                             'kd_matkul'     => 'required|alpha_num|size:6',
                             'nama_matkul'   => 'required|string',
                             'sks'           => 'required|digits_between:1,2',
@@ -230,7 +236,7 @@ class MataKuliahController extends Controller
                         if ( empty($matkul) ) {
                             $matkul = new Matakuliah();
                         }
-                        $matkul->kd_prodi = $row['kd_prodi'];
+                        $matkul->kd_prodi = $request->input('kd_prodi');
                         $matkul->kd_matkul = $row['kd_matkul'];
                         $matkul->nama_matkul = $row['nama_matkul'];
                         $matkul->sks = $row['sks'];

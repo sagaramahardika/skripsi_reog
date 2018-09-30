@@ -223,17 +223,20 @@ class RencanaController extends Controller
                 $nestedData['pembelajaran'] = $rencana->pembelajaran;
                 $nestedData['waktu_mulai'] = date('d/m/Y H:i', $rencana->waktu_mulai );
                 $nestedData['waktu_selesai'] = date('d/m/Y H:i', $rencana->waktu_selesai );
-                $nestedData['options'] = "
-                    <a href='{$edit}' title='EDIT' ><span class='glyphicon glyphicon-edit'></span></a>
-                    <form action='{$delete}' method='POST' style='display:inline-block'>
-                        <input type='hidden' name='_method' value='DELETE'>
-                        <input type='hidden' value='" . $request->session()->token() . "' name='_token' />
-                        <button class='button-options'>
-                            <i class='glyphicon glyphicon-remove'></i>
-                        </button>
-                    </form>
-                    <a href='{$pencatatan}' title='RPS' class='btn btn-info' >Pencatatan</a>
-                ";
+                $nestedData['options'] = "";
+
+                if ( is_null($rencana->kuliah) ) {
+                    $nestedData['options'] .= "
+                        <a href='{$edit}' title='EDIT' class='btn btn-info' > Edit </a>
+                        <form action='{$delete}' method='POST' style='display:inline-block'>
+                            <input type='hidden' name='_method' value='DELETE'>
+                            <input type='hidden' value='" . $request->session()->token() . "' name='_token' />
+                            <button class='btn btn-danger'> Delete </button>
+                        </form>
+                    ";
+                }
+
+                $nestedData['options'] .= "<a href='{$pencatatan}' title='RPS' class='btn btn-info' >Pencatatan</a>";
 
                 $data[] = $nestedData;
             }

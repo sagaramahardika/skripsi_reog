@@ -77,8 +77,8 @@ class FakultasController extends Controller
         ]);
 
         $current_nama_fakultas = $fakultas->nama_fakultas;
-        $fakultas->kd_fakultas = $request->input('kd_fakultas');
-        $fakultas->nama_fakultas = $request->input('nama_fakultas');
+        $fakultas->kd_fakultas = $data['kd_fakultas'];
+        $fakultas->nama_fakultas = $data['nama_fakultas'];
         $fakultas->save();
 
         $request->session()->flash(

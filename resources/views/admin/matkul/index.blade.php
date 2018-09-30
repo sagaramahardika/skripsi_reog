@@ -9,13 +9,21 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container" id="matkul-index">
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Mata Kuliah</div>
+                    <div class="panel-heading">
+                        Mata Kuliah
+                        <select id="kd_prodi">
+                            <option>- Choose Prodi -</option>
+                            @foreach ( $allProdi as $prodi )
+                                <option value="{{ $prodi->kd_prodi }}"> {{ $prodi->nama_prodi }} </option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                    <div class="panel-body">
+                    <div class="panel-body" id="matkul-data" style="visibility:hidden">
                         @if( Session::has('error') )
                             <div class="alert alert-danger">
                                 <p> {{ Session::get('error') }} </p>
@@ -35,11 +43,15 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('matkul.import') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('matkul.import') }}" method="POST" enctype="multipart/form-data" style="padding-bottom:10px">
                             <input type="hidden" value="{{ Session::token() }}" name="_token" />
+                            <input type="hidden" id="kd_prodi_form" name="kd_prodi" />
 
-                            <input type="file" name="import_file" />
-                            <button type="submit" class="btn btn-primary">Import</button>
+                            <div class="form-group mb-2">
+                                <label for="import_file">Import Excel Matakuliah</label>
+                                <input type="file" class="form-control-file" name="import_file">
+                            </div>
+                            <button type="submit" class="btn-primary">Import</button>
                         </form>
 
                         <table id="matkul" class="table table-striped table-bordered" cellspacing="0" width="100%">

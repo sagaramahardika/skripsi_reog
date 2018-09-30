@@ -418,6 +418,27 @@ class SubMatkulController extends Controller
         if(!empty($rencanas)) {
             foreach ($rencanas as $rencana) {
 
+                $waktu_mulai_rencana = $rencana->waktu_mulai;
+                $waktu_selesai_rencana = $rencana->waktu_selesai;
+                $waktu_mulai_kuliah = $rencana->kuliah->waktu_mulai;
+                $waktu_selesai_kuliah = $rencana->kuliah->waktu_selesai;
+
+                if ( $waktu_mulai_kuliah - $waktu_mulai_rencana <= 300 && $waktu_mulai_kuliah - $waktu_mulai_rencana >= -1200 ) {
+                    $keterangan_mulai = 'Normal';
+                } elseif ( $waktu_mulai_kuliah - $waktu_mulai_rencana <= 9000 ) {
+                    $keterangan_mulai = 'Terlambat';
+                } else {
+                    $keterangan_mulai = 'Kuliah Pengganti';
+                }
+
+                if ( $waktu_selesai_kuliah - $waktu_selesai_rencana <= 600 && $waktu_selesai_kuliah - $waktu_selesai_rencana >= -600 ) {
+                    $keterangan_akhir = 'Normal';
+                } elseif ( $waktu_selesai_kuliah - $waktu_selesai_rencana > 600 ) {
+                    $keterangan_akhir = 'Kuliah Lama';
+                } else {
+                    $keterangan_akhir = 'Kuliah Cepet';
+                }
+
                 $nestedData['pertemuan'] = $rencana->pertemuan;
                 $nestedData['pembelajaran'] = $rencana->pembelajaran;
                 $nestedData['waktu_mulai_rencana'] = date('d/m/Y H:i', $rencana->waktu_mulai );
@@ -426,7 +447,7 @@ class SubMatkulController extends Controller
                 $nestedData['waktu_selesai_kuliah'] = date('d/m/Y H:i', $rencana->kuliah->waktu_selesai);
                 $nestedData['catatan'] = $rencana->kuliah->catatan;
                 $nestedData['nim'] = $rencana->kuliah->nim;
-                $nestedData['keterangan'] = '-';
+                $nestedData['keterangan'] = $keterangan_mulai . ", " . $keterangan_akhir;
 
                 $data[] = $nestedData;
             }

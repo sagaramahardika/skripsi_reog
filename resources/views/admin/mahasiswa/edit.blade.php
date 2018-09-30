@@ -3,21 +3,14 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
-
-                @if ( count($errors) > 0)
-                    <div class="alert alert-danger">
-                        @foreach ($errors->all() as $error)
-                            <p>{{ $error }}</p>
-                        @endforeach
-                    </div>
-                @endif
+                <div class="panel-heading">Edit Mahasiswa {{ $mahasiswa->nama }}</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
-                        {{ csrf_field() }}
+                    <form class="form-horizontal" method="POST" action="{{ route('mahasiswa.update', $mahasiswa->nim ) }}">
+                        <input type="hidden" name="_method" value="PATCH">
+                        <input type="hidden" value="{{ Session::token() }}" name="_token" />
 
                         <div class="form-group">
                             <label for="name" class="col-md-4 control-label">Prodi</label>

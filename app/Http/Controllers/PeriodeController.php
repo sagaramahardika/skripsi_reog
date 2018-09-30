@@ -151,13 +151,11 @@ class PeriodeController extends Controller
                 $nestedData['thn_ajaran'] = $thn_ajaran;
                 $nestedData['semester'] = ucfirst($periode->semester);
                 $nestedData['options'] = "
-                    <a href='{$edit}' title='EDIT' ><span class='glyphicon glyphicon-edit'></span></a>
+                    <a href='{$edit}' title='EDIT' class='btn btn-info' > Edit </a>
                     <form action='{$delete}' method='POST' style='display:inline-block'>
                         <input type='hidden' name='_method' value='DELETE'>
                         <input type='hidden' value='" . $request->session()->token() . "' name='_token' />
-                        <button class='button-options'>
-                            <i class='glyphicon glyphicon-remove'></i>
-                        </button>
+                        <button class='btn btn-danger'> Delete </button>
                     </form>
                 ";
 

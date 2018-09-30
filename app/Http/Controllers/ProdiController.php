@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Fakultas;
 use App\Prodi;
 Use Exception;
+use Validator;
 
 class ProdiController extends Controller
 {
@@ -41,14 +43,30 @@ class ProdiController extends Controller
     }
 
     public function store( Request $request ) {
-        $this->validate($request, [
-            'kd_fakultas'   => 'required',
-            'nama_prodi'    => 'required|string', 
+
+        $data['kd_fakultas'] = $request->input('kd_fakultas');
+        $data['kd_prodi'] = (string) $data['kd_fakultas'] . "" . (string) $request->input('kd_prodi');
+        $data['nama_prodi'] = $request->input('nama_prodi');
+
+        Validator::make($data, [
+            'kd_fakultas'   => [
+                'required',
+            ],
+            'kd_prodi' => [
+                'required',
+                'digits:1',
+                Rule::unique('prodi'),
+            ],
+            'nama_prodi' => [
+                'required',
+                'string',
+            ],
         ]);
 
         $prodi = new Prodi();
-        $prodi->kd_fakultas = $request->input('kd_fakultas');
-        $prodi->nama_prodi = $request->input('nama_prodi');
+        $prodi->kd_fakultas = $data['kd_fakultas'];
+        $prodi->kd_prodi = $data['kd_prodi'];
+        $prodi->nama_prodi = $data['nama_prodi'];
         $prodi->save();
 
         $request->session()->flash(
@@ -67,14 +85,29 @@ class ProdiController extends Controller
             return redirect()->route( 'prodi.index' );
         }
 
-        $this->validate($request, [
-            'kd_fakultas'   => 'required',
-            'nama_prodi'    => 'required|string',
+        $data['kd_fakultas'] = $request->input('kd_fakultas');
+        $data['kd_prodi'] = $data['kd_fakultas'] . $request->input('kd_prodi');
+        $data['nama_prodi'] = $request->input('nama_prodi');
+
+        Validator::make($data, [
+            'kd_fakultas'   => [
+                'required',
+            ],
+            'kd_prodi' => [
+                'required',
+                'digits:1',
+                Rule::unique('prodi')->ignore($data['kd_prodi'], 'kd_prodi'),
+            ],
+            'nama_prodi' => [
+                'required',
+                'string',
+            ],
         ]);
 
         $current_prodi_nama_prodi = $prodi->nama_prodi;
-        $prodi->kd_fakultas = $request->input('kd_fakultas');
-        $prodi->nama_prodi = $request->input('nama_prodi');
+        $prodi->kd_fakultas = $data['kd_fakultas'];
+        $prodi->kd_prodi = $data['kd_prodi'];
+        $prodi->nama_prodi = $data['nama_prodi'];
         $prodi->save();
 
         $request->session()->flash(
@@ -152,13 +185,11 @@ class ProdiController extends Controller
                 $nestedData['nama_fakultas'] = $prodi->fakultas->nama_fakultas;
                 $nestedData['nama_prodi'] = $prodi->nama_prodi;
                 $nestedData['options'] = "
-                    <a href='{$edit}' title='EDIT' ><span class='glyphicon glyphicon-edit'></span></a>
+                    <a href='{$edit}' title='EDIT' class='btn btn-info' > Edit </a>
                     <form action='{$delete}' method='POST' style='display:inline-block'>
                         <input type='hidden' name='_method' value='DELETE'>
                         <input type='hidden' value='" . $request->session()->token() . "' name='_token' />
-                        <button class='button-options'>
-                            <i class='glyphicon glyphicon-remove'></i>
-                        </button>
+                        <button class='btn btn-danger'> Delete </button>
                     </form>
                 ";
 
