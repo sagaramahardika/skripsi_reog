@@ -3,10 +3,6 @@
     
     <ul class="nav navbar-nav">
         <li class="dropdown">
-            <a href="{{ route('admin_dosen.index') }}"> Dosen </a>
-        </li>
-
-        <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                 Fakultas <span class="caret"></span>
             </a>
@@ -19,13 +15,17 @@
 
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                Mahasiswa <span class="caret"></span>
+                Prodi <span class="caret"></span>
             </a>
 
             <ul class="dropdown-menu">
-                <li><a href="{{ route('mahasiswa.index') }}"> View </a></li>
-                <li><a href="{{ route('mahasiswa.create') }}"> Add </a></li>
+                <li><a href="{{ route('prodi.index') }}"> View </a></li>
+                <li><a href="{{ route('prodi.create') }}"> Add </a></li>
             </ul>
+        </li>
+
+        <li class="dropdown">
+            <a href="{{ route('admin_dosen.index') }}"> Dosen </a>
         </li>
 
         <li class="dropdown">
@@ -41,12 +41,12 @@
 
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                Prodi <span class="caret"></span>
+                Mahasiswa <span class="caret"></span>
             </a>
 
             <ul class="dropdown-menu">
-                <li><a href="{{ route('prodi.index') }}"> View </a></li>
-                <li><a href="{{ route('prodi.create') }}"> Add </a></li>
+                <li><a href="{{ route('mahasiswa.index') }}"> View </a></li>
+                <li><a href="{{ route('mahasiswa.create') }}"> Add </a></li>
             </ul>
         </li>
     </ul>

@@ -18,7 +18,7 @@
 
                             <div class="form-group">
                                 <label for="name" class="col-md-4 control-label">Prodi</label>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <select class="form-control" id="kd_prodi" name="kd_prodi" placeholder="Enter Prodi">
                                         @foreach ( $allProdi as $prodi )
                                             @if ( $prodi->kd_prodi == $matkul->kd_prodi )
@@ -42,7 +42,7 @@
 
                             <div class="form-group">
                                 <label for="name" class="col-md-4 control-label">Kode Matakuliah</label>
-                                <div class="col-md-6">
+                                <div class="col-md-2">
                                     <input type="text" class="form-control" id="kd_matkul" name="kd_matkul" placeholder="Enter Kode Mata Kuliah" value="{{ $matkul->kd_matkul }}">
                                     
                                     @if ($errors->has('kd_matkul'))
@@ -55,7 +55,7 @@
 
                             <div class="form-group">
                                 <label for="name" class="col-md-4 control-label">Nama Mata Kuliah</label>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <input type="text" class="form-control" id="nama_matkul" name="nama_matkul" placeholder="Enter Nama Mata Kuliah" value="{{ $matkul->nama_matkul }}">
                                     
                                     @if ($errors->has('nama_matkul'))
@@ -68,7 +68,7 @@
 
                             <div class="form-group">
                                 <label for="name" class="col-md-4 control-label">SKS</label>
-                                <div class="col-md-6">
+                                <div class="col-md-1">
                                     <input type="text" class="form-control" id="sks" name="sks" placeholder="Enter SKS" value="{{ $matkul->sks }}">
                                 
                                     @if ($errors->has('sks'))
@@ -81,7 +81,7 @@
 
                             <div class="form-group">
                                 <label for="name" class="col-md-4 control-label">Harga</label>
-                                <div class="col-md-6">
+                                <div class="col-md-1">
                                     <input type="text" class="form-control" id="harga" name="harga" placeholder="Enter Harga" value="{{ $matkul->harga }}">
 
                                     @if ($errors->has('harga'))

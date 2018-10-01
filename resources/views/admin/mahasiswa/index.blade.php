@@ -1,7 +1,7 @@
 @extends("layouts.app")
 
 @section('title')
-    Prodi
+    Mahasiswa
 @endsection
 
 @section('styles')

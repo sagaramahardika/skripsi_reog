@@ -5,7 +5,7 @@
         @if( Request::is("kaprodi") || Request::is("kaprodi/*") )
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                    Sub Mata Kuliah <span class="caret"></span>
+                    Kelas <span class="caret"></span>
                 </a>
 
                 <ul class="dropdown-menu">

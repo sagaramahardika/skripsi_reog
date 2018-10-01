@@ -78,21 +78,26 @@ class RencanaController extends Controller
         $this->validate($request, [
             'id_sub_matkul' => 'required',
             'pertemuan'     => 'required',
-            'pembelajaran'  => 'required',
             'waktu_mulai'   => 'required',
             'waktu_selesai' => 'required',
         ]);
 
-        $rencana = new Rencana();
-        $rencana->id_sub_matkul = $request->input('id_sub_matkul');
-        $rencana->pertemuan = $request->input('pertemuan');
-        $rencana->pembelajaran = $request->input('pembelajaran');
-        $rencana->waktu_mulai = strtotime( $request->input('waktu_mulai') );
-        $rencana->waktu_selesai = strtotime( $request->input('waktu_selesai') );
-        $rencana->save();
+        $total_pertemuan = $request->input('pertemuan');
+        $id_sub_matkul = $request->input('id_sub_matkul');
+        $waktu_mulai = strtotime( $request->input('waktu_mulai') );
+        $waktu_selesai = strtotime( $request->input('waktu_selesai') );
+
+        for( $i = 1; $i <= $total_pertemuan; $i++ ) {
+            $rencana = new Rencana();
+            $rencana->id_sub_matkul = $id_sub_matkul;
+            $rencana->pertemuan = $i;
+            $rencana->waktu_mulai = $waktu_mulai + $i * 604800;
+            $rencana->waktu_selesai = $waktu_selesai + $i * 604800;
+            $rencana->save();
+        }
 
         $request->session()->flash(
-            'success', "Rencana successfully added!"
+            'success', "$total_pertemuan Rencana successfully added!"
         );
         return redirect()->route( 'rencana.rps', $request->input('id_sub_matkul') );
     }
@@ -136,23 +141,16 @@ class RencanaController extends Controller
         }
 
         $this->validate($request, [
-            'id_sub_matkul' => 'required',
-            'pertemuan'     => 'required',
             'pembelajaran'  => 'required',
-            'waktu_mulai'   => 'required',
-            'waktu_selesai' => 'required',
         ]);
 
-        $rencana->pertemuan = $request->input('pertemuan');
         $rencana->pembelajaran = $request->input('pembelajaran');
-        $rencana->waktu_mulai = strtotime( $request->input('waktu_mulai') );
-        $rencana->waktu_selesai = strtotime( $request->input('waktu_selesai') );
         $rencana->save();
 
         $request->session()->flash(
-            'success', "Sub Matakuliah {$mengajar->id} successfully updated!"
+            'success', "Rencana {$id} successfully updated!"
         );
-        return redirect()->route( 'mengajar.index' );
+        return redirect()->route( 'rencana.rps', $rencana->id_sub_matkul );
     }
 
     public function delete($id, Request $request) {

@@ -251,9 +251,7 @@ class SubMatkulController extends Controller
                             <form action='{$delete}' method='POST' style='display:inline-block'>
                                 <input type='hidden' name='_method' value='DELETE'>
                                 <input type='hidden' value='" . $request->session()->token() . "' name='_token' />
-                                <button class='button-options'>
-                                    <i class='glyphicon glyphicon-remove'></i>
-                                </button>
+                                <button class='btn btn-danger'>Delete</button>
                             </form>
                             <a href='{$manageDosen}' title='Manage Dosen' class='btn btn-info' >Manage Dosen</a>
                             <a href='{$laporan}' title='Laporan' class='btn btn-info' >Laporan</a>  
@@ -271,9 +269,7 @@ class SubMatkulController extends Controller
                         <form action='{$delete}' method='POST' style='display:inline-block'>
                             <input type='hidden' name='_method' value='DELETE'>
                             <input type='hidden' value='" . $request->session()->token() . "' name='_token' />
-                            <button class='button-options'>
-                                <i class='glyphicon glyphicon-remove'></i>
-                            </button>
+                            <button class='btn btn-danger'>Delete</button>
                         </form>
                         <a href='{$manageDosen}' title='Manage Dosen' class='btn btn-info' >Manage Dosen</a>
                         <a href='{$laporan}' title='Laporan' class='btn btn-info' >Laporan</a>
@@ -346,9 +342,7 @@ class SubMatkulController extends Controller
                     <form action='{$delete}' method='POST' style='display:inline-block'>
                         <input type='hidden' name='_method' value='DELETE'>
                         <input type='hidden' value='" . $request->session()->token() . "' name='_token' />
-                        <button class='button-options'>
-                            <i class='glyphicon glyphicon-remove'></i>
-                        </button>
+                        <button class='btn btn-danger'>Delete</button>
                     </form>
                 ";
 
@@ -425,7 +419,7 @@ class SubMatkulController extends Controller
 
                 if ( $waktu_mulai_kuliah - $waktu_mulai_rencana <= 300 && $waktu_mulai_kuliah - $waktu_mulai_rencana >= -1200 ) {
                     $keterangan_mulai = 'Normal';
-                } elseif ( $waktu_mulai_kuliah - $waktu_mulai_rencana <= 9000 ) {
+                } elseif ( $waktu_mulai_kuliah - $waktu_mulai_rencana <= 9000 && $waktu_mulai_kuliah - $waktu_mulai_rencana > 300 ) {
                     $keterangan_mulai = 'Terlambat';
                 } else {
                     $keterangan_mulai = 'Kuliah Pengganti';

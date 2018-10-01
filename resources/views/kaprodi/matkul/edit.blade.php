@@ -18,7 +18,7 @@
 
                             <div class="form-group">
                                 <label for="name" class="col-md-4 control-label">Periode</label>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <select class="form-control" id="id_periode" name="id_periode" placeholder="Enter Prodi">
                                         @foreach ( $allPeriode as $periode )
                                             @php
@@ -48,7 +48,7 @@
 
                             <div class="form-group">
                                 <label for="name" class="col-md-4 control-label">Matakuliah</label>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                 <select class="form-control" id="kd_matkul" name="kd_matkul" placeholder="Enter Matakuliah">
                                         @foreach ( $allMatakuliah as $matakuliah )
                                             @if ( $submatkul->kd_matkul == $matakuliah->kd_matkul )
@@ -72,7 +72,7 @@
 
                             <div class="form-group">
                                 <label for="name" class="col-md-4 control-label">Jabatan</label>
-                                <div class="col-md-6">
+                                <div class="col-md-1">
                                     <select class="form-control" id="grup" name="grup" placeholder="Enter Grup">
                                         <option value="1" {{ ($submatkul->grup == "A") ? "selected='selected'" : "" }} > 
                                             A 

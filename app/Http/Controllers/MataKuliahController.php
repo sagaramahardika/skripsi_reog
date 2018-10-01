@@ -149,7 +149,7 @@ class MataKuliahController extends Controller
             $search = $request->input('search.value'); 
 
             $matakuliahs = Matakuliah::where('kd_prodi', $kd_prodi)
-            ->orWhere('kd_matkul','LIKE',"%{$search}%")
+            ->where('kd_matkul','LIKE',"%{$search}%")
             ->orWhere('nama_matkul', 'LIKE',"%{$search}%")
             ->orWhere('sks', 'LIKE',"%{$search}%")
             ->orWhere('harga', 'LIKE',"%{$search}%")
@@ -159,7 +159,7 @@ class MataKuliahController extends Controller
             ->get();
 
             $totalFiltered = Matakuliah::where('kd_prodi', $kd_prodi)
-            ->orWhere('kd_matkul','LIKE',"%{$search}%")
+            ->where('kd_matkul','LIKE',"%{$search}%")
             ->orWhere('nama_matkul', 'LIKE',"%{$search}%")
             ->orWhere('sks', 'LIKE',"%{$search}%")
             ->orWhere('harga', 'LIKE',"%{$search}%")

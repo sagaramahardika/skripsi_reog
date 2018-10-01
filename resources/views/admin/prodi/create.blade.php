@@ -17,7 +17,7 @@
 
                             <div class="form-group">
                                 <label for="kd_fakultas" class="col-md-4 control-label">Fakultas</label>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <select class="form-control" name="kd_fakultas">
                                         @foreach ( $allFakultas as $fakultas )
                                             <option value="{{ $fakultas->kd_fakultas }}"> {{ $fakultas->nama_fakultas }} </option>
@@ -34,8 +34,8 @@
 
                             <div class="form-group">
                                 <label for="kd_prodi" class="col-md-4 control-label">Kode Prodi</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" name="kd_prodi" placeholder="Enter Kode Prodi">
+                                <div class="col-md-1">
+                                    <input type="text" class="form-control" name="kd_prodi">
 
                                     @if ($errors->has('kd_prodi'))
                                         <span class="help-block">
@@ -47,7 +47,7 @@
 
                             <div class="form-group">
                                 <label for="nama_prodi" class="col-md-4 control-label">Nama Prodi</label>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <input type="text" class="form-control" name="nama_prodi" placeholder="Enter Nama Prodi">
 
                                     @if ($errors->has('nama_prodi'))

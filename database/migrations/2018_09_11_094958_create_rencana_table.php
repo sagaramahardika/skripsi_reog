@@ -17,7 +17,7 @@ class CreateRencanaTable extends Migration
             $table->increments('id');
             $table->integer('id_sub_matkul');
             $table->integer('pertemuan');
-            $table->text('pembelajaran');
+            $table->text('pembelajaran')->nullable();
             $table->integer('waktu_mulai');
             $table->integer('waktu_selesai');
             $table->timestamps();

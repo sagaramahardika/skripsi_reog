@@ -17,8 +17,8 @@
 
                             <div class="form-group">
                                 <label for="kd_fakultas" class="col-md-4 control-label">Kode Fakultas</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" name="kd_fakultas" placeholder="Enter Kode Fakultas">
+                                <div class="col-md-1">
+                                    <input type="text" class="form-control" name="kd_fakultas">
 
                                     @if ($errors->has('kd_fakultas'))
                                         <span class="help-block">
@@ -30,7 +30,7 @@
 
                             <div class="form-group">
                                 <label for="nama_fakultas" class="col-md-4 control-label">Nama Fakultas</label>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <input type="text" class="form-control" name="nama_fakultas" placeholder="Enter Nama Fakultas">
                                 
                                     @if ($errors->has('nama_fakultas'))

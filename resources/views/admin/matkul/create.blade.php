@@ -17,8 +17,8 @@
 
                             <div class="form-group">
                                 <label for="name" class="col-md-4 control-label">Prodi</label>
-                                <div class="col-md-6">
-                                    <select class="form-control" id="kd_prodi" name="kd_prodi" placeholder="Enter Prodi">
+                                <div class="col-md-3">
+                                    <select class="form-control" name="kd_prodi">
                                         @foreach ( $allProdi as $prodi )
                                             <option value="{{ $prodi->kd_prodi }}"> {{ $prodi->nama_prodi }} </option>
                                         @endforeach
@@ -34,8 +34,8 @@
 
                             <div class="form-group">
                                 <label for="name" class="col-md-4 control-label">Kode Matakuliah</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="kd_matkul" name="kd_matkul" placeholder="Enter Kode Mata Kuliah">
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" name="kd_matkul">
                                     
                                     @if ($errors->has('kd_matkul'))
                                         <span class="help-block">
@@ -47,8 +47,8 @@
 
                             <div class="form-group">
                                 <label for="name" class="col-md-4 control-label">Nama Mata Kuliah</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="nama_matkul" name="nama_matkul" placeholder="Enter Nama Mata Kuliah">
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" name="nama_matkul" placeholder="Enter Nama Mata Kuliah">
                                     
                                     @if ($errors->has('nama_matkul'))
                                         <span class="help-block">
@@ -60,8 +60,8 @@
 
                             <div class="form-group">
                                 <label for="name" class="col-md-4 control-label">SKS</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="sks" name="sks" placeholder="Enter SKS">
+                                <div class="col-md-1">
+                                    <input type="text" class="form-control" name="sks">
                                 
                                     @if ($errors->has('sks'))
                                         <span class="help-block">
@@ -73,8 +73,8 @@
 
                             <div class="form-group">
                                 <label for="name" class="col-md-4 control-label">Harga</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" id="harga" name="harga" placeholder="Enter Harga">
+                                <div class="col-md-1">
+                                    <input type="text" class="form-control" name="harga">
 
                                     @if ($errors->has('harga'))
                                         <span class="help-block">

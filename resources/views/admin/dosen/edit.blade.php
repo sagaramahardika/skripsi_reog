@@ -18,35 +18,35 @@
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label">NIK</label>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <input type="text" class="form-control" value="{{ $dosen->nik }}" disabled>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Nama</label>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <input type="text" class="form-control" value="{{ $dosen->nama }}" disabled>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Email</label>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <input type="text" class="form-control" value="{{ $dosen->email }}" disabled>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label">No Tlpn</label>
-                                <div class="col-md-6">
+                                <div class="col-md-2">
                                     <input type="text" class="form-control" value="{{ $dosen->no_tlpn }}" disabled>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="name" class="col-md-4 control-label">Jabatan</label>
-                                <div class="col-md-6">
+                                <div class="col-md-2">
                                     <select class="form-control" id="jabatan" name="jabatan" placeholder="Enter Jabatan">
                                         @for( $i = 0; $i < count($jabatan); $i++ )
                                             <option value="{{ $jabatan[$i]['value'] }}" {{ $jabatan[$i]['label'] == $dosen->jabatan }}>

@@ -12,25 +12,31 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                @if( Session::has('error') )
-                    <div class="alert alert-danger">
-                        <p> {{ Session::get('error') }} </p>
-                    </div>
-                @elseif ( Session::has('success') )
-                    <div class="alert alert-success">
-                        <p> {{ Session::get('success') }} </p>
-                    </div>
-                @endif
+                <div class="panel panel-default">
+                    <div class="panel-heading">Kelas</div>
+                    
+                    <div class="panel-body">
+                        @if( Session::has('error') )
+                            <div class="alert alert-danger">
+                                <p> {{ Session::get('error') }} </p>
+                            </div>
+                        @elseif ( Session::has('success') )
+                            <div class="alert alert-success">
+                                <p> {{ Session::get('success') }} </p>
+                            </div>
+                        @endif
 
-                <table id="submatkul" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                    <thead>
-                        <th>Kode Matakuliah</th>
-                        <th>Nama Matakuliah</th>
-                        <th>Grup</th>
-                        <th>Dosen</th>
-                        <th>Options</th>
-                    </thead>
-                </table>
+                        <table id="submatkul" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <th>Kode Matakuliah</th>
+                                <th>Nama Matakuliah</th>
+                                <th>Grup</th>
+                                <th>Dosen</th>
+                                <th>Options</th>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

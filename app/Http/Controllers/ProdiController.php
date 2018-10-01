@@ -161,16 +161,18 @@ class ProdiController extends Controller
         } else {
             $search = $request->input('search.value'); 
 
-            $prodis = Prodi::with('fakultas')
-            ->where('kd_prodi','LIKE',"%{$search}%")
+            $prodis = Prodi::whereHas( 'fakultas', function ($query) use ($search) {
+                $query->where('nama_fakultas', 'LIKE', "%{$search}%");
+            })->orWhere('kd_prodi','LIKE',"%{$search}%")
             ->orWhere('nama_prodi', 'LIKE',"%{$search}%")
             ->offset($start)
             ->limit($limit)
             ->orderBy($order,$dir)
             ->get();
 
-            $totalFiltered = Prodi::with('fakultas')
-            ->where('kd_prodi','LIKE',"%{$search}%")
+            $totalFiltered = Prodi::whereHas('fakultas', function ($query) use ($search) {
+                $query->where('nama_fakultas', 'LIKE', "%$search%");
+            })->where('kd_prodi','LIKE',"%{$search}%")
             ->orWhere('nama_prodi', 'LIKE',"%{$search}%")
             ->count();
         }

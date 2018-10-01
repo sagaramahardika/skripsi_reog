@@ -22,7 +22,7 @@
 
                             <div class="form-group">
                                 <label for="pertemuan" class="col-md-4 control-label">Pertemuan</label>
-                                <div class='col-md-6'>
+                                <div class='col-md-2'>
                                     <input type='number' class="form-control" name="pertemuan" />
 
                                     @if ($errors->has('pertemuan'))
@@ -34,21 +34,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="pembelajaran" class="col-md-4 control-label">Rencana Pembelajaran Semester</label>
-                                <div class='col-md-6'>
-                                    <textarea name="pembelajaran"></textarea>
-
-                                    @if ($errors->has('pembelajaran'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('pembelajaran') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group">
                                 <label for="waktu_mulai" class="col-md-4 control-label">Waktu Mulai</label>
-                                <div class='input-group date col-md-6' id='timepicker_waktu_mulai'>
+                                <div class='input-group date col-md-3' id='timepicker_waktu_mulai'>
                                     <input type='text' class="form-control" name="waktu_mulai" />
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
@@ -64,7 +51,7 @@
 
                             <div class="form-group">
                                 <label for="waktu_selesai" class="col-md-4 control-label">Waktu Selsai</label>
-                                <div class='input-group date col-md-6' id='timepicker_waktu_selesai'>
+                                <div class='input-group date col-md-3' id='timepicker_waktu_selesai'>
                                     <input type='text' class="form-control" name="waktu_selesai" />
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
