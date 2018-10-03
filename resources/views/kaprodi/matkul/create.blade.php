@@ -56,7 +56,7 @@
 
                             <div class="form-group">
                                 <label for="name" class="col-md-4 control-label">Grup</label>
-                                <div class="col-md-1">
+                                <div class="col-md-2">
                                     <select class="form-control" id="grup" name="grup" placeholder="Enter Grup">
                                         <option value="1">A</option>
                                         <option value="2">B</option>

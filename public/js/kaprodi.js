@@ -135,7 +135,6 @@ $(document).ready(function () {
                 }
             },
             columns: [
-                { "data": "id" },
                 { "data": "thn_ajaran" },
                 { "data": "semester" },
                 { "data": "options" },

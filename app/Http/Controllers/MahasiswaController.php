@@ -14,7 +14,11 @@ class MahasiswaController extends Controller
     }
 
     public function index() {
-        return view( 'admin.mahasiswa.index' );
+        $allProdi = Prodi::all();
+
+        return view( 'admin.mahasiswa.index', [
+            'allProdi' => $allProdi
+        ]);
     }
     
     public function create() {
@@ -112,13 +116,15 @@ class MahasiswaController extends Controller
 
     // get all mahasiswa for Datatable
     public function all( Request $request ) {
+        $kd_prodi = $request->input('kd_prodi');
+
         $columns = array(
             0   => 'nim', 
             1   => 'nama',
             3   => 'nim',
         );
 
-        $totalData = Mahasiswa::count();
+        $totalData = Mahasiswa::where('kd_prodi', $kd_prodi)->count();
         $totalFiltered = $totalData;
         
         $limit = $request->input('length');
@@ -127,21 +133,24 @@ class MahasiswaController extends Controller
         $dir = $request->input('order.0.dir');
             
         if ( empty($request->input('search.value') )) {            
-            $mahasiswas = Mahasiswa::offset($start)
+            $mahasiswas = Mahasiswa::where('kd_prodi', $kd_prodi)
+            ->offset($start)
             ->limit($limit)
             ->orderBy($order,$dir)
             ->get();
         } else {
             $search = $request->input('search.value'); 
 
-            $mahasiswas = Mahasiswa::where('nim','LIKE',"%{$search}%")
+            $mahasiswas = Mahasiswa::where('kd_prodi', $kd_prodi)
+            ->where('nim','LIKE',"%{$search}%")
             ->orWhere('nama', 'LIKE',"%{$search}%")
             ->offset($start)
             ->limit($limit)
             ->orderBy($order,$dir)
             ->get();
 
-            $totalFiltered = Mahasiswa::where('nim','LIKE',"%{$search}%")
+            $totalFiltered = Mahasiswa::where('kd_prodi', $kd_prodi)
+            ->where('nim','LIKE',"%{$search}%")
             ->orWhere('nama', 'LIKE',"%{$search}%")
             ->count();
         }

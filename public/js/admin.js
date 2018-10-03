@@ -52,16 +52,17 @@ $(document).ready(function () {
         });
     }
 
-    if ( $('table#mahasiswa').length > 0 ) {
-        $('#mahasiswa').DataTable({
+    if ( $('#mahasiswa-index').length > 0 ) {
+        mahasiswaDataTable = $('#mahasiswa').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
                 "url": config.routes.admin.mahasiswa,
                 "dataType": "json",
                 "type": "POST",
-                "data": {
-                    _token: config.token
+                "data": function (data) {
+                    data.kd_prodi = $('#kd_prodi').val(),
+                    data._token =  config.token
                 }
             },
             columns: [
@@ -69,6 +70,16 @@ $(document).ready(function () {
                 { "data": "nama" },
                 { "data": "options" },
             ]
+        });
+
+        $('#kd_prodi').on('change', function() {
+
+            mahasiswaDataTable.ajax.reload();
+            if ( !$('#mahasiswa-data').is(':hidden') ) {
+                $('#mahasiswa-data').css('visibility', 'visible');
+            }
+
+            return false;
         });
     }
 

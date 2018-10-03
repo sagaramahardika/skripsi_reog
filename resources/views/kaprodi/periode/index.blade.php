@@ -24,7 +24,6 @@
 
                 <table id="periode" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
-                        <th>ID</th>
                         <th>Tahun Ajaran</th>
                         <th>Semester</th>
                         <th>Options</th>

@@ -9,13 +9,21 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container" id="mahasiswa-index">
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Mahasiswa</div>
+                    <div class="panel-heading">
+                        Mahasiswa
+                        <select id="kd_prodi">
+                            <option>- Choose Prodi -</option>
+                            @foreach ( $allProdi as $prodi )
+                                <option value="{{ $prodi->kd_prodi }}"> {{ $prodi->nama_prodi }} </option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                    <div class="panel-body">
+                    <div class="panel-body" id="mahasiswa-data" style="visibility:hidden">
                         @if( Session::has('error') )
                             <div class="alert alert-danger">
                                 <p> {{ Session::get('error') }} </p>

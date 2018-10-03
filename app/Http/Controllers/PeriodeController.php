@@ -147,7 +147,6 @@ class PeriodeController extends Controller
                 $thn_ajaran = intval(date('Y', $periode->thn_ajaran));
                 $thn_ajaran = $thn_ajaran . "/" . ($thn_ajaran+1);
 
-                $nestedData['id'] = $periode->id;
                 $nestedData['thn_ajaran'] = $thn_ajaran;
                 $nestedData['semester'] = ucfirst($periode->semester);
                 $nestedData['options'] = "
