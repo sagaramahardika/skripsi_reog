@@ -60,6 +60,7 @@
 
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">Submit</button>
+                                <a href="{{ route('prodi.index') }}" class="btn btn-warning">Cancel</a>
                             </div>
                         </form>
                     </div>

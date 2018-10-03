@@ -1,31 +1,42 @@
 $(document).ready(function () {
 
-    if ( $('table#dosen').length > 0 ) {
-        $('#dosen').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
+    if ( $('#dosen-index').length > 0 ) {
+        dosenDataTable = $('#dosen').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
                 "url": config.routes.admin.dosen,
                 "dataType": "json",
                 "type": "POST",
-                "data": {
-                    _token: config.token
+                "data": function (data) {
+                    data.kd_prodi = $('#kd_prodi').val(),
+                    data._token =  config.token
                 }
             },
-            "columns": [
+            columns: [
                 { "data": "nik" },
                 { "data": "nama" },
                 { "data": "jabatan" },
                 { "data": "options" },
             ]
         });
+
+        $('#kd_prodi').on('change', function() {
+
+            dosenDataTable.ajax.reload();
+            if ( !$('#dosen-data').is(':hidden') ) {
+                $('#dosen-data').css('visibility', 'visible');
+            }
+
+            return false;
+        });
     }
 
     if ( $('table#fakultas').length > 0 ) {
         $('#fakultas').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
+            processing: true,
+            serverSide: true,
+            ajax: {
                 "url": config.routes.admin.fakultas,
                 "dataType": "json",
                 "type": "POST",
@@ -33,7 +44,7 @@ $(document).ready(function () {
                     _token: config.token
                 }
             },
-            "columns": [
+            columns: [
                 { "data": "kd_fakultas" },
                 { "data": "nama_fakultas" },
                 { "data": "options" },
@@ -43,9 +54,9 @@ $(document).ready(function () {
 
     if ( $('table#mahasiswa').length > 0 ) {
         $('#mahasiswa').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
+            processing: true,
+            serverSide: true,
+            ajax: {
                 "url": config.routes.admin.mahasiswa,
                 "dataType": "json",
                 "type": "POST",
@@ -53,7 +64,7 @@ $(document).ready(function () {
                     _token: config.token
                 }
             },
-            "columns": [
+            columns: [
                 { "data": "nim" },
                 { "data": "nama" },
                 { "data": "options" },
@@ -63,9 +74,9 @@ $(document).ready(function () {
 
     if ( $('#matkul-index').length > 0 ) {
         matkulDataTable = $('#matkul').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
+            processing: true,
+            serverSide: true,
+            ajax: {
                 "url": config.routes.admin.matkul,
                 "dataType": "json",
                 "type": "POST",
@@ -74,7 +85,7 @@ $(document).ready(function () {
                     data._token =  config.token
                 }
             },
-            "columns": [
+            columns: [
                 { "data": "kd_matkul" },
                 { "data": "nama_matkul" },
                 { "data": "sks" },
@@ -97,9 +108,9 @@ $(document).ready(function () {
 
     if ( $('table#prodi').length > 0 ) {
         $('#prodi').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
+            processing: true,
+            serverSide: true,
+            ajax: {
                 "url": config.routes.admin.prodi,
                 "dataType": "json",
                 "type": "POST",
@@ -107,7 +118,7 @@ $(document).ready(function () {
                     _token: config.token
                 }
             },
-            "columns": [
+            columns: [
                 { "data": "kd_prodi" },
                 { "data": "nama_fakultas" },
                 { "data": "nama_prodi" },

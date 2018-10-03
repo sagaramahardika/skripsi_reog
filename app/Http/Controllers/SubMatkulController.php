@@ -183,6 +183,7 @@ class SubMatkulController extends Controller
     // get all matakuliah for Datatable
     public function all( Request $request ) {
         $kaprodi = Auth::guard('dosen')->user();
+        $latest_periode = Periode::max('id');
 
         $columns = array(
             0   => 'id', 
@@ -195,7 +196,7 @@ class SubMatkulController extends Controller
 
         $totalData = SubMatkul::whereHas('matkul', function ($query) use ($kaprodi) {
             $query->where('kd_prodi', $kaprodi->kd_prodi);
-        })->count();
+        })->where('id_periode', $latest_periode)->count();
         $totalFiltered = $totalData;
         
         $limit = $request->input('length');
@@ -206,7 +207,8 @@ class SubMatkulController extends Controller
         if ( empty($request->input('search.value') )) {            
             $submatkuls = SubMatkul::whereHas('matkul', function ($query) use ($kaprodi) {
                 $query->where('kd_prodi', $kaprodi->kd_prodi);
-            })->offset($start)
+            })->where('id_periode', $latest_periode)
+            ->offset($start)
             ->limit($limit)
             ->orderBy($order,$dir)
             ->get();
@@ -214,24 +216,18 @@ class SubMatkulController extends Controller
             $search = $request->input('search.value'); 
 
             $submatkuls = SubMatkul::whereHas('matkul', function ($query) use ($kaprodi, $search) {
-                $query->where('kd_prodi', $kaprodi->kd_prodi)
-                ->orWhere('kd_matkul', 'LIKE', "%$search%")
-                ->orWhere('nama_matkul', 'LIKE', "%$search%");
-            })->whereHas('pengajar.dosen', function ($query) use ($search) {
-                $query->where('nama', 'LIKE', "%$search%" );
-            })->orWhere('grup', 'LIKE', "%$search%")
+                $query->where('kd_prodi', $kaprodi->kd_prodi);
+                $query->where('kd_matkul', 'LIKE', "%$search%");
+            })->where('id_periode', $latest_periode)
             ->offset($start)
             ->limit($limit)
             ->orderBy($order,$dir)
             ->get();
 
             $totalFiltered = SubMatkul::whereHas('matkul', function ($query) use ($kaprodi, $search) {
-                $query->where('kd_prodi', $kaprodi->kd_prodi)
-                ->orWhere('kd_matkul', 'LIKE', "%$search%")
-                ->orWhere('nama_matkul', 'LIKE', "%$search%");
-            })->whereHas('pengajar.dosen', function ($query) use ($search) {
-                $query->where('nama', 'LIKE', "%$search%" );
-            })->orWhere('grup', 'LIKE', "%$search%")
+                $query->where('kd_prodi', $kaprodi->kd_prodi);
+                $query->where('kd_matkul', 'LIKE', "%$search%");
+            })->where('id_periode', $latest_periode)
             ->count();
         }
 
@@ -300,12 +296,11 @@ class SubMatkulController extends Controller
         $id_sub_matkul = $request->input('id_sub_matkul');
 
         $columns = array(
-            0   => 'id', 
-            1   => 'kd_matkul',
-            2   => 'nama_matkul',
-            3   => 'grup',
-            4   => 'dosen',
-            5   => 'id',
+            0   => 'kd_matkul',
+            1   => 'nama_matkul',
+            2   => 'grup',
+            3   => 'dosen',
+            4   => 'id',
         );
 
         $totalData = Mengajar::where('id_sub_matkul', $id_sub_matkul)->count();

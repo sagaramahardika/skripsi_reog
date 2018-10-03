@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Dosen;
+use App\Prodi;
 use Exception;
 
 class AdminDosenController extends Controller
@@ -13,7 +14,11 @@ class AdminDosenController extends Controller
     }
 
     public function index() {
-        return view( 'admin.dosen.index' );
+        $allProdi = Prodi::all();
+
+        return view( 'admin.dosen.index', [
+            'allProdi'  => $allProdi
+        ]);
     }
 
     public function edit($nik) {
@@ -85,6 +90,8 @@ class AdminDosenController extends Controller
 
     // get all fakultas for Datatable
     public function all( Request $request ) {
+        $kd_prodi = $request->input('kd_prodi');
+
         $columns = array(
             0   => 'nik', 
             1   => 'nama',
@@ -92,7 +99,7 @@ class AdminDosenController extends Controller
             2   => 'nik',
         );
 
-        $totalData = Dosen::count();
+        $totalData = Dosen::where('kd_prodi', $kd_prodi)->count();
         $totalFiltered = $totalData;
         
         $limit = $request->input('length');
@@ -101,14 +108,16 @@ class AdminDosenController extends Controller
         $dir = $request->input('order.0.dir');
             
         if ( empty($request->input('search.value') )) {            
-            $dosens = Dosen::offset($start)
+            $dosens = Dosen::where('kd_prodi', $kd_prodi)
+            ->offset($start)
             ->limit($limit)
             ->orderBy($order,$dir)
             ->get();
         } else {
             $search = $request->input('search.value'); 
 
-            $dosens = Dosen::where('nik','LIKE',"%{$search}%")
+            $dosens = Dosen::where('kd_prodi', $kd_prodi)
+            ->orWhere('nik','LIKE',"%{$search}%")
             ->orWhere('nama', 'LIKE',"%{$search}%")
             ->orWhere('jabatan', 'LIKE',"%{$search}%")
             ->offset($start)
@@ -116,7 +125,8 @@ class AdminDosenController extends Controller
             ->orderBy($order,$dir)
             ->get();
 
-            $totalFiltered = Dosen::where('nik','LIKE',"%{$search}%")
+            $totalFiltered = Dosen::where('kd_prodi', $kd_prodi)
+            ->orWhere('nik','LIKE',"%{$search}%")
             ->orWhere('nama', 'LIKE',"%{$search}%")
             ->orWhere('jabatan', 'LIKE',"%{$search}%")
             ->count();

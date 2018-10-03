@@ -11,7 +11,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading">Edit Periode</div>
 
@@ -61,6 +61,7 @@
 
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">Submit</button>
+                                <a href="{{ route('periode.index') }}" class="btn btn-warning">Cancel</a>
                             </div>
                         </form>
                     </div>

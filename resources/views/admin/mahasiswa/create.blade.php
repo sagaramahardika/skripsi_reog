@@ -84,9 +84,8 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Submit
-                                </button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a href="{{ route('mahasiswa.index') }}" class="btn btn-warning">Cancel</a>
                             </div>
                         </div>
                     </form>

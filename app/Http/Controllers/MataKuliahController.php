@@ -207,7 +207,7 @@ class MataKuliahController extends Controller
 
         if ( $request->hasFile('import_file') ) {
             $path = $request->file('import_file')->getRealPath();
-            Excel::load( $path, function($reader) {
+            Excel::load( $path, function($reader) use($request) {
                 foreach ($reader->toArray() as $index => $row) {
                     $validator = Validator::make(
                         array(

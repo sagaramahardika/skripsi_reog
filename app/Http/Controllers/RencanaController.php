@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Mengajar;
 use App\Mahasiswa;
+use App\Periode;
 use App\Rencana;
 use App\SubMatkul;
 use App\Kuliah;
@@ -238,6 +239,7 @@ class RencanaController extends Controller
     // get all matakuliah for Datatable
     public function subMatkulPeriode( Request $request ) {
         $dosen = Auth::guard('dosen')->user();
+        $latest_periode = Periode::max('id');
 
         $columns = array(
             0   => 'id', 
@@ -248,8 +250,9 @@ class RencanaController extends Controller
             5   => 'id',
         );
 
-        $totalData = Mengajar::where('nik', $dosen->nik)
-        ->count();
+        $totalData = SubMatkul::whereHas('matkul', function ($query) use ($dosen) {
+            $query->where('kd_prodi', $dosen->kd_prodi);
+        })->where('id_periode', $latest_periode)->count();
         $totalFiltered = $totalData;
         
         $limit = $request->input('length');
@@ -258,7 +261,9 @@ class RencanaController extends Controller
         $dir = $request->input('order.0.dir');
             
         if ( empty($request->input('search.value') )) {            
-            $mengajars = Mengajar::where('nik', $dosen->nik)
+            $submatkuls = SubMatkul::whereHas('matkul', function ($query) use ($dosen) {
+                $query->where('kd_prodi', $dosen->kd_prodi);
+            })->where('id_periode', $latest_periode)
             ->offset($start)
             ->limit($limit)
             ->orderBy($order,$dir)
@@ -266,26 +271,32 @@ class RencanaController extends Controller
         } else {
             $search = $request->input('search.value'); 
 
-            $mengajars = Mengajar::where('nik', $dosen->nik)
+            $submatkuls = SubMatkul::whereHas('matkul', function ($query) use ($dosen, $search) {
+                $query->where('kd_prodi', $dosen->kd_prodi);
+                $query->where('kd_matkul', 'LIKE', "%$search%");
+            })->where('id_periode', $latest_periode)
             ->offset($start)
             ->limit($limit)
             ->orderBy($order,$dir)
             ->get();
 
-            $totalFiltered = Mengajar::where('nik', $dosen->nik)
+            $totalFiltered = SubMatkul::whereHas('matkul', function ($query) use ($dosen, $search) {
+                $query->where('kd_prodi', $dosen->kd_prodi);
+                $query->where('kd_matkul', 'LIKE', "%$search%");
+            })->where('id_periode', $latest_periode)
             ->count();
         }
 
         $data = array();
-        if(!empty($mengajars)) {
-            foreach ($mengajars as $mengajar) {
-                $rps = route( 'rencana.rps', $mengajar->submatkul->id );
+        if(!empty($submatkuls)) {
+            foreach ($submatkuls as $submatkul) {
+                $rps = route( 'rencana.rps', $submatkul->id );
 
-                $nestedData['kd_matkul'] = $mengajar->submatkul->kd_matkul;
-                $nestedData['nama_matkul'] = $mengajar->submatkul->matkul->nama_matkul;
-                $nestedData['grup'] = $mengajar->submatkul->grup;
-                $nestedData['sks'] = $mengajar->submatkul->matkul->sks;
-                $nestedData['harga'] = $mengajar->submatkul->matkul->harga;
+                $nestedData['kd_matkul'] = $submatkul->kd_matkul;
+                $nestedData['nama_matkul'] = $submatkul->matkul->nama_matkul;
+                $nestedData['grup'] = $submatkul->grup;
+                $nestedData['sks'] = $submatkul->matkul->sks;
+                $nestedData['harga'] = $submatkul->matkul->harga;
                 $nestedData['options'] = "
                     <a href='{$rps}' title='RPS' class='btn btn-info' >RPS</a>
                 ";

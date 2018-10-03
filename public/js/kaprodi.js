@@ -19,7 +19,10 @@ $(document).ready(function () {
                 { "data": "grup" },
                 { "data": "dosen" },
                 { "data": "options" },
-            ]
+            ],
+            "language": {
+                "search": "Search Kode Matkul:"
+            }
         });
     }
 
