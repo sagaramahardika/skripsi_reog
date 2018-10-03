@@ -217,7 +217,9 @@ class SubMatkulController extends Controller
                 $query->where('kd_prodi', $kaprodi->kd_prodi)
                 ->orWhere('kd_matkul', 'LIKE', "%$search%")
                 ->orWhere('nama_matkul', 'LIKE', "%$search%");
-            })->where('grup', 'LIKE', "$$search%")
+            })->whereHas('pengajar.dosen', function ($query) use ($search) {
+                $query->where('nama', 'LIKE', "%$search%" );
+            })->orWhere('grup', 'LIKE', "%$search%")
             ->offset($start)
             ->limit($limit)
             ->orderBy($order,$dir)
@@ -227,7 +229,9 @@ class SubMatkulController extends Controller
                 $query->where('kd_prodi', $kaprodi->kd_prodi)
                 ->orWhere('kd_matkul', 'LIKE', "%$search%")
                 ->orWhere('nama_matkul', 'LIKE', "%$search%");
-            })->where('grup', 'LIKE', "$$search%")
+            })->whereHas('pengajar.dosen', function ($query) use ($search) {
+                $query->where('nama', 'LIKE', "%$search%" );
+            })->orWhere('grup', 'LIKE', "%$search%")
             ->count();
         }
 
@@ -321,13 +325,20 @@ class SubMatkulController extends Controller
         } else {
             $search = $request->input('search.value'); 
 
-            $submatkuls = Mengajar::where('id_sub_matkul', $id_sub_matkul)
+            $mengajars = Mengajar::whereHas('dosen', function ($query) use ($search) {
+                $query->where('nama', 'LIKE', "%$search%");
+                $query->orWhere('nik', 'LIKE', "%$search%");
+            })->where('id_sub_matkul', $id_sub_matkul)
             ->offset($start)
             ->limit($limit)
             ->orderBy($order,$dir)
             ->get();
 
-            $totalFiltered = SubMatkul::where('id_sub_matkul', $id_sub_matkul)
+            $totalFiltered = Mengajar::whereHas('dosen', function ($query) use ($search) {
+                $query->where('nama', 'LIKE', "%$search%");
+                $query->orWhere('nik', 'LIKE', "%$search%");
+            })->where('id_sub_matkul', $id_sub_matkul)
+            ->orWhere('nik', 'LIKE', "%$search%")
             ->count();
         }
 
@@ -382,31 +393,12 @@ class SubMatkulController extends Controller
         $start = $request->input('start');
         $order = $columns[$request->input('order.0.column')];
         $dir = $request->input('order.0.dir');
-            
-        if ( empty($request->input('search.value') )) {            
-            $rencanas = Rencana::whereHas('kuliah', function ($query) {
-                $query->whereNotNull('nim');
-            })->where('id_sub_matkul', $id_sub_matkul)
-            ->offset($start)
-            ->limit($limit)
-            ->orderBy($order,$dir)
-            ->get();
-        } else {
-            $search = $request->input('search.value'); 
-
-            $rencanas = Rencana::whereHas('kuliah', function ($query) {
-                $query->whereNotNull('nim');
-            })->where('id_sub_matkul', $id_sub_matkul)
-            ->offset($start)
-            ->limit($limit)
-            ->orderBy($order,$dir)
-            ->get();
-
-            $totalFiltered = Rencana::whereHas('kuliah', function ($query) {
-                $query->whereNotNull('nim');
-            })->where('id_sub_matkul', $id_sub_matkul)
-            ->count();
-        }
+                        
+        $rencanas = Rencana::whereHas('kuliah', function ($query) {
+            $query->whereNotNull('nim');
+        })->where('id_sub_matkul', $id_sub_matkul)
+        ->orderBy($order,$dir)
+        ->get();
 
         $data = array();
         if(!empty($rencanas)) {

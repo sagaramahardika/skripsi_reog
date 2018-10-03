@@ -2,9 +2,9 @@ $(document).ready(function () {
 
     if ( $('table#rencana_submatkul').length > 0 ) {
         $('#rencana_submatkul').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
+            processing: true,
+            serverSide: true,
+            ajax: {
                 "url": config.routes.dosen.submatkul,
                 "dataType": "json",
                 "type": "POST",
@@ -12,7 +12,7 @@ $(document).ready(function () {
                     _token: config.token
                 }
             },
-            "columns": [
+            columns: [
                 { "data": "kd_matkul" },
                 { "data": "nama_matkul" },
                 { "data": "grup" },
@@ -27,9 +27,9 @@ $(document).ready(function () {
         var id_sub_matkul = $("#id_sub_matkul").val();
 
         $('#rencana').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
+            processing: true,
+            serverSide: true,
+            ajax: {
                 "url": config.routes.dosen.rencana_submatkul,
                 "dataType": "json",
                 "type": "POST",
@@ -38,13 +38,15 @@ $(document).ready(function () {
                     id_sub_matkul: id_sub_matkul
                 }
             },
-            "columns": [
+            columns: [
                 { "data": "pertemuan" },
                 { "data": "pembelajaran" },
                 { "data": "waktu_mulai" },
                 { "data": "waktu_selesai" },
                 { "data": "options" },
-            ]
+            ],
+            paging: false,
+            searching: false
         });
     }
 

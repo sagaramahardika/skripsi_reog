@@ -172,7 +172,7 @@ class ProdiController extends Controller
 
             $totalFiltered = Prodi::whereHas('fakultas', function ($query) use ($search) {
                 $query->where('nama_fakultas', 'LIKE', "%$search%");
-            })->where('kd_prodi','LIKE',"%{$search}%")
+            })->orWhere('kd_prodi','LIKE',"%{$search}%")
             ->orWhere('nama_prodi', 'LIKE',"%{$search}%")
             ->count();
         }

@@ -190,25 +190,10 @@ class RencanaController extends Controller
         $start = $request->input('start');
         $order = $columns[$request->input('order.0.column')];
         $dir = $request->input('order.0.dir');
-            
-        if ( empty($request->input('search.value') )) {            
-            $rencanas = Rencana::where('id_sub_matkul', $id_sub_matkul)
-            ->offset($start)
-            ->limit($limit)
-            ->orderBy($order,$dir)
-            ->get();
-        } else {
-            $search = $request->input('search.value'); 
-
-            $rencanas = Rencana::where('id_sub_matkul', $id_sub_matkul)
-            ->offset($start)
-            ->limit($limit)
-            ->orderBy($order,$dir)
-            ->get();
-
-            $totalFiltered = Rencana::where('id_sub_matkul', $id_sub_matkul)
-            ->count();
-        }
+                        
+        $rencanas = Rencana::where('id_sub_matkul', $id_sub_matkul)
+        ->orderBy($order,$dir)
+        ->get();
 
         $data = array();
         if(!empty($rencanas)) {
@@ -282,16 +267,12 @@ class RencanaController extends Controller
             $search = $request->input('search.value'); 
 
             $mengajars = Mengajar::where('nik', $dosen->nik)
-            ->orWhere('nama_matkul', 'LIKE',"%{$search}%")
-            ->orWhere('grup', 'LIKE', "${$search}%")
             ->offset($start)
             ->limit($limit)
             ->orderBy($order,$dir)
             ->get();
 
             $totalFiltered = Mengajar::where('nik', $dosen->nik)
-            ->orWhere('nama_matkul', 'LIKE',"%{$search}%")
-            ->orWhere('grup', 'LIKE', "${$search}%")
             ->count();
         }
 

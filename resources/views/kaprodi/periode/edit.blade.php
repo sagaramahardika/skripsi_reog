@@ -22,7 +22,7 @@
 
                             <div class="form-group">
                                 <label for="thn_ajaran" class="col-md-4 control-label">Tahun Ajaran</label>
-                                <div class='input-group date col-md-6' id='timepicker_periode'>
+                                <div class='input-group date col-md-2' id='timepicker_periode'>
                                     @php
                                         $thn_ajaran = date('Y', $periode->thn_ajaran);
                                     @endphp
@@ -41,8 +41,8 @@
 
                             <div class="form-group">
                                 <label for="semester" class="col-md-4 control-label">Semester</label>
-                                <div class="col-md-6">
-                                    <select class="form-control" id="semester" name="semester" placeholder="Enter Semester">
+                                <div class="col-md-2">
+                                    <select class="form-control" name="semester" placeholder="Enter Semester">
                                         <option value="1" {{ ($periode->semester == "ganjil") ? "selected='selected'" : "" }} > 
                                             Ganjil
                                         </option>

@@ -2,9 +2,9 @@ $(document).ready(function () {
 
     if ( $('table#submatkul').length > 0 ) {
         $('#submatkul').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
+            processing: true,
+            serverSide: true,
+            ajax: {
                 "url": config.routes.kaprodi.submatkul,
                 "dataType": "json",
                 "type": "POST",
@@ -12,8 +12,8 @@ $(document).ready(function () {
                     _token: config.token
                 }
             },
-            "rowsGroup": [0,1,2,4],
-            "columns": [
+            rowsGroup: [0,1,2,4],
+            columns: [
                 { "data": "kd_matkul" },
                 { "data": "nama_matkul" },
                 { "data": "grup" },
@@ -27,9 +27,9 @@ $(document).ready(function () {
         var id_sub_matkul = $("#id_sub_matkul").val();
 
         $('#mengajar').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
+            processing: true,
+            serverSide: true,
+            ajax: {
                 "url": config.routes.kaprodi.pengajar,
                 "dataType": "json",
                 "type": "POST",
@@ -38,7 +38,7 @@ $(document).ready(function () {
                     _token: config.token
                 }
             },
-            "columns": [
+            columns: [
                 { "data": "nik" },
                 { "data": "nama" },
                 { "data": "options" },
@@ -50,9 +50,9 @@ $(document).ready(function () {
         var id_sub_matkul = $("#id_sub_matkul").val();
 
         $('#laporan').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
+            processing: true,
+            serverSide: true,
+            ajax: {
                 "url": config.routes.kaprodi.laporan,
                 "dataType": "json",
                 "type": "POST",
@@ -61,7 +61,7 @@ $(document).ready(function () {
                     _token: config.token
                 }
             },
-            "columns": [
+            columns: [
                 { "data": "pertemuan" },
                 { "data": "pembelajaran" },
                 { "data": "waktu_mulai_rencana" },
@@ -71,7 +71,9 @@ $(document).ready(function () {
                 { "data": "catatan" },
                 { "data": "nim" },
                 { "data": "keterangan" }
-            ]
+            ],
+            paging: false,
+            searching: false,
         });
     }
 
@@ -119,9 +121,9 @@ $(document).ready(function () {
 
     if ( $('table#periode').length > 0 ) {
         $('#periode').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
+            processing: true,
+            serverSide: true,
+            ajax: {
                 "url": config.routes.kaprodi.periode,
                 "dataType": "json",
                 "type": "POST",
@@ -129,7 +131,7 @@ $(document).ready(function () {
                     _token: config.token
                 }
             },
-            "columns": [
+            columns: [
                 { "data": "id" },
                 { "data": "thn_ajaran" },
                 { "data": "semester" },
