@@ -1,8 +1,14 @@
 <div class="collapse navbar-collapse" id="app-navbar-collapse">
     <!-- Left Side Of Navbar -->
     
+    @php
+        if ( Auth::guard('dosen')->check() ) {
+            $dosen = Auth::guard('dosen')->user();
+        }
+    @endphp
+
     <ul class="nav navbar-nav">
-        @if( Request::is("kaprodi") || Request::is("kaprodi/*") )
+        @if( $dosen->jabatan == 'kaprodi' )
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                     Kelas <span class="caret"></span>

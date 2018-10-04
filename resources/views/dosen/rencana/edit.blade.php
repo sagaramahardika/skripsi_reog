@@ -16,6 +16,26 @@
                     <div class="panel-heading">Edit Rencana</div>
 
                     <div class="panel-body">
+                        <div class="row">
+                            @php
+                                $thn_ajaran = intval(date('Y', $rencana->submatkul->periode->thn_ajaran));
+                                $thn_ajaran = $thn_ajaran . "/" . ($thn_ajaran+1);
+                            @endphp
+
+                            <div class="col-md-8">{{ $rencana->submatkul->matkul->kd_matkul . "-" . $rencana->submatkul->matkul->nama_matkul }}</div>
+                            <div class="col-md-4 text-right">{{ "Periode : " . $thn_ajaran . " " . ucfirst($rencana->submatkul->periode->semester) }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-8">{{ $rencana->submatkul->matkul->sks . " SKS" }}</div>
+                            <div class="col-md-4 text-right">Waktu Mulai : {{ date('d/m/Y H:i', $rencana->waktu_mulai ) }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-8">{{ "Grup-" . $rencana->submatkul->grup }}</div>
+                            <div class="col-md-4 text-right">Waktu Selesai : {{ date('d/m/Y H:i', $rencana->waktu_selesai ) }}</div>
+                        </div>
+
                         <form class="form-horizontal" action="{{ route('rencana.update', $rencana->id) }}" method="POST">
                             <input type="hidden" name="_method" value="PATCH">
                             <input type="hidden" value="{{ Session::token() }}" name="_token" />
@@ -34,7 +54,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="pembelajaran" class="col-md-4 control-label">Rencana Pembelajaran Semester</label>
+                                <label for="pembelajaran" class="col-md-4 control-label">RPP</label>
                                 <div class='col-md-6'>
                                     <textarea name="pembelajaran">{{ $rencana->pembelajaran }}</textarea>
 

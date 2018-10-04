@@ -296,11 +296,9 @@ class SubMatkulController extends Controller
         $id_sub_matkul = $request->input('id_sub_matkul');
 
         $columns = array(
-            0   => 'kd_matkul',
-            1   => 'nama_matkul',
-            2   => 'grup',
-            3   => 'dosen',
-            4   => 'id',
+            0   => 'nik',
+            1   => 'nama',
+            2   => 'nik',
         );
 
         $totalData = Mengajar::where('id_sub_matkul', $id_sub_matkul)->count();

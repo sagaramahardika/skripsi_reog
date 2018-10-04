@@ -16,9 +16,51 @@
                     <div class="panel-heading">Pencatatan</div>
 
                     <div class="panel-body">
+                        <div class="row">
+                            @php
+                                $thn_ajaran = intval(date('Y', $rencana->submatkul->periode->thn_ajaran));
+                                $thn_ajaran = $thn_ajaran . "/" . ($thn_ajaran+1);
+                            @endphp
+
+                            <div class="col-md-8">{{ $rencana->submatkul->matkul->kd_matkul . "-" . $rencana->submatkul->matkul->nama_matkul }}</div>
+                            <div class="col-md-4 text-right">{{ "Periode : " . $thn_ajaran . " " . ucfirst($rencana->submatkul->periode->semester) }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-8">{{ $rencana->submatkul->matkul->sks . " SKS" }}</div>
+                            <div class="col-md-4 text-right">Waktu Mulai : {{ date('d/m/Y H:i', $rencana->waktu_mulai ) }}</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-8">{{ "Grup-" . $rencana->submatkul->grup }}</div>
+                            <div class="col-md-4 text-right">Waktu Selesai : {{ date('d/m/Y H:i', $rencana->waktu_selesai ) }}</div>
+                        </div>
+
+                        <hr>
+
                         <form class="form-horizontal" action="{{ route('rencana.kuliah_store') }}" method="POST">
                             <input type="hidden" value="{{ Session::token() }}" name="_token" />
                             <input type="hidden" value="{{ $rencana->id }}" name="id_rencana" />
+
+                            <div class="form-group">
+                                <label for="nim" class="col-md-4 control-label">Pertemuan</label>
+                                <div class='col-md-6'>
+                                    <input type='text' class="form-control" value="{{ $rencana->pertemuan }}" disabled />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nim" class="col-md-4 control-label">RPP</label>
+                                <div class='col-md-6'>
+                                    <textarea disabled>{{ $rencana->pembelajaran }}</textarea>
+
+                                    @if ($errors->has('nim'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('nim') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 <label for="catatan" class="col-md-4 control-label">Catatan</label>
