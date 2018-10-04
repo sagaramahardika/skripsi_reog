@@ -250,8 +250,8 @@ class RencanaController extends Controller
             5   => 'id',
         );
 
-        $totalData = SubMatkul::whereHas('matkul', function ($query) use ($dosen) {
-            $query->where('kd_prodi', $dosen->kd_prodi);
+        $totalData = SubMatkul::whereHas('pengajar', function ($query) use ($dosen) {
+            $query->where('nik', $dosen->nik );
         })->where('id_periode', $latest_periode)->count();
         $totalFiltered = $totalData;
         
@@ -261,8 +261,8 @@ class RencanaController extends Controller
         $dir = $request->input('order.0.dir');
             
         if ( empty($request->input('search.value') )) {            
-            $submatkuls = SubMatkul::whereHas('matkul', function ($query) use ($dosen) {
-                $query->where('kd_prodi', $dosen->kd_prodi);
+            $submatkuls = SubMatkul::whereHas('pengajar', function ($query) use ($dosen) {
+                $query->where('nik', $dosen->nik );
             })->where('id_periode', $latest_periode)
             ->offset($start)
             ->limit($limit)
@@ -271,18 +271,16 @@ class RencanaController extends Controller
         } else {
             $search = $request->input('search.value'); 
 
-            $submatkuls = SubMatkul::whereHas('matkul', function ($query) use ($dosen, $search) {
-                $query->where('kd_prodi', $dosen->kd_prodi);
-                $query->where('kd_matkul', 'LIKE', "%$search%");
+            $submatkuls = SubMatkul::whereHas('pengajar', function ($query) use ($dosen, $search) {
+                $query->where('nik', $dosen->nik );
             })->where('id_periode', $latest_periode)
             ->offset($start)
             ->limit($limit)
             ->orderBy($order,$dir)
             ->get();
 
-            $totalFiltered = SubMatkul::whereHas('matkul', function ($query) use ($dosen, $search) {
-                $query->where('kd_prodi', $dosen->kd_prodi);
-                $query->where('kd_matkul', 'LIKE', "%$search%");
+            $totalFiltered = SubMatkul::whereHas('pengajar', function ($query) use ($dosen, $search) {
+                $query->where('nik', $dosen->nik );
             })->where('id_periode', $latest_periode)
             ->count();
         }
