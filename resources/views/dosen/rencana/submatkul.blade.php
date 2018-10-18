@@ -40,9 +40,6 @@
                         <p style="margin: 3px 0px">{{ "Grup-" . $submatkul->grup }}</p>
 
                         <input type="hidden" id="id_sub_matkul" value="{{ $submatkul->id }}">
-                        <a href="{{ route('rencana.create', $submatkul->id) }}" class="btn btn-info" style="margin-bottom:10px">
-                            Tambah Rencana
-                        </a>
 
                         <table id="rencana" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>

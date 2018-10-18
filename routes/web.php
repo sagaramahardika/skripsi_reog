@@ -210,6 +210,26 @@ Route::group( ['prefix' => 'admin'], function() {
         ]);
     });
 
+    Route::group( ['prefix' => 'kelas'], function() {
+        Route::get('/', [
+            'uses'  => 'AdminKelasController@index',
+            'as'    => 'admin_kelas.index',
+        ]);
+        Route::get('/{id}/add-session', [
+            'uses'  => 'AdminKelasController@create_session',
+            'as'    => 'admin_kelas.create_session',
+        ]);
+
+        Route::post('/', [
+            'uses'  => 'AdminKelasController@all',
+            'as'    => 'admin_kelas.all',
+        ]);
+        Route::post('/store-session', [
+            'uses'  => 'AdminKelasController@store_session',
+            'as'    => 'admin_kelas.store_session',
+        ]);
+    });
+
 });
 
 Route::group( ['prefix' => 'dosen'], function() {
@@ -260,6 +280,10 @@ Route::group( ['prefix' => 'dosen'], function() {
         Route::post('/store', [
             'uses'  => 'RencanaController@store',
             'as'    => 'rencana.store',
+        ]);
+        Route::post('/start_session/{id}', [
+            'uses'  => 'RencanaController@start_session',
+            'as'    => 'rencana.start_session',
         ]);
         Route::post('/kuliah_store', [
             'uses'  => 'RencanaController@kuliah_store',

@@ -41,14 +41,6 @@ class RencanaController extends Controller
                 ->with('error', "Failed to view Sub Matkul with ID {$id}");
         }
 
-        $kuliah = Kuliah::where('id_rencana', $rencana->id)->get();
-        if ( $kuliah->isEmpty() ) {
-            $kuliah = new Kuliah();
-            $kuliah->id_rencana = $rencana->id;
-            $kuliah->waktu_mulai = strtotime( date("Y-m-d H:i") );
-            $kuliah->save();
-        }
-
         return view( 'dosen.rencana.pencatatan')->with( 'rencana', $rencana );
     }
 
@@ -88,10 +80,15 @@ class RencanaController extends Controller
         $waktu_mulai = strtotime( $request->input('waktu_mulai') );
         $waktu_selesai = strtotime( $request->input('waktu_selesai') );
 
+        $max_pertemuan = Rencana::where('id_sub_matkul', $id_sub_matkul)->max('pertemuan');
+        if ( empty($max_pertemuan) ) {
+            $max_pertemuan = 0;
+        }
+
         for( $i = 1; $i <= $total_pertemuan; $i++ ) {
             $rencana = new Rencana();
             $rencana->id_sub_matkul = $id_sub_matkul;
-            $rencana->pertemuan = $i;
+            $rencana->pertemuan = $max_pertemuan + $i;
             $rencana->waktu_mulai = $waktu_mulai + $i * 604800;
             $rencana->waktu_selesai = $waktu_selesai + $i * 604800;
             $rencana->save();
@@ -115,7 +112,10 @@ class RencanaController extends Controller
         ->first();
 
         if ( !Hash::check( $request->input('password'), $mahasiswa->password ) ) {
-            return redirect()->route( 'rencana.index' );
+            $request->session()->flash(
+                'error', "NIM / Password is wrong"
+            );
+            return redirect()->route( 'rencana.pencatatan', $request->input('id_rencana') );
         }
 
         $kuliah = Kuliah::where('id_rencana', $request->input('id_rencana') )->first();
@@ -131,6 +131,25 @@ class RencanaController extends Controller
         return redirect()->route( 'rencana.rps', $kuliah->rencana->id_sub_matkul );
     }
 
+    public function start_session($id, Request $request ) {
+        try {
+            $rencana = Rencana::findOrFail($id);
+        } catch ( Exception $e ) {
+            return redirect()->route( 'rencana.rps', $rencana->id_sub_matkul )
+                ->with('error', "Failed to Start Session {$id}");
+        }
+        
+        $kuliah = new Kuliah();
+        $kuliah->id_rencana = $rencana->id;
+        $kuliah->waktu_mulai = strtotime( date("Y-m-d H:i") );
+        $kuliah->save();
+
+        $request->session()->flash(
+            'success', "Kelas pertemuan {$rencana->pertemuan} telah dimulai"
+        );
+        return redirect()->route( 'rencana.rps', $rencana->id_sub_matkul );
+    }
+
     public function update($id, Request $request ) {
         try {
             $rencana = Rencana::findOrFail($id);
@@ -142,10 +161,13 @@ class RencanaController extends Controller
         }
 
         $this->validate($request, [
-            'pembelajaran'  => 'required',
+            'waktu_mulai'   => 'required',
+            'waktu_selesai' => 'required',
         ]);
 
         $rencana->pembelajaran = $request->input('pembelajaran');
+        $rencana->waktu_mulai = strtotime( $request->input('waktu_mulai') );
+        $rencana->waktu_selesai = strtotime( $request->input('waktu_selesai') );
         $rencana->save();
 
         $request->session()->flash(
@@ -175,13 +197,21 @@ class RencanaController extends Controller
     public function rencanaSubMatkul( Request $request ) {
         $dosen = Auth::guard('dosen')->user();
         $id_sub_matkul = $request->input('id_sub_matkul');
+        $max_pertemuan = Rencana::whereHas('kuliah', function ($query) {
+            $query->whereNotNull('waktu_selesai');
+        })->where('id_sub_matkul', $id_sub_matkul)
+        ->max('pertemuan');
+
+        if ( empty($max_pertemuan) ) {
+            $max_pertemuan = 0;
+        }
 
         $columns = array(
             0   => 'pertemuan', 
             1   => 'pembelajaran',
             2   => 'waktu_mulai',
             3   => 'waktu_selesai',
-            4   => 'pertemuan',
+            4   => 'id',
         );
 
         $totalData = Rencana::where('id_sub_matkul', $id_sub_matkul)->count();
@@ -202,6 +232,7 @@ class RencanaController extends Controller
                 $edit = route( 'rencana.edit', $rencana->id );
                 $delete = route( 'rencana.delete', $rencana->id );
                 $pencatatan = route( 'rencana.pencatatan', $rencana->id );
+                $start_session = route( 'rencana.start_session', $rencana->id );
 
                 $nestedData['pertemuan'] = $rencana->pertemuan;
                 $nestedData['pembelajaran'] = $rencana->pembelajaran;
@@ -218,9 +249,19 @@ class RencanaController extends Controller
                             <button class='btn btn-danger'> Delete </button>
                         </form>
                     ";
-                }
 
-                $nestedData['options'] .= "<a href='{$pencatatan}' title='RPS' class='btn btn-info' >Pencatatan</a>";
+                    if ( $max_pertemuan + 1 == $rencana->pertemuan ) {
+                        $nestedData['options'] .= "
+                            <form action='{$start_session}' method='POST' style='display:inline-block'>
+                                <input type='hidden' value='" . $request->session()->token() . "' name='_token' />
+                                <button class='btn btn-info'> Mulai Kelas </button>
+                            </form>
+                        ";
+                    }
+
+                } elseif ( empty($rencana->kuliah->waktu_selesai) ) {
+                    $nestedData['options'] .= "<a href='{$pencatatan}' title='RPS' class='btn btn-info' >Pencatatan</a>";
+                }
 
                 $data[] = $nestedData;
             }

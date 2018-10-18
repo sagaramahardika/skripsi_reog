@@ -1,7 +1,7 @@
 @extends("layouts.app")
 
 @section('title')
-    Tambah Rencana
+    Tambah Pertemuan
 @endsection
 
 @section('styles')
@@ -9,41 +9,21 @@
 @endsection
 
 @section('content')
-    <div class="container" id="create-rencana">
+    <div class="container" id="create-pertemuan">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Edit Rencana</div>
+                    <div class="panel-heading">Tambah Pertemuan {{ $submatkul->matkul->nama_matkul . " (" . $submatkul->grup . ")" }}</div>
 
                     <div class="panel-body">
-                        <div class="row">
-                            @php
-                                $thn_ajaran = intval(date('Y', $rencana->submatkul->periode->thn_ajaran));
-                                $thn_ajaran = $thn_ajaran . "/" . ($thn_ajaran+1);
-                            @endphp
-
-                            <div class="col-md-8">{{ $rencana->submatkul->matkul->kd_matkul . "-" . $rencana->submatkul->matkul->nama_matkul }}</div>
-                            <div class="col-md-4 text-right">{{ "Periode : " . $thn_ajaran . " " . ucfirst($rencana->submatkul->periode->semester) }}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-8">{{ $rencana->submatkul->matkul->sks . " SKS" }}</div>
-                            <div class="col-md-4 text-right">Waktu Mulai : {{ date('d/m/Y H:i', $rencana->waktu_mulai ) }}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-8">{{ "Grup-" . $rencana->submatkul->grup }}</div>
-                            <div class="col-md-4 text-right">Waktu Selesai : {{ date('d/m/Y H:i', $rencana->waktu_selesai ) }}</div>
-                        </div>
-
-                        <form class="form-horizontal" action="{{ route('rencana.update', $rencana->id) }}" method="POST">
-                            <input type="hidden" name="_method" value="PATCH">
+                        <form class="form-horizontal" action="{{ route('admin_kelas.store_session') }}" method="POST">
                             <input type="hidden" value="{{ Session::token() }}" name="_token" />
+                            <input type="hidden" value="{{ $submatkul->id }}" name="id_sub_matkul" />
 
                             <div class="form-group">
                                 <label for="pertemuan" class="col-md-4 control-label">Pertemuan</label>
                                 <div class='col-md-2'>
-                                    <input type='number' class="form-control" name="pertemuan" value="{{ $rencana->pertemuan }}" disabled/>
+                                    <input type='number' class="form-control" name="pertemuan" />
 
                                     @if ($errors->has('pertemuan'))
                                         <span class="help-block">
@@ -54,22 +34,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="pembelajaran" class="col-md-4 control-label">RPP</label>
-                                <div class='col-md-6'>
-                                    <textarea name="pembelajaran">{{ $rencana->pembelajaran }}</textarea>
-
-                                    @if ($errors->has('pembelajaran'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('pembelajaran') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group">
                                 <label for="waktu_mulai" class="col-md-4 control-label">Waktu Mulai</label>
                                 <div class='input-group date col-md-3' id='timepicker_waktu_mulai'>
-                                    <input type='text' class="form-control" name="waktu_mulai" value="{{ date('m/d/Y g:i A', $rencana->waktu_mulai ) }}"/>
+                                    <input type='text' class="form-control" name="waktu_mulai" />
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -85,7 +52,7 @@
                             <div class="form-group">
                                 <label for="waktu_selesai" class="col-md-4 control-label">Waktu Selsai</label>
                                 <div class='input-group date col-md-3' id='timepicker_waktu_selesai'>
-                                    <input type='text' class="form-control" name="waktu_selesai" value="{{ date('m/d/Y g:i A', $rencana->waktu_selesai ) }}"/>
+                                    <input type='text' class="form-control" name="waktu_selesai" />
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -100,7 +67,7 @@
 
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">Submit</button>
-                                <a href="{{ route('rencana.rps', $rencana->id_sub_matkul) }}" class="btn btn-warning">Cancel</a>
+                                <a href="{{ route('rencana.rps', $submatkul->id) }}" class="btn btn-warning">Cancel</a>
                             </div>
                         </form>
                     </div>
@@ -111,7 +78,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/dosen.js') }}"></script>
+    <script src="{{ asset('js/admin.js') }}"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
 @endsection

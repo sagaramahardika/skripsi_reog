@@ -52,6 +52,45 @@ $(document).ready(function () {
         });
     }
 
+    if ( $('#kelas-index').length > 0 ) {
+        kelasDataTable = $('#kelas').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                "url": config.routes.admin.kelas,
+                "dataType": "json",
+                "type": "POST",
+                "data": function (data) {
+                    data.kd_prodi = $('#kd_prodi').val(),
+                    data._token =  config.token
+                }
+            },
+            rowsGroup: [0,1,2,4],
+            columns: [
+                { "data": "kd_matkul" },
+                { "data": "nama_matkul" },
+                { "data": "grup" },
+                { "data": "dosen" },
+                { "data": "options" },
+            ]
+        });
+
+        $('#kd_prodi').on('change', function() {
+
+            kelasDataTable.ajax.reload();
+            if ( !$('#kelas-data').is(':hidden') ) {
+                $('#kelas-data').css('visibility', 'visible');
+            }
+
+            return false;
+        });
+    }
+
+    if ( $('#create-pertemuan').length > 0 ) {
+        $('#timepicker_waktu_mulai').datetimepicker();
+        $('#timepicker_waktu_selesai').datetimepicker();
+    }
+
     if ( $('#mahasiswa-index').length > 0 ) {
         mahasiswaDataTable = $('#mahasiswa').DataTable({
             processing: true,

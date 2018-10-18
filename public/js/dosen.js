@@ -38,6 +38,7 @@ $(document).ready(function () {
                     id_sub_matkul: id_sub_matkul
                 }
             },
+            order: [[ 4, "asc" ]],
             columns: [
                 { "data": "pertemuan" },
                 { "data": "pembelajaran" },

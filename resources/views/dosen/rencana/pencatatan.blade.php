@@ -75,6 +75,14 @@
                                 </div>
                             </div>
 
+                            @if ( Session::has('error') )
+                                <div class="form-group">
+                                    <div class="col-md-6 col-md-offset-4 alert alert-danger">
+                                        <p> {{ Session::get('error') }} </p>
+                                    </div>
+                                </div>
+                            @endif
+
                             <div class="form-group">
                                 <label for="nim" class="col-md-4 control-label">NIM Mahasiswa</label>
                                 <div class='col-md-6'>
@@ -92,12 +100,6 @@
                                 <label for="password" class="col-md-4 control-label">Password</label>
                                 <div class='col-md-6'>
                                     <input type='password' class="form-control" name="password" />
-
-                                    @if ($errors->has('password'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('password') }}</strong>
-                                        </span>
-                                    @endif
                                 </div>
                             </div>
 

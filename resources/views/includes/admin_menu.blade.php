@@ -49,6 +49,10 @@
                 <li><a href="{{ route('mahasiswa.create') }}"> Add </a></li>
             </ul>
         </li>
+
+        <li class="dropdown">
+            <a href="{{ route('admin_kelas.index') }}"> Kelas </a>
+        </li>
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
