@@ -402,20 +402,20 @@ class SubMatkulController extends Controller
                 $waktu_mulai_kuliah = $rencana->kuliah->waktu_mulai;
                 $waktu_selesai_kuliah = $rencana->kuliah->waktu_selesai;
 
-                if ( $waktu_mulai_kuliah - $waktu_mulai_rencana <= 300 && $waktu_mulai_kuliah - $waktu_mulai_rencana >= -1200 ) {
-                    $keterangan_mulai = 'Normal';
-                } elseif ( $waktu_mulai_kuliah - $waktu_mulai_rencana <= 9000 && $waktu_mulai_kuliah - $waktu_mulai_rencana > 300 ) {
-                    $keterangan_mulai = 'Terlambat';
+                if ( $waktu_mulai_kuliah - $waktu_mulai_rencana <= 900 && $waktu_mulai_kuliah - $waktu_mulai_rencana >= -1200 ) {
+                    $keterangan_mulai = 'Normal'; //<-- diantara +15 menit sampai -20 menit dari waktu mulai rencana
+                } elseif ( $waktu_mulai_kuliah - $waktu_mulai_rencana <= 9000 && $waktu_mulai_kuliah - $waktu_mulai_rencana > 900 ) {
+                    $keterangan_mulai = 'Terlambat'; //<--  +15 menit sampai +150 menit dari waktu rencana
                 } else {
-                    $keterangan_mulai = 'Kuliah Pengganti';
+                    $keterangan_mulai = 'Kuliah Pengganti'; //<-- selain aturan diatas 
                 }
 
-                if ( $waktu_selesai_kuliah - $waktu_selesai_rencana <= 600 && $waktu_selesai_kuliah - $waktu_selesai_rencana >= -600 ) {
-                    $keterangan_akhir = 'Normal';
+                if ( $waktu_selesai_kuliah - $waktu_selesai_rencana <= 600 && $waktu_selesai_kuliah - $waktu_selesai_rencana >= -900 ) {
+                    $keterangan_akhir = 'Normal'; //<--diantara +10 menit sampai -15 menit dari waktu selesai rencana
                 } elseif ( $waktu_selesai_kuliah - $waktu_selesai_rencana > 600 ) {
-                    $keterangan_akhir = 'Kuliah Lama';
+                    $keterangan_akhir = 'Kuliah Lama'; //<-- +15 menit dari waktu selesai rencana
                 } else {
-                    $keterangan_akhir = 'Kuliah Cepet';
+                    $keterangan_akhir = 'Kuliah Cepet'; //<-- selain aturan diatas 
                 }
 
                 $nestedData['pertemuan'] = $rencana->pertemuan;

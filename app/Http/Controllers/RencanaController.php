@@ -189,7 +189,7 @@ class RencanaController extends Controller
         $rencana->delete();
 
         $request->session()->flash(
-            'success', "Rencana {$rencana->id} successfully deleted!"
+            'success', "Rencana pertemuan {$rencana->pertemuan} has been deleted!"
         );
         return redirect()->route( 'rencana.index' );
     }
@@ -330,6 +330,7 @@ class RencanaController extends Controller
         if(!empty($submatkuls)) {
             foreach ($submatkuls as $submatkul) {
                 $rps = route( 'rencana.rps', $submatkul->id );
+                $laporan =  route( 'submatkul.laporan', $submatkul->id );
 
                 $nestedData['kd_matkul'] = $submatkul->kd_matkul;
                 $nestedData['nama_matkul'] = $submatkul->matkul->nama_matkul;
@@ -339,6 +340,12 @@ class RencanaController extends Controller
                 $nestedData['options'] = "
                     <a href='{$rps}' title='RPS' class='btn btn-info' >RPS</a>
                 ";
+
+                if ( $dosen->jabatan == "dosen" ) {
+                    $nestedData['options'] .= "
+                        <a href='{$laporan}' title='Laporan' class='btn btn-info' >Laporan</a>
+                    ";  
+                }
 
                 $data[] = $nestedData;
             }
