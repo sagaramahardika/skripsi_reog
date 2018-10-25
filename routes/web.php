@@ -44,6 +44,40 @@ Route::group( ['prefix' => 'admin'], function() {
         'as'    => 'admin.dashboard',
     ]);
 
+    Route::group( ['prefix' => 'acara'], function() {
+        Route::get('/', [
+            'uses'  => 'AcaraController@index',
+            'as'    => 'acara.index',
+        ]);
+        Route::get('/add', [
+            'uses'  => 'AcaraController@create',
+            'as'    => 'acara.create',
+        ]);
+        Route::get('/edit/{id}', [
+            'uses'  => 'AcaraController@edit',
+            'as'    => 'acara.edit',
+        ]);
+        
+        Route::post('/', [
+            'uses'  => 'AcaraController@all',
+            'as'    => 'acara.all',
+        ]);
+        Route::post('/store', [
+            'uses'  => 'AcaraController@store',
+            'as'    => 'acara.store',
+        ]);
+
+        Route::patch('/update/{id}', [
+            'uses'  => 'AcaraController@update',
+            'as'    => 'acara.update',
+        ]);
+
+        Route::delete('/delete/{id}', [
+            'uses'  => 'AcaraController@delete',
+            'as'    => 'acara.delete',
+        ]);
+    });
+
     Route::group( ['prefix' => 'dosen'], function() {
         Route::get('/', [
             'uses'  => 'AdminDosenController@index',

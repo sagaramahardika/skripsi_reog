@@ -28,6 +28,7 @@
             var config = {
                 routes: {
                     admin: {
+                        acara : "{{ route('acara.all') }}",
                         dosen : "{{ route('admin_dosen.all') }}",
                         fakultas : "{{ route('fakultas.all') }}",
                         kelas : "{{ route('admin_kelas.all') }}",
