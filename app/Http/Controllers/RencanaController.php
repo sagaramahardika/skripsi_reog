@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Acara;
 use App\Mengajar;
 use App\Mahasiswa;
 use App\Periode;
@@ -234,10 +236,20 @@ class RencanaController extends Controller
                 $pencatatan = route( 'rencana.pencatatan', $rencana->id );
                 $start_session = route( 'rencana.start_session', $rencana->id );
 
+                $libur = DB::table('acara')->whereRaw( $rencana->waktu_mulai . " >= waktu_mulai ")
+                ->whereRaw( $rencana->waktu_mulai . " <= waktu_selesai ")
+                ->first();
+                if ( empty($libur) ) {
+                    $keterangan = "";
+                } else {
+                    $keterangan = "Kelas diliburkan karena $libur->nama_acara";
+                }
+
                 $nestedData['pertemuan'] = $rencana->pertemuan;
                 $nestedData['pembelajaran'] = $rencana->pembelajaran;
                 $nestedData['waktu_mulai'] = date('d/m/Y H:i', $rencana->waktu_mulai );
                 $nestedData['waktu_selesai'] = date('d/m/Y H:i', $rencana->waktu_selesai );
+                $nestedData['keterangan'] = $keterangan;
                 $nestedData['options'] = "";
 
                 if ( is_null($rencana->kuliah) ) {

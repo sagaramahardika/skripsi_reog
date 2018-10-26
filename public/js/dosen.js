@@ -44,6 +44,7 @@ $(document).ready(function () {
                 { "data": "pembelajaran" },
                 { "data": "waktu_mulai" },
                 { "data": "waktu_selesai" },
+                { "data": "keterangan" },
                 { "data": "options" },
             ],
             paging: false,

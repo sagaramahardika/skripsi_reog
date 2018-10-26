@@ -37,12 +37,12 @@ class AdminKelasController extends Controller
     public function store_session( Request $request ) {
         $this->validate($request, [
             'id_sub_matkul' => 'required',
-            'pertemuan'     => 'required',
+            //'pertemuan'     => 'required',
             'waktu_mulai'   => 'required',
             'waktu_selesai' => 'required',
         ]);
 
-        $total_pertemuan = $request->input('pertemuan');
+        //$total_pertemuan = $request->input('pertemuan');
         $id_sub_matkul = $request->input('id_sub_matkul');
         $waktu_mulai = strtotime( $request->input('waktu_mulai') );
         $waktu_selesai = strtotime( $request->input('waktu_selesai') );
@@ -52,17 +52,22 @@ class AdminKelasController extends Controller
             $max_pertemuan = 0;
         }
 
-        for( $i = 1; $i <= $total_pertemuan; $i++ ) {
+        for( $i = 1; $i <= 14; $i++ ) {
             $rencana = new Rencana();
             $rencana->id_sub_matkul = $id_sub_matkul;
             $rencana->pertemuan = $max_pertemuan + $i;
-            $rencana->waktu_mulai = $waktu_mulai + $i * 604800;
-            $rencana->waktu_selesai = $waktu_selesai + $i * 604800;
+            if ( $i > 7 ) {
+                $rencana->waktu_mulai = $waktu_mulai + ( $i + 2 ) * 604800;
+                $rencana->waktu_selesai = $waktu_selesai + ( $i + 2 ) * 604800;
+            } else {
+                $rencana->waktu_mulai = $waktu_mulai + $i * 604800;
+                $rencana->waktu_selesai = $waktu_selesai + $i * 604800;
+            }
             $rencana->save();
         }
 
         $request->session()->flash(
-            'success', "$total_pertemuan Rencana successfully added!"
+            'success', "Rencana successfully added!"
         );
         return redirect()->route( 'admin_kelas.index' );
     }

@@ -20,6 +20,7 @@
                             <input type="hidden" value="{{ Session::token() }}" name="_token" />
                             <input type="hidden" value="{{ $submatkul->id }}" name="id_sub_matkul" />
 
+                            <!--
                             <div class="form-group">
                                 <label for="pertemuan" class="col-md-4 control-label">Pertemuan</label>
                                 <div class='col-md-2'>
@@ -32,6 +33,7 @@
                                     @endif
                                 </div>
                             </div>
+                            -->
 
                             <div class="form-group">
                                 <label for="waktu_mulai" class="col-md-4 control-label">Waktu Mulai</label>

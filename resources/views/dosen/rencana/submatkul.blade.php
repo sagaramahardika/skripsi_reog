@@ -47,6 +47,7 @@
                                 <th>Rencana Pembelajaran Semester</th>
                                 <th>Waktu Mulai</th>
                                 <th>Waktu Selesai</th>
+                                <th>Keterangan</th>
                                 <th>Options</th>
                             </thead>
                         </table>
