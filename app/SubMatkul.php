@@ -29,6 +29,14 @@ class SubMatkul extends Model
         return $this->hasMany( 'App\Mengajar', 'id_sub_matkul', 'id');
     }
 
+    /**
+     * Fungsi untuk mendapatkan banyak rencana berdasarkan 
+     * id_sub_matkul dari Submatkul
+     */
+    public function rencana() {
+        return $this->hasMany( 'App\Rencana', 'id_sub_matkul', 'id');
+    }
+
     public function periode() {
         return $this->belongsTo( 'App\Periode', 'id_periode', 'id');
     }

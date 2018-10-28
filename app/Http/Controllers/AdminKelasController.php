@@ -125,31 +125,30 @@ class AdminKelasController extends Controller
         $data = array();
         if(!empty($submatkuls)) {
             foreach ($submatkuls as $submatkul) {
-
                 $add_session = route( 'admin_kelas.create_session', $submatkul->id );
 
-                if ( !$submatkul->pengajar->isEmpty() ) {
+                if ( !$submatkul->rencana->isEmpty() ) {
+                    $options = "";
+                } else {
+                    $options = "<a href='{$add_session}' title='Create Pertemuan' class='btn btn-info' > Create Pertemuan </a>";
+                }
 
+                if ( !$submatkul->pengajar->isEmpty() ) {
                     foreach( $submatkul->pengajar as $pengajar ) {
                         $nestedData['kd_matkul'] = $submatkul->kd_matkul;
                         $nestedData['nama_matkul'] = $submatkul->matkul->nama_matkul;
                         $nestedData['grup'] = $submatkul->grup;
                         $nestedData['dosen'] = $pengajar->dosen->nama;
-                        $nestedData['options'] = "
-                            <a href='{$add_session}' title='Tambah Sesi' class='btn btn-info' > Tambah Sesi </a>  
-                        ";
+                        $nestedData['options'] = $options;
 
                         $data[] = $nestedData;    
                     }
-
                 } else {
                     $nestedData['kd_matkul'] = $submatkul->kd_matkul;
                     $nestedData['nama_matkul'] = $submatkul->matkul->nama_matkul;
                     $nestedData['grup'] = $submatkul->grup;
                     $nestedData['dosen'] = '-';
-                    $nestedData['options'] = "
-                        <a href='{$add_session}' title='Tambah Sesi' class='btn btn-info' > Tambah Sesi </a>
-                    ";
+                    $nestedData['options'] = $options;
 
                     $data[] = $nestedData;
                 }
