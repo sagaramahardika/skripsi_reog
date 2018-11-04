@@ -14,6 +14,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">Pengajar</div>
+                    <input type="hidden" value="{{ $submatkul->id }}" id="id_sub_matkul" />
                     
                     <div class="panel-body">
                         @if( Session::has('error') )
@@ -26,31 +27,33 @@
                             </div>
                         @endif
 
-                        <form class="form-horizontal" action="{{ route('submatkul.dosen_store') }}" method="POST">
-                            <input type="hidden" value="{{ Session::token() }}" name="_token" />
-                            <input type="hidden" value="{{ $submatkul->id }}" name="id_sub_matkul" id="id_sub_matkul" />
+                        @if ( !$allDosen->isEmpty() )
+                            <form class="form-horizontal" action="{{ route('submatkul.dosen_store') }}" method="POST">
+                                <input type="hidden" value="{{ Session::token() }}" name="_token" />
+                                <input type="hidden" value="{{ $submatkul->id }}" name="id_sub_matkul" />
 
-                            <div class="form-group">
-                                <label for="name" class="col-md-4 control-label">Dosen</label>
-                                <div class="col-md-6">
-                                    <select class="form-control" id="nik" name="nik" placeholder="Enter Dosen">
-                                        @foreach ( $allDosen as $dosen )
-                                            <option value="{{ $dosen->nik }}"> {{ $dosen->nama }} </option>
-                                        @endforeach
-                                    </select>
+                                <div class="form-group">
+                                    <label for="name" class="col-md-4 control-label">Dosen</label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" id="nik" name="nik" placeholder="Enter Dosen">
+                                            @foreach ( $allDosen as $dosen )
+                                                <option value="{{ $dosen->nik }}"> {{ $dosen->nama }} </option>
+                                            @endforeach
+                                        </select>
 
-                                    @if ($errors->has('nik'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('nik') }}</strong>
-                                        </span>
-                                    @endif
+                                        @if ($errors->has('nik'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('nik') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </form>
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        @endif
 
                         <table id="mengajar" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>

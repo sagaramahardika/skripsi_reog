@@ -24,7 +24,15 @@ class SubMatkulController extends Controller
 
     public function dosen($id) {
         $kaprodi = Auth::guard('dosen')->user();
-        $allDosen = Dosen::where('kd_prodi', $kaprodi->kd_prodi)->get();
+        $allDosenProdi = Dosen::whereHas('mengajar', function ($query) use ($id) {
+            $query->where('id_sub_matkul', '<>', $id);
+        })->where('kd_prodi', $kaprodi->kd_prodi)->get();
+
+        $allDosenSubmatkul = Dosen::whereHas('mengajar', function ($query) use ($id) {
+            $query->where('id_sub_matkul', '=', $id);
+        })->get();
+
+        $allDosen = $allDosenProdi->diff($allDosenSubmatkul);
 
         try {
             $submatkul = SubMatkul::findOrFail($id);

@@ -32,4 +32,8 @@ class Dosen extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function mengajar() {
+        return $this->hasMany( 'App\Mengajar', 'nik', 'nik' );
+    }
 }

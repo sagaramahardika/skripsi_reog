@@ -69,7 +69,7 @@
                             <div class="form-group">
                                 <label for="waktu_mulai" class="col-md-4 control-label">Waktu Mulai</label>
                                 <div class='input-group date col-md-3' id='timepicker_waktu_mulai'>
-                                    <input type='text' class="form-control" name="waktu_mulai" value="{{ date('m/d/Y g:i A', $rencana->waktu_mulai ) }}"/>
+                                    <input type='text' class="form-control" name="waktu_mulai" value="{{ date('m/d/Y g:i A', $rencana->waktu_mulai ) }}" disabled/>
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -85,7 +85,7 @@
                             <div class="form-group">
                                 <label for="waktu_selesai" class="col-md-4 control-label">Waktu Selsai</label>
                                 <div class='input-group date col-md-3' id='timepicker_waktu_selesai'>
-                                    <input type='text' class="form-control" name="waktu_selesai" value="{{ date('m/d/Y g:i A', $rencana->waktu_selesai ) }}"/>
+                                    <input type='text' class="form-control" name="waktu_selesai" value="{{ date('m/d/Y g:i A', $rencana->waktu_selesai ) }}" disabled/>
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>

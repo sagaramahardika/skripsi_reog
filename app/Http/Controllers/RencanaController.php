@@ -353,11 +353,9 @@ class RencanaController extends Controller
                     <a href='{$rps}' title='RPS' class='btn btn-info' >RPS</a>
                 ";
 
-                if ( $dosen->jabatan == "dosen" ) {
-                    $nestedData['options'] .= "
-                        <a href='{$laporan}' title='Laporan' class='btn btn-info' >Laporan</a>
-                    ";  
-                }
+                $nestedData['options'] .= "
+                    <a href='{$laporan}' title='Laporan' class='btn btn-info' >Laporan</a>
+                ";
 
                 $data[] = $nestedData;
             }
