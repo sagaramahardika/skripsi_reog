@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Dosen;
 use App\MataKuliah;
 use App\Mengajar;
@@ -411,19 +412,18 @@ class SubMatkulController extends Controller
                 $waktu_selesai_kuliah = $rencana->kuliah->waktu_selesai;
 
                 if ( $waktu_mulai_kuliah - $waktu_mulai_rencana <= 900 && $waktu_mulai_kuliah - $waktu_mulai_rencana >= -1200 ) {
-                    $keterangan_mulai = 'Normal'; //<-- diantara +15 menit sampai -20 menit dari waktu mulai rencana
-                } elseif ( $waktu_mulai_kuliah - $waktu_mulai_rencana <= 9000 && $waktu_mulai_kuliah - $waktu_mulai_rencana > 900 ) {
-                    $keterangan_mulai = 'Terlambat'; //<--  +15 menit sampai +150 menit dari waktu rencana
-                } else {
-                    $keterangan_mulai = 'Kuliah Pengganti'; //<-- selain aturan diatas 
+                    $keterangan = 'Normal'; //<-- diantara +15 menit sampai -20 menit dari waktu mulai rencana
+                }  else {
+                    $keterangan = 'Kuliah Pengganti'; //<-- selain aturan diatas 
                 }
 
-                if ( $waktu_selesai_kuliah - $waktu_selesai_rencana <= 600 && $waktu_selesai_kuliah - $waktu_selesai_rencana >= -900 ) {
-                    $keterangan_akhir = 'Normal'; //<--diantara +10 menit sampai -15 menit dari waktu selesai rencana
-                } elseif ( $waktu_selesai_kuliah - $waktu_selesai_rencana > 600 ) {
-                    $keterangan_akhir = 'Kuliah Lama'; //<-- +15 menit dari waktu selesai rencana
+                $libur = DB::table('acara')->whereRaw( $rencana->waktu_mulai . " >= waktu_mulai ")
+                ->whereRaw( $rencana->waktu_mulai . " <= waktu_selesai ")
+                ->first();
+                if ( empty($libur) || $rencana->kuliah ) {
+                    $acara = "";
                 } else {
-                    $keterangan_akhir = 'Kuliah Cepet'; //<-- selain aturan diatas 
+                    $acara = " $libur->nama_acara";
                 }
 
                 $nestedData['pertemuan'] = $rencana->pertemuan;
@@ -434,7 +434,8 @@ class SubMatkulController extends Controller
                 $nestedData['waktu_selesai_kuliah'] = date('d/m/Y H:i', $rencana->kuliah->waktu_selesai);
                 $nestedData['catatan'] = $rencana->kuliah->catatan;
                 $nestedData['nim'] = $rencana->kuliah->nim;
-                $nestedData['keterangan'] = $keterangan_mulai . ", " . $keterangan_akhir;
+                $nestedData['keterangan'] = $keterangan;
+                $nestedData['acara'] = $acara;
 
                 $data[] = $nestedData;
             }

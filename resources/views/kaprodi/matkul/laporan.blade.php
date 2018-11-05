@@ -66,6 +66,7 @@
                                 <th>Catatan</th>
                                 <th>Validasi</th>
                                 <th>Keterangan</th>
+                                <th>Acara</th>
                             </thead>
                         </table>
                     </div>

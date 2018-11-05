@@ -73,7 +73,8 @@ $(document).ready(function () {
                 { "data": "waktu_selesai_kuliah" },
                 { "data": "catatan" },
                 { "data": "nim" },
-                { "data": "keterangan" }
+                { "data": "keterangan" },
+                { "data": "acara" }
             ],
             paging: false,
             searching: false,
