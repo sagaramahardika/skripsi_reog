@@ -420,7 +420,7 @@ class SubMatkulController extends Controller
                 $libur = DB::table('acara')->whereRaw( $rencana->waktu_mulai . " >= waktu_mulai ")
                 ->whereRaw( $rencana->waktu_mulai . " <= waktu_selesai ")
                 ->first();
-                if ( empty($libur) || $rencana->kuliah ) {
+                if ( empty($libur) ) {
                     $acara = "";
                 } else {
                     $acara = " $libur->nama_acara";

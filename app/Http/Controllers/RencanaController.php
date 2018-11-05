@@ -239,7 +239,7 @@ class RencanaController extends Controller
                 $libur = DB::table('acara')->whereRaw( $rencana->waktu_mulai . " >= waktu_mulai ")
                 ->whereRaw( $rencana->waktu_mulai . " <= waktu_selesai ")
                 ->first();
-                if ( empty($libur) || $rencana->kuliah ) {
+                if ( empty($libur) ) {
                     $keterangan = "";
                 } else {
                     $keterangan = "Kelas diliburkan karena $libur->nama_acara";
