@@ -14,7 +14,7 @@ class CreateDosenTable extends Migration
     public function up()
     {
         Schema::create('dosen', function (Blueprint $table) {
-            $table->increments('nik');
+            $table->string('nik', 7);
             $table->integer('kd_prodi');
             $table->string('nama');
             $table->string('email');
@@ -23,6 +23,7 @@ class CreateDosenTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->primary('nik');
         });
     }
 

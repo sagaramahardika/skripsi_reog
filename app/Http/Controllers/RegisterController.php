@@ -27,7 +27,7 @@ class RegisterController extends Controller
     {
         $this->validate($request, [
             'kd_prodi'  => 'required',
-            'nik'       => 'required|digits:10|unique:dosen',
+            'nik'       => 'required|string|size:7|unique:dosen',
             'nama'      => 'required|string',
             'email'     => 'required|string|email',
             'no_tlpn'   => 'required',
