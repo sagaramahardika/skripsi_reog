@@ -25,9 +25,7 @@ class SubMatkulController extends Controller
 
     public function dosen($id) {
         $kaprodi = Auth::guard('dosen')->user();
-        $allDosenProdi = Dosen::whereHas('mengajar', function ($query) use ($id) {
-            $query->where('id_sub_matkul', '<>', $id);
-        })->where('kd_prodi', $kaprodi->kd_prodi)->get();
+        $allDosenProdi = Dosen::where('kd_prodi', $kaprodi->kd_prodi)->get();
 
         $allDosenSubmatkul = Dosen::whereHas('mengajar', function ($query) use ($id) {
             $query->where('id_sub_matkul', '=', $id);
@@ -43,7 +41,8 @@ class SubMatkulController extends Controller
         }
 
         return view( 'kaprodi.matkul.dosen', [
-            'allDosen'  => $allDosen
+            'allDosen'      => $allDosen,
+            'submitDosen'   => ( $allDosenSubmatkul->isEmpty() ) ? true : false
         ])->with( 'submatkul', $submatkul );
     }
 

@@ -27,7 +27,7 @@
                             </div>
                         @endif
 
-                        @if ( !$allDosen->isEmpty() )
+                        @if ( !$allDosen->isEmpty() || $submitDosen )
                             <form class="form-horizontal" action="{{ route('submatkul.dosen_store') }}" method="POST">
                                 <input type="hidden" value="{{ Session::token() }}" name="_token" />
                                 <input type="hidden" value="{{ $submatkul->id }}" name="id_sub_matkul" />
