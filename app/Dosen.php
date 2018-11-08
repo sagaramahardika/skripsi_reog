@@ -11,6 +11,7 @@ class Dosen extends Authenticatable
      *
      * @var string
      */
+    public $incrementing = false;
     protected $table = 'dosen';
     protected $guard = 'dosen';
     protected $primaryKey = 'nik';
