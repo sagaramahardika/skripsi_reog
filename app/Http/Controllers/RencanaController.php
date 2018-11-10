@@ -162,14 +162,7 @@ class RencanaController extends Controller
             return redirect()->route( 'mengajar.index' );
         }
 
-        $this->validate($request, [
-            'waktu_mulai'   => 'required',
-            'waktu_selesai' => 'required',
-        ]);
-
         $rencana->pembelajaran = $request->input('pembelajaran');
-        $rencana->waktu_mulai = strtotime( $request->input('waktu_mulai') );
-        $rencana->waktu_selesai = strtotime( $request->input('waktu_selesai') );
         $rencana->save();
 
         $request->session()->flash(
