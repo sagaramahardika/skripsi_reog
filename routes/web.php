@@ -10,6 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+route::get('/coba',[
+    'uses'  => 'cobasaja@mencoba',
+    'as'    => 'coba',
+]);
 
 // Login Routes
 Route::get('/', [ 
