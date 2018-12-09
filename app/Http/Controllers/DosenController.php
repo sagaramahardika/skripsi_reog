@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Dosen;
+use App\Mengajar;
 use App\Prodi;
 use Auth;
 
@@ -19,7 +20,28 @@ class DosenController extends Controller
     }
 
     public function index() {
-        return view('dosen.dashboard');
+        $user = Auth::user();
+        $forgottenClass = [];
+
+        $mengajars = Mengajar::where('nik', $user->nik)->get();
+        foreach($mengajars as $mengajar) {
+            $submatkul = $mengajar->submatkul;
+            if ( !empty($submatkul) ) {
+                $rencanas = $submatkul->rencana;
+                if ( !empty($rencanas) ) {
+                    foreach ( $rencanas as $rencana ) {
+                        $kuliah = $rencana->kuliah;
+                        if ( !empty($kuliah) && empty($kuliah->waktu_selesai) ) {
+                            $forgottenClass[] = $kuliah;
+                        }
+                    }
+                }
+            }
+        }
+
+        return view('dosen.dashboard', [
+            'forgottenClass'    => $forgottenClass
+        ]);
     }
 
     public function edit($nik) {
