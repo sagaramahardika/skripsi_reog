@@ -26,11 +26,17 @@ class KaprodiController extends Controller
             $submatkul = $mengajar->submatkul;
             if ( !empty($submatkul) ) {
                 $rencanas = $submatkul->rencana;
+                $matkul = $submatkul->matkul;
                 if ( !empty($rencanas) ) {
                     foreach ( $rencanas as $rencana ) {
                         $kuliah = $rencana->kuliah;
                         if ( !empty($kuliah) && empty($kuliah->waktu_selesai) ) {
-                            $forgottenClass[] = $kuliah;
+                            $forgottenClass[] = [
+                                'matkul'        => $matkul->nama_matkul,
+                                'grup'          => $submatkul->grup,
+                                'pertemuan'     => $rencana->pertemuan,
+                                'id_rencana'    => $rencana->id
+                            ];
                         }
                     }
                 }

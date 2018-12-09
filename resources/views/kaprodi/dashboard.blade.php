@@ -9,8 +9,9 @@
                 <div class="panel-body">
                     <p>You are logged in!</p>     
                     @if ( !empty($forgottenClass) )
+                        <p>List Kelas yang lupa ditutup : </p>
                         @foreach( $forgottenClass as $kelas )
-                            <p><a href="{{ route('rencana.pencatatan', $kelas->id_rencana) }}">Test</a></p>
+                            <p><a href="{{ route('rencana.pencatatan', $kelas['id_rencana']) }}">{{ $kelas['matkul'] . " " . $kelas['grup'] . " pertemuan " . $kelas['pertemuan'] }}</a></p>
                         @endforeach
                     @endif
                 </div>
