@@ -87,6 +87,10 @@ Route::group( ['prefix' => 'admin'], function() {
             'uses'  => 'AdminDosenController@index',
             'as'    => 'admin_dosen.index',
         ]);
+        Route::get('/add', [
+            'uses'  => 'AdminDosenController@create',
+            'as'    => 'admin_dosen.create',
+        ]);
         Route::get('/edit/{id}', [
             'uses'  => 'AdminDosenController@edit',
             'as'    => 'admin_dosen.edit',
@@ -95,6 +99,10 @@ Route::group( ['prefix' => 'admin'], function() {
         Route::post('/', [
             'uses'  => 'AdminDosenController@all',
             'as'    => 'admin_dosen.all',
+        ]);
+        Route::post('/store', [
+            'uses'  => 'AdminDosenController@store',
+            'as'    => 'admin_dosen.store',
         ]);
 
         Route::patch('/update/{id}', [
@@ -359,6 +367,10 @@ Route::group( ['prefix' => 'kaprodi'], function() {
             'uses'  => 'SubMatkulController@edit',
             'as'    => 'submatkul.edit',
         ]);
+        Route::get('/{id}/add-session', [
+            'uses'  => 'SubMatkulController@create_session',
+            'as'    => 'submatkul.create_session',
+        ]);
         Route::get('/{id}/dosen', [
             'uses'  => 'SubMatkulController@dosen',
             'as'    => 'submatkul.dosen',
@@ -383,6 +395,10 @@ Route::group( ['prefix' => 'kaprodi'], function() {
         Route::post('/store', [
             'uses'  => 'SubMatkulController@store',
             'as'    => 'submatkul.store',
+        ]);
+        Route::post('/store-session', [
+            'uses'  => 'SubMatkulController@store_session',
+            'as'    => 'submatkul.store_session',
         ]);
         Route::post('/dosen_store', [
             'uses'  => 'SubMatkulController@dosen_store',

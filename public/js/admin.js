@@ -112,11 +112,6 @@ $(document).ready(function () {
         });
     }
 
-    if ( $('#create-pertemuan').length > 0 ) {
-        $('#timepicker_waktu_mulai').datetimepicker();
-        $('#timepicker_waktu_selesai').datetimepicker();
-    }
-
     if ( $('#mahasiswa-index').length > 0 ) {
         mahasiswaDataTable = $('#mahasiswa').DataTable({
             processing: true,

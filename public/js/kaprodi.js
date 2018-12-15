@@ -18,12 +18,18 @@ $(document).ready(function () {
                 { "data": "nama_matkul" },
                 { "data": "grup" },
                 { "data": "dosen" },
+                { "data": "total_pertemuan" },
                 { "data": "options" },
             ],
             "language": {
                 "search": "Search Kode Matkul:"
             }
         });
+    }
+
+    if ( $('#create-pertemuan').length > 0 ) {
+        $('#timepicker_waktu_mulai').datetimepicker();
+        $('#timepicker_waktu_selesai').datetimepicker();
     }
 
     if ( $('table#mengajar').length > 0 ) {

@@ -21,6 +21,45 @@ class AdminDosenController extends Controller
         ]);
     }
 
+    public function create() {
+        $allProdi = Prodi::all();
+        $jabatan[] = array( "value" => 1, "label" => "kaprodi" );
+        $jabatan[] = array( "value" => 2, "label" => "dosen" );
+        //$jabatan[] = array( "value" => 3, "label" => "guest" );
+
+        return view('admin.dosen.create', [
+            'allProdi'  => $allProdi,
+            'jabatan'   => $jabatan
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'kd_prodi'  => 'required',
+            'nik'       => 'required|string|size:7|unique:dosen',
+            'nama'      => 'required|string',
+            'email'     => 'required|string|email',
+            'no_tlpn'   => 'required',
+            'password'  => 'required|string|confirmed', 
+        ]);
+
+        $dosen = new Dosen();
+        $dosen->kd_prodi = $request->input('kd_prodi');
+        $dosen->nik = $request->input('nik');
+        $dosen->nama = $request->input('nama');
+        $dosen->email = $request->input('email');
+        $dosen->no_tlpn = $request->input('no_tlpn');
+        $dosen->jabatan = $request->input('jabatan');
+        $dosen->password = bcrypt($request->input('password'));
+        $dosen->save();
+    
+        $request->session()->flash(
+            'success', "Dosen {$dosen->nama} successfully created!"
+        );
+        return redirect()->route( 'admin_dosen.index' );
+    }
+
     public function edit($nik) {
         try {
             $dosen = Dosen::findOrFail($nik);
@@ -38,7 +77,7 @@ class AdminDosenController extends Controller
         }
 
         $jabatan[] = array( "value" => 2, "label" => "dosen" );
-        $jabatan[] = array( "value" => 3, "label" => "guest" );
+        //$jabatan[] = array( "value" => 3, "label" => "guest" );
 
         return view( 'admin.dosen.edit', [
             'jabatan'   => $jabatan
@@ -80,7 +119,7 @@ class AdminDosenController extends Controller
         }
 
         $nama_dosen = $dosen->nama;
-        $fakultas->delete();
+        $dosen->delete();
 
         $request->session()->flash(
             'success', "Dosen {$nama_dosen} successfully deleted!"

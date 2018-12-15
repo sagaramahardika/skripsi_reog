@@ -32,6 +32,7 @@
                                 <th>Nama Matakuliah</th>
                                 <th>Grup</th>
                                 <th>Dosen</th>
+                                <th>Total Pertemuan</th>
                                 <th>Options</th>
                             </thead>
                         </table>

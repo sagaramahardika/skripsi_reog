@@ -49,7 +49,7 @@
                                 <div class="col-md-2">
                                     <select class="form-control" id="jabatan" name="jabatan" placeholder="Enter Jabatan">
                                         @for( $i = 0; $i < count($jabatan); $i++ )
-                                            <option value="{{ $jabatan[$i]['value'] }}" {{ $jabatan[$i]['label'] == $dosen->jabatan }}>
+                                            <option value="{{ $jabatan[$i]['value'] }}">
                                                 {{ ucfirst($jabatan[$i]['label']) }}
                                             </option>
                                         @endfor

@@ -71,6 +71,17 @@ class SubMatkulController extends Controller
         ]);
     }
 
+    public function create_session($id) {
+        try {
+            $submatkul = SubMatkul::findOrFail($id);
+        } catch ( Exception $e ) {
+            return redirect()->route( 'submatkul.index' )
+                ->with('error', "Failed to view Sub Matkul with ID {$id}");
+        }
+
+        return view( 'kaprodi.matkul.create_session' )->with( 'submatkul', $submatkul );
+    }
+
     public function edit($id) {
         $kaprodi = Auth::guard('dosen')->user();
 
@@ -105,6 +116,42 @@ class SubMatkulController extends Controller
 
         $request->session()->flash(
             'success', "Sub Mata Kuliah successfully added!"
+        );
+        return redirect()->route( 'submatkul.index' );
+    }
+
+    public function store_session( Request $request ) {
+        $this->validate($request, [
+            'id_sub_matkul' => 'required',
+            'waktu_mulai'   => 'required',
+            'waktu_selesai' => 'required',
+        ]);
+
+        $id_sub_matkul = $request->input('id_sub_matkul');
+        $waktu_mulai = strtotime( $request->input('waktu_mulai') );
+        $waktu_selesai = strtotime( $request->input('waktu_selesai') );
+
+        $max_pertemuan = Rencana::where('id_sub_matkul', $id_sub_matkul)->max('pertemuan');
+        if ( empty($max_pertemuan) ) {
+            $max_pertemuan = 0;
+        }
+
+        for( $i = 1; $i <= 14; $i++ ) {
+            $rencana = new Rencana();
+            $rencana->id_sub_matkul = $id_sub_matkul;
+            $rencana->pertemuan = $max_pertemuan + $i;
+            if ( $i > 7 ) {
+                $rencana->waktu_mulai = $waktu_mulai + ( $i + 2 ) * 604800;
+                $rencana->waktu_selesai = $waktu_selesai + ( $i + 2 ) * 604800;
+            } else {
+                $rencana->waktu_mulai = $waktu_mulai + $i * 604800;
+                $rencana->waktu_selesai = $waktu_selesai + $i * 604800;
+            }
+            $rencana->save();
+        }
+
+        $request->session()->flash(
+            'success', "Rencana successfully added!"
         );
         return redirect()->route( 'submatkul.index' );
     }
@@ -243,10 +290,23 @@ class SubMatkulController extends Controller
         if(!empty($submatkuls)) {
             foreach ($submatkuls as $submatkul) {
 
+                $add_session = route( 'submatkul.create_session', $submatkul->id );
                 $edit = route( 'submatkul.edit', $submatkul->id );
                 $delete =  route( 'submatkul.delete', $submatkul->id );
                 $manageDosen = route( 'submatkul.dosen', $submatkul->id );
                 $laporan =  route( 'submatkul.laporan', $submatkul->id );
+                $total_pertemuan = 0;
+
+                if ( !$submatkul->rencana->isEmpty() ) {
+                    $additional_options = "";
+                    foreach( $submatkul->rencana as $rencana ) {
+                        if ( !empty($rencana->kuliah->waktu_selesai) ) {
+                            $total_pertemuan++;
+                        }
+                    }
+                } else {
+                    $additional_options = "<a href='{$add_session}' title='Create Pertemuan' class='btn btn-info' > Create Pertemuan </a>";
+                }
 
                 if ( !$submatkul->pengajar->isEmpty() ) {
 
@@ -255,6 +315,7 @@ class SubMatkulController extends Controller
                         $nestedData['nama_matkul'] = $submatkul->matkul->nama_matkul;
                         $nestedData['grup'] = $submatkul->grup;
                         $nestedData['dosen'] = $pengajar->dosen->nama;
+                        $nestedData['total_pertemuan'] = $total_pertemuan;
                         $nestedData['options'] = "
                             <form action='{$delete}' method='POST' style='display:inline-block'>
                                 <input type='hidden' name='_method' value='DELETE'>
@@ -262,8 +323,9 @@ class SubMatkulController extends Controller
                                 <button class='btn btn-danger'>Delete</button>
                             </form>
                             <a href='{$manageDosen}' title='Manage Dosen' class='btn btn-info' >Manage Dosen</a>
-                            <a href='{$laporan}' title='Laporan' class='btn btn-info' >Laporan</a>  
+                            <a href='{$laporan}' title='Laporan' class='btn btn-info' >Laporan</a> 
                         ";
+                        $nestedData['options'] .= $additional_options;
 
                         $data[] = $nestedData;    
                     }
