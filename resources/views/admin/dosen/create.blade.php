@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="container">
+<div class="container" id="create-dosen">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -27,6 +27,7 @@
                             <label for="name" class="col-md-4 control-label">Prodi</label>
                             <div class="col-md-6">
                                 <select class="form-control" id="kd_prodi" name="kd_prodi" placeholder="Enter Prodi">
+                                    <option>-- PILIH PRODI --</option>
                                     @foreach ( $allProdi as $prodi )
                                         <option value="{{ $prodi->kd_prodi }}"> {{ $prodi->nama_prodi }} </option>
                                     @endforeach
