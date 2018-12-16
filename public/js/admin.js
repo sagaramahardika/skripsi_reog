@@ -26,6 +26,38 @@ $(document).ready(function () {
         $('#timepicker_waktu_selesai').datetimepicker();
     }
 
+    if ( $('#dosen-index').length > 0 ) {
+        dosenDataTable = $('#dosen').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                "url": config.routes.admin.dosen,
+                "dataType": "json",
+                "type": "POST",
+                "data": function (data) {
+                    data.kd_prodi = $('#kd_prodi').val(),
+                    data._token =  config.token
+                }
+            },
+            columns: [
+                { "data": "nik" },
+                { "data": "nama" },
+                { "data": "jabatan" },
+                { "data": "options" },
+            ]
+        });
+
+        $('#kd_prodi').on('change', function() {
+
+            dosenDataTable.ajax.reload();
+            if ( !$('#dosen-data').is(':hidden') ) {
+                $('#dosen-data').css('visibility', 'visible');
+            }
+
+            return false;
+        });
+    }
+
     if ( $('table#fakultas').length > 0 ) {
         $('#fakultas').DataTable({
             processing: true,
