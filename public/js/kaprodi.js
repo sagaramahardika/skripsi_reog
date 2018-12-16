@@ -12,7 +12,7 @@ $(document).ready(function () {
                     _token: config.token
                 }
             },
-            rowsGroup: [0,1,2,5],
+            rowsGroup: [0,1,2,4,5],
             columns: [
                 { "data": "kd_matkul" },
                 { "data": "nama_matkul" },
