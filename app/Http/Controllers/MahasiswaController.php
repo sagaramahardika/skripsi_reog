@@ -32,7 +32,7 @@ class MahasiswaController extends Controller
 
         $allProdi = Prodi::all();
 
-        return view( 'admin.mahasiswa.edit')->with( 'mahasiswa', $mahasiswa );
+        return view( 'kaprodi.mahasiswa.edit')->with( 'mahasiswa', $mahasiswa );
     }
 
     public function store( Request $request ) {
