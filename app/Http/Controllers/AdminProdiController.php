@@ -180,8 +180,8 @@ class AdminProdiController extends Controller
         $data = array();
         if(!empty($prodis)) {
             foreach ($prodis as $prodi) {
-                $edit = route( 'prodi.edit', $prodi->kd_prodi );
-                $delete =  route( 'prodi.delete', $prodi->kd_prodi );
+                $edit = route( 'admin_prodi.edit', $prodi->kd_prodi );
+                $delete =  route( 'admin_prodi.delete', $prodi->kd_prodi );
 
                 $nestedData['kd_prodi'] = $prodi->kd_prodi;
                 $nestedData['nama_fakultas'] = $prodi->fakultas->nama_fakultas;
