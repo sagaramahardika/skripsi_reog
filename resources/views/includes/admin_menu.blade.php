@@ -52,8 +52,8 @@
             </a>
 
             <ul class="dropdown-menu">
-                <li><a href="{{ route('mahasiswa.index') }}"> View </a></li>
-                <li><a href="{{ route('mahasiswa.create') }}"> Add </a></li>
+                <li><a href="{{ route('admin_mahasiswa.index') }}"> View </a></li>
+                <li><a href="{{ route('admin_mahasiswa.create') }}"> Add </a></li>
             </ul>
         </li>
 
