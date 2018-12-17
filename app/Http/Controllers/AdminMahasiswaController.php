@@ -77,16 +77,12 @@ class AdminMahasiswaController extends Controller
 
         $this->validate($request, [
             'kd_prodi'      => 'required',
-            'nim'           => 'required|digits:8|unique:mahasiswa',
             'nama'          => 'required|string',
-            'password'      => 'required|string|confirmed',
         ]);
 
         $current_mahasiswa_nama = $mahasiswa->nama;
         $mahasiswa->kd_prodi = $request->input('kd_prodi');
-        $mahasiswa->nim = $request->input('nim');
         $mahasiswa->nama = $request->input('nama');
-        $mahasiswa->password = bcrypt($request->input('password'));
         $mahasiswa->save();
 
         $request->session()->flash(
