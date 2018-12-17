@@ -149,4 +149,24 @@ $(document).ready(function () {
         });
     }
 
+    if ( $('table#fakultas').length > 0 ) {
+        $('#fakultas').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                "url": config.routes.kaprodi.fakultas,
+                "dataType": "json",
+                "type": "POST",
+                "data": {
+                    _token: config.token
+                }
+            },
+            columns: [
+                { "data": "kd_fakultas" },
+                { "data": "nama_fakultas" },
+                { "data": "options" },
+            ]
+        });
+    }
+
 });

@@ -8,18 +8,18 @@ use App\Fakultas;
 Use Exception;
 use Validator;
 
-class FakultasController extends Controller
+class AdminFakultasController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth:dosen');
+        $this->middleware('auth:admin');
     }
 
     public function index() {
-        return view( 'kaprodi.fakultas.index' );
+        return view( 'admin.fakultas.index' );
     }
 
     public function create() {
-        return view( 'kaprodi.fakultas.create' );
+        return view( 'admin.fakultas.create' );
     }
 
     public function edit($kd_fakultas) {
@@ -30,7 +30,7 @@ class FakultasController extends Controller
                 ->with('error', "Failed to view Fakultas with kode fakultas {$kd_fakultas}");
         }
 
-        return view( 'kaprodi.fakultas.edit' )
+        return view( 'admin.fakultas.edit' )
             ->with( 'fakultas', $fakultas );
     }
 
@@ -145,8 +145,8 @@ class FakultasController extends Controller
         $data = array();
         if(!empty($fakultass)) {
             foreach ($fakultass as $fakultas) {
-                $edit = route( 'fakultas.edit', $fakultas->kd_fakultas );
-                $delete =  route( 'fakultas.delete', $fakultas->kd_fakultas );
+                $edit = route( 'admin_fakultas.edit', $fakultas->kd_fakultas );
+                $delete =  route( 'admin_fakultas.delete', $fakultas->kd_fakultas );
 
                 $nestedData['kd_fakultas'] = $fakultas->kd_fakultas;
                 $nestedData['nama_fakultas'] = $fakultas->nama_fakultas;

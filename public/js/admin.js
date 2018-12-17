@@ -80,8 +80,8 @@ $(document).ready(function () {
         });
     }
 
-    if ( $('table#fakultas').length > 0 ) {
-        $('#fakultas').DataTable({
+    if ( $('table#admin-fakultas').length > 0 ) {
+        $('#admin-fakultas').DataTable({
             processing: true,
             serverSide: true,
             ajax: {

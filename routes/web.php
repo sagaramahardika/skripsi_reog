@@ -122,35 +122,35 @@ Route::group( ['prefix' => 'admin'], function() {
 
     Route::group( ['prefix' => 'fakultas'], function() {
         Route::get('/', [
-            'uses'  => 'FakultasController@index',
-            'as'    => 'fakultas.index',
+            'uses'  => 'AdminFakultasController@index',
+            'as'    => 'admin_fakultas.index',
         ]);
         Route::get('/add', [
-            'uses'  => 'FakultasController@create',
-            'as'    => 'fakultas.create',
+            'uses'  => 'AdminFakultasController@create',
+            'as'    => 'admin_fakultas.create',
         ]);
         Route::get('/edit/{id}', [
-            'uses'  => 'FakultasController@edit',
-            'as'    => 'fakultas.edit',
+            'uses'  => 'AdminFakultasController@edit',
+            'as'    => 'admin_fakultas.edit',
         ]);
         
         Route::post('/', [
-            'uses'  => 'FakultasController@all',
-            'as'    => 'fakultas.all',
+            'uses'  => 'AdminFakultasController@all',
+            'as'    => 'admin_fakultas.all',
         ]);
         Route::post('/store', [
-            'uses'  => 'FakultasController@store',
-            'as'    => 'fakultas.store',
+            'uses'  => 'AdminFakultasController@store',
+            'as'    => 'admin_fakultas.store',
         ]);
 
         Route::patch('/update/{id}', [
-            'uses'  => 'FakultasController@update',
-            'as'    => 'fakultas.update',
+            'uses'  => 'AdminFakultasController@update',
+            'as'    => 'admin_fakultas.update',
         ]);
 
         Route::delete('/delete/{id}', [
-            'uses'  => 'FakultasController@delete',
-            'as'    => 'fakultas.delete',
+            'uses'  => 'AdminFakultasController@delete',
+            'as'    => 'admin_fakultas.delete',
         ]);
     });
 
@@ -357,6 +357,40 @@ Route::group( ['prefix' => 'kaprodi'], function() {
         'uses'  => 'KaprodiController@index',
         'as'    => 'kaprodi.dashboard',
     ]);
+
+    Route::group( ['prefix' => 'fakultas'], function() {
+        Route::get('/', [
+            'uses'  => 'FakultasController@index',
+            'as'    => 'fakultas.index',
+        ]);
+        Route::get('/add', [
+            'uses'  => 'FakultasController@create',
+            'as'    => 'fakultas.create',
+        ]);
+        Route::get('/edit/{id}', [
+            'uses'  => 'FakultasController@edit',
+            'as'    => 'fakultas.edit',
+        ]);
+        
+        Route::post('/', [
+            'uses'  => 'FakultasController@all',
+            'as'    => 'fakultas.all',
+        ]);
+        Route::post('/store', [
+            'uses'  => 'FakultasController@store',
+            'as'    => 'fakultas.store',
+        ]);
+
+        Route::patch('/update/{id}', [
+            'uses'  => 'FakultasController@update',
+            'as'    => 'fakultas.update',
+        ]);
+
+        Route::delete('/delete/{id}', [
+            'uses'  => 'FakultasController@delete',
+            'as'    => 'fakultas.delete',
+        ]);
+    });
 
     Route::group( ['prefix' => 'matkul'], function() {
         Route::get('/', [

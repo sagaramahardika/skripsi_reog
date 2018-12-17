@@ -26,7 +26,7 @@
                             </div>
                         @endif
 
-                        <table id="admin-fakultas" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <table id="fakultas" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <th>Kode Fakultas</th>
                                 <th>Nama Fakultas</th>
@@ -41,7 +41,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/admin.js') }}"></script>
+    <script src="{{ asset('js/kaprodi.js') }}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
 @endsection

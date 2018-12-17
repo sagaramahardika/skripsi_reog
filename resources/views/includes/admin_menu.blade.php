@@ -8,8 +8,8 @@
             </a>
 
             <ul class="dropdown-menu">
-                <li><a href="{{ route('fakultas.index') }}"> View </a></li>
-                <li><a href="{{ route('fakultas.create') }}"> Add </a></li>
+                <li><a href="{{ route('admin_fakultas.index') }}"> View </a></li>
+                <li><a href="{{ route('admin_fakultas.create') }}"> Add </a></li>
             </ul>
         </li>
 
