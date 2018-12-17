@@ -1,5 +1,31 @@
 $(document).ready(function () {
 
+    if ( $('#acara-index').length > 0 ) {
+        $('#acara').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                "url": config.routes.kaprodi.acara,
+                "dataType": "json",
+                "type": "POST",
+                "data": {
+                    _token: config.token
+                }
+            },
+            columns: [
+                { "data": "nama_acara" },
+                { "data": "waktu_mulai" },
+                { "data": "waktu_selesai" },
+                { "data": "options" },
+            ]
+        });
+    }
+
+    if ( $('#create-acara').length > 0 ) {
+        $('#timepicker_waktu_mulai').datetimepicker();
+        $('#timepicker_waktu_selesai').datetimepicker();
+    }
+
     if ( $('table#submatkul').length > 0 ) {
         $('#submatkul').DataTable({
             processing: true,

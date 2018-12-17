@@ -28,7 +28,7 @@
             var config = {
                 routes: {
                     admin: {
-                        acara : "{{ route('acara.all') }}",
+                        acara : "{{ route('admin_acara.all') }}",
                         dosen : "{{ route('admin_dosen.all') }}",
                         fakultas : "{{ route('admin_fakultas.all') }}",
                         kelas : "{{ route('admin_kelas.all') }}",
@@ -38,6 +38,7 @@
                         checkKaprodi : "{{ route('admin_dosen.check_kaprodi') }}"
                     },
                     kaprodi: {
+                        acara : "{{ route('acara.all') }}",
                         dosen : "{{ route('dosen.all') }}",
                         fakultas : "{{ route('fakultas.all') }}",
                         mahasiswa : "{{ route('mahasiswa.all') }}",

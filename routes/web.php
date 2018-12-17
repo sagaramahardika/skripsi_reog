@@ -50,35 +50,35 @@ Route::group( ['prefix' => 'admin'], function() {
 
     Route::group( ['prefix' => 'acara'], function() {
         Route::get('/', [
-            'uses'  => 'AcaraController@index',
-            'as'    => 'acara.index',
+            'uses'  => 'AdminAcaraController@index',
+            'as'    => 'admin_acara.index',
         ]);
         Route::get('/add', [
-            'uses'  => 'AcaraController@create',
-            'as'    => 'acara.create',
+            'uses'  => 'AdminAcaraController@create',
+            'as'    => 'admin_acara.create',
         ]);
         Route::get('/edit/{id}', [
-            'uses'  => 'AcaraController@edit',
-            'as'    => 'acara.edit',
+            'uses'  => 'AdminAcaraController@edit',
+            'as'    => 'admin_acara.edit',
         ]);
         
         Route::post('/', [
-            'uses'  => 'AcaraController@all',
-            'as'    => 'acara.all',
+            'uses'  => 'AdminAcaraController@all',
+            'as'    => 'admin_acara.all',
         ]);
         Route::post('/store', [
-            'uses'  => 'AcaraController@store',
-            'as'    => 'acara.store',
+            'uses'  => 'AdminAcaraController@store',
+            'as'    => 'admin_acara.store',
         ]);
 
         Route::patch('/update/{id}', [
-            'uses'  => 'AcaraController@update',
-            'as'    => 'acara.update',
+            'uses'  => 'AdminAcaraController@update',
+            'as'    => 'admin_acara.update',
         ]);
 
         Route::delete('/delete/{id}', [
-            'uses'  => 'AcaraController@delete',
-            'as'    => 'acara.delete',
+            'uses'  => 'AdminAcaraController@delete',
+            'as'    => 'admin_acara.delete',
         ]);
     });
 
@@ -357,6 +357,40 @@ Route::group( ['prefix' => 'kaprodi'], function() {
         'uses'  => 'KaprodiController@index',
         'as'    => 'kaprodi.dashboard',
     ]);
+
+    Route::group( ['prefix' => 'acara'], function() {
+        Route::get('/', [
+            'uses'  => 'AcaraController@index',
+            'as'    => 'acara.index',
+        ]);
+        Route::get('/add', [
+            'uses'  => 'AcaraController@create',
+            'as'    => 'acara.create',
+        ]);
+        Route::get('/edit/{id}', [
+            'uses'  => 'AcaraController@edit',
+            'as'    => 'acara.edit',
+        ]);
+        
+        Route::post('/', [
+            'uses'  => 'AcaraController@all',
+            'as'    => 'acara.all',
+        ]);
+        Route::post('/store', [
+            'uses'  => 'AcaraController@store',
+            'as'    => 'acara.store',
+        ]);
+
+        Route::patch('/update/{id}', [
+            'uses'  => 'AcaraController@update',
+            'as'    => 'acara.update',
+        ]);
+
+        Route::delete('/delete/{id}', [
+            'uses'  => 'AcaraController@delete',
+            'as'    => 'acara.delete',
+        ]);
+    });
 
     Route::group( ['prefix' => 'fakultas'], function() {
         Route::get('/', [

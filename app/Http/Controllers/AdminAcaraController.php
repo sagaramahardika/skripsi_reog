@@ -8,29 +8,29 @@ use App\Acara;
 Use Exception;
 use Validator;
 
-class AcaraController extends Controller
+class AdminAcaraController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth:dosen');
+        $this->middleware('auth:admin');
     }
 
     public function index() {
-        return view( 'kaprodi.acara.index' );
+        return view( 'admin.acara.index' );
     }
     
     public function create() {
-        return view( 'kaprodi.acara.create' );
+        return view( 'admin.acara.create' );
     }
 
     public function edit($id) {
         try {
             $acara = Acara::findOrFail($id);
         } catch ( Exception $e ) {
-            return redirect()->route( 'acara.index' )
+            return redirect()->route( 'admin_acara.index' )
                 ->with('error', "Failed to view Acara with id {$id}");
         }
 
-        return view( 'kaprodi.acara.edit' )->with( 'acara', $acara );
+        return view( 'admin.acara.edit' )->with( 'acara', $acara );
     }
 
     public function store( Request $request ) {
@@ -43,7 +43,7 @@ class AcaraController extends Controller
         $request->session()->flash(
             'success', "Acara {$acara->nama_acara} successfully added!"
         );
-        return redirect()->route( 'acara.index' );
+        return redirect()->route( 'admin_acara.index' );
     }
 
     public function update($id, Request $request ) {
@@ -53,7 +53,7 @@ class AcaraController extends Controller
             $request->session()->flash(
                 'error', "Failed to update Acara with id {$id}!"
             );
-            return redirect()->route( 'acara.index' );
+            return redirect()->route( 'admin_acara.index' );
         }
 
         $current_acara_nama_acara = $acara->nama_acara;
@@ -65,7 +65,7 @@ class AcaraController extends Controller
         $request->session()->flash(
             'success', "Acara {$current_acara_nama_acara} successfully updated!"
         );
-        return redirect()->route( 'acara.index' );
+        return redirect()->route( 'admin_acara.index' );
     }
 
     public function delete($id, Request $request) {
@@ -75,7 +75,7 @@ class AcaraController extends Controller
             $request->session()->flash(
                 'error', "Failed to delete Acara with id {$id}!"
             );
-            return redirect()->route( 'acara.index' );
+            return redirect()->route( 'admin_acara.index' );
         }
 
         $current_acara_nama_acara = $acara->nama_acara;
@@ -84,7 +84,7 @@ class AcaraController extends Controller
         $request->session()->flash(
             'success', "acara {$current_acara_nama_acara} successfully deleted!"
         );
-        return redirect()->route( 'acara.index' );
+        return redirect()->route( 'admin_acara.index' );
     }
 
     // get all acara for Datatable
@@ -125,8 +125,8 @@ class AcaraController extends Controller
         $data = array();
         if(!empty($acaras)) {
             foreach ($acaras as $acara) {
-                $edit = route( 'acara.edit', $acara->id );
-                $delete =  route( 'acara.delete', $acara->id );
+                $edit = route( 'admin_acara.edit', $acara->id );
+                $delete =  route( 'admin_acara.delete', $acara->id );
 
                 $nestedData['nama_acara'] = $acara->nama_acara;
                 $nestedData['waktu_mulai'] = date('d/m/Y H:i', $acara->waktu_mulai );

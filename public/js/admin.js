@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     if ( $('#acara-index').length > 0 ) {
-        $('#acara').DataTable({
+        $('#admin-acara').DataTable({
             processing: true,
             serverSide: true,
             ajax: {

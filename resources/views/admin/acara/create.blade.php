@@ -16,7 +16,7 @@
                     <div class="panel-heading">Tambah Acara</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" action="{{ route('acara.store') }}" method="POST">
+                        <form class="form-horizontal" action="{{ route('admin_acara.store') }}" method="POST">
                             <input type="hidden" value="{{ Session::token() }}" name="_token" />
 
                             <div class="form-group">
@@ -66,7 +66,7 @@
 
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">Submit</button>
-                                <a href="{{ route('acara.index') }}" class="btn btn-warning">Cancel</a>
+                                <a href="{{ route('admin_acara.index') }}" class="btn btn-warning">Cancel</a>
                             </div>
                         </form>
                     </div>

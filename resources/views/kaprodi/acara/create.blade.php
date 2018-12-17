@@ -1,7 +1,7 @@
 @extends("layouts.app")
 
 @section('title')
-    Edit Acara
+    Tambah Acara
 @endsection
 
 @section('styles')
@@ -13,17 +13,16 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Edit Acara {{ $acara->nama_acara }}</div>
+                    <div class="panel-heading">Tambah Acara</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" action="{{ route('admin_acara.update', $acara->id) }}" method="POST">
-                            <input type="hidden" name="_method" value="PATCH">
+                        <form class="form-horizontal" action="{{ route('admin_acara.store') }}" method="POST">
                             <input type="hidden" value="{{ Session::token() }}" name="_token" />
 
                             <div class="form-group">
                                 <label for="kd_fakultas" class="col-md-4 control-label">Nama Acara</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" name="nama_acara" value="{{ $acara->nama_acara }}">
+                                    <input type="text" class="form-control" name="nama_acara">
 
                                     @if ($errors->has('nama_acara'))
                                         <span class="help-block">
@@ -36,7 +35,7 @@
                             <div class="form-group">
                                 <label for="waktu_mulai" class="col-md-4 control-label">Waktu Mulai</label>
                                 <div class='input-group date col-md-3' id='timepicker_waktu_mulai'>
-                                    <input type='text' class="form-control" name="waktu_mulai" value="{{ date( 'm/d/Y g:i A', $acara->waktu_mulai ) }}" />
+                                    <input type='text' class="form-control" name="waktu_mulai" />
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -52,7 +51,7 @@
                             <div class="form-group">
                                 <label for="waktu_selesai" class="col-md-4 control-label">Waktu Selsai</label>
                                 <div class='input-group date col-md-3' id='timepicker_waktu_selesai'>
-                                    <input type='text' class="form-control" name="waktu_selesai" value="{{ date( 'm/d/Y g:i A', $acara->waktu_selesai ) }}" />
+                                    <input type='text' class="form-control" name="waktu_selesai" />
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -78,7 +77,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/admin.js') }}"></script>
+    <script src="{{ asset('js/kaprodi.js') }}"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
 @endsection
