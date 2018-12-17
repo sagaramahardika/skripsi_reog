@@ -43,7 +43,7 @@
                             <div class="form-group">
                                 <label for="kd_prodi" class="col-md-4 control-label">Kode Prodi</label>
                                 <div class="col-md-1">
-                                    <input type="text" class="form-control" name="kd_prodi" value="{{ $prodi->kd_prodi }}">
+                                    <input type="text" class="form-control" name="kd_prodi" value="{{ ( (string) $prodi->kd_prodi)[1] }}">
 
                                     @if ($errors->has('kd_prodi'))
                                         <span class="help-block">
