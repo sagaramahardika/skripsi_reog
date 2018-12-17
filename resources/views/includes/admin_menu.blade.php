@@ -63,8 +63,8 @@
             </a>
 
             <ul class="dropdown-menu">
-                <li><a href="{{ route('acara.index') }}"> View </a></li>
-                <li><a href="{{ route('acara.create') }}"> Add </a></li>
+                <li><a href="{{ route('admin_acara.index') }}"> View </a></li>
+                <li><a href="{{ route('admin_acara.create') }}"> Add </a></li>
             </ul>
         </li>
     </ul>
