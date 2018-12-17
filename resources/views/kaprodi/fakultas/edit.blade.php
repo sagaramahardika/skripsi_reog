@@ -12,7 +12,7 @@
                     <div class="panel-heading">Edit Fakultas {{ $fakultas->nama_fakultas }} </div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" action="{{ route('admin_fakultas.update', $fakultas->kd_fakultas) }}" method="POST">
+                        <form class="form-horizontal" action="{{ route('fakultas.update', $fakultas->kd_fakultas) }}" method="POST">
                             <input type="hidden" name="_method" value="PATCH">
                             <input type="hidden" value="{{ Session::token() }}" name="_token" />
 
@@ -44,7 +44,7 @@
 
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">Submit</button>
-                                <a href="{{ route('admin_fakultas.index') }}" class="btn btn-warning">Cancel</a>
+                                <a href="{{ route('fakultas.index') }}" class="btn btn-warning">Cancel</a>
                             </div>
                         </form>
                     </div>
