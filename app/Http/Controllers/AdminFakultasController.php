@@ -26,7 +26,7 @@ class AdminFakultasController extends Controller
         try {
             $fakultas = Fakultas::findOrFail($kd_fakultas);
         } catch ( Exception $e ) {
-            return redirect()->route( 'fakultas.index' )
+            return redirect()->route( 'admin_fakultas.index' )
                 ->with('error', "Failed to view Fakultas with kode fakultas {$kd_fakultas}");
         }
 
@@ -48,7 +48,7 @@ class AdminFakultasController extends Controller
         $request->session()->flash(
             'success', "fakultas {$fakultas->nama_fakultas} successfully added!"
         );
-        return redirect()->route( 'fakultas.index' );
+        return redirect()->route( 'admin_fakultas.index' );
     }
 
     public function update($kd_fakultas, Request $request ) {
@@ -58,7 +58,7 @@ class AdminFakultasController extends Controller
             $request->session()->flash(
                 'error', "Failed to update Fakultas with kode fakultas {$kd_fakultas}!"
             );
-            return redirect()->route( 'fakultas.index' );
+            return redirect()->route( 'admin_fakultas.index' );
         }
 
         $data['kd_fakultas'] = $request->input('kd_fakultas');
@@ -84,7 +84,7 @@ class AdminFakultasController extends Controller
         $request->session()->flash(
             'success', "fakultas {$current_nama_fakultas} successfully updated!"
         );
-        return redirect()->route( 'fakultas.index' );
+        return redirect()->route( 'admin_fakultas.index' );
     }
 
     public function delete($kd_fakultas, Request $request) {
@@ -94,7 +94,7 @@ class AdminFakultasController extends Controller
             $request->session()->flash(
                 'error', "Failed to delete Fakultas with kd_fakultas {$kd_fakultas}!"
             );
-            return redirect()->route( 'fakultas.index' );
+            return redirect()->route( 'admin_fakultas.index' );
         }
 
         $current_nama_fakultas = $fakultas->nama_fakultas;
@@ -103,7 +103,7 @@ class AdminFakultasController extends Controller
         $request->session()->flash(
             'success', "Fakultas {$current_nama_fakultas} successfully deleted!"
         );
-        return redirect()->route( 'fakultas.index' );
+        return redirect()->route( 'admin_fakultas.index' );
     }
 
     // get all fakultas for Datatable
