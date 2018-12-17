@@ -94,7 +94,7 @@ class AdminDosenController extends Controller
             'nama'      => 'required|string',
             'email'     => 'required|string|email',
             'no_tlpn'   => 'required',
-            'jabatan' => 'required',
+            'jabatan'   => 'required',
         ]);
 
         $nama_dosen = $dosen->nama;
