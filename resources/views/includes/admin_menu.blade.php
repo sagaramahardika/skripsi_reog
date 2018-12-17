@@ -19,8 +19,8 @@
             </a>
 
             <ul class="dropdown-menu">
-                <li><a href="{{ route('prodi.index') }}"> View </a></li>
-                <li><a href="{{ route('prodi.create') }}"> Add </a></li>
+                <li><a href="{{ route('admin_prodi.index') }}"> View </a></li>
+                <li><a href="{{ route('admin_prodi.create') }}"> Add </a></li>
             </ul>
         </li>
 

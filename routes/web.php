@@ -156,35 +156,35 @@ Route::group( ['prefix' => 'admin'], function() {
 
     Route::group( ['prefix' => 'prodi'], function() {
         Route::get('/', [
-            'uses'  => 'ProdiController@index',
-            'as'    => 'prodi.index',
+            'uses'  => 'AdminProdiController@index',
+            'as'    => 'admin_prodi.index',
         ]);
         Route::get('/add', [
-            'uses'  => 'ProdiController@create',
-            'as'    => 'prodi.create',
+            'uses'  => 'AdminProdiController@create',
+            'as'    => 'admin_prodi.create',
         ]);
         Route::get('/edit/{id}', [
-            'uses'  => 'ProdiController@edit',
-            'as'    => 'prodi.edit',
+            'uses'  => 'AdminProdiController@edit',
+            'as'    => 'admin_prodi.edit',
         ]);
         
         Route::post('/', [
-            'uses'  => 'ProdiController@all',
-            'as'    => 'prodi.all',
+            'uses'  => 'AdminProdiController@all',
+            'as'    => 'admin_prodi.all',
         ]);
         Route::post('/store', [
-            'uses'  => 'ProdiController@store',
-            'as'    => 'prodi.store',
+            'uses'  => 'AdminProdiController@store',
+            'as'    => 'admin_prodi.store',
         ]);
 
         Route::patch('/update/{id}', [
-            'uses'  => 'ProdiController@update',
-            'as'    => 'prodi.update',
+            'uses'  => 'AdminProdiController@update',
+            'as'    => 'admin_prodi.update',
         ]);
 
         Route::delete('/delete/{id}', [
-            'uses'  => 'ProdiController@delete',
-            'as'    => 'prodi.delete',
+            'uses'  => 'AdminProdiController@delete',
+            'as'    => 'admin_prodi.delete',
         ]);
     });
 
@@ -389,6 +389,40 @@ Route::group( ['prefix' => 'kaprodi'], function() {
         Route::delete('/delete/{id}', [
             'uses'  => 'FakultasController@delete',
             'as'    => 'fakultas.delete',
+        ]);
+    });
+
+    Route::group( ['prefix' => 'prodi'], function() {
+        Route::get('/', [
+            'uses'  => 'ProdiController@index',
+            'as'    => 'prodi.index',
+        ]);
+        Route::get('/add', [
+            'uses'  => 'ProdiController@create',
+            'as'    => 'prodi.create',
+        ]);
+        Route::get('/edit/{id}', [
+            'uses'  => 'ProdiController@edit',
+            'as'    => 'prodi.edit',
+        ]);
+        
+        Route::post('/', [
+            'uses'  => 'ProdiController@all',
+            'as'    => 'prodi.all',
+        ]);
+        Route::post('/store', [
+            'uses'  => 'ProdiController@store',
+            'as'    => 'prodi.store',
+        ]);
+
+        Route::patch('/update/{id}', [
+            'uses'  => 'ProdiController@update',
+            'as'    => 'prodi.update',
+        ]);
+
+        Route::delete('/delete/{id}', [
+            'uses'  => 'ProdiController@delete',
+            'as'    => 'prodi.delete',
         ]);
     });
 

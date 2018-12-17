@@ -9,20 +9,20 @@ use App\Prodi;
 Use Exception;
 use Validator;
 
-class ProdiController extends Controller
+class AdminProdiController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth:dosen');
+        $this->middleware('auth:admin');
     }
 
     public function index() {
-        return view( 'kaprodi.prodi.index' );
+        return view( 'admin.prodi.index' );
     }
     
     public function create() {
         $allFakultas = Fakultas::all();
 
-        return view( 'kaprodi.prodi.create', [ 
+        return view( 'admin.prodi.create', [ 
             'allFakultas'   => $allFakultas,
         ]);
     }
@@ -31,13 +31,13 @@ class ProdiController extends Controller
         try {
             $prodi = Prodi::findOrFail($kd_prodi);
         } catch ( Exception $e ) {
-            return redirect()->route( 'prodi.index' )
+            return redirect()->route( 'admin_prodi.index' )
                 ->with('error', "Failed to view Prodi with kode prodi {$kd_prodi}");
         }
 
         $allFakultas = Fakultas::all();
 
-        return view( 'kaprodi.prodi.edit', [
+        return view( 'admin.prodi.edit', [
             'allFakultas'   => $allFakultas,
         ])->with( 'prodi', $prodi );
     }
@@ -72,7 +72,7 @@ class ProdiController extends Controller
         $request->session()->flash(
             'success', "Prodi {$prodi->nama_prodi} successfully added!"
         );
-        return redirect()->route( 'kaprodi.index' );
+        return redirect()->route( 'admin_prodi.index' );
     }
 
     public function update($kd_prodi, Request $request ) {
@@ -82,7 +82,7 @@ class ProdiController extends Controller
             $request->session()->flash(
                 'error', "Failed to update Prodi with kd_prodi {$kd_prodi}!"
             );
-            return redirect()->route( 'prodi.index' );
+            return redirect()->route( 'admin_prodi.index' );
         }
 
         $data['kd_fakultas'] = $request->input('kd_fakultas');
@@ -113,7 +113,7 @@ class ProdiController extends Controller
         $request->session()->flash(
             'success', "Prodi {$current_prodi_nama_prodi} successfully updated!"
         );
-        return redirect()->route( 'prodi.index' );
+        return redirect()->route( 'admin_prodi.index' );
     }
 
     public function delete($kd_prodi, Request $request) {
@@ -123,7 +123,7 @@ class ProdiController extends Controller
             $request->session()->flash(
                 'error', "Failed to delete Prodi with kd_prodi {$kd_prodi}!"
             );
-            return redirect()->route( 'prodi.index' );
+            return redirect()->route( 'admin_prodi.index' );
         }
 
         $current_prodi_nama_prodi = $prodi->nama_prodi;
@@ -132,7 +132,7 @@ class ProdiController extends Controller
         $request->session()->flash(
             'success', "Prodi {$current_prodi_nama_prodi} successfully deleted!"
         );
-        return redirect()->route( 'prodi.index' );
+        return redirect()->route( 'admin_prodi.index' );
     }
 
     // get all prodi for Datatable

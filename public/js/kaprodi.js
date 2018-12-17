@@ -169,4 +169,25 @@ $(document).ready(function () {
         });
     }
 
+    if ( $('table#prodi').length > 0 ) {
+        $('#prodi').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                "url": config.routes.kaprodi.prodi,
+                "dataType": "json",
+                "type": "POST",
+                "data": {
+                    _token: config.token
+                }
+            },
+            columns: [
+                { "data": "kd_prodi" },
+                { "data": "nama_fakultas" },
+                { "data": "nama_prodi" },
+                { "data": "options" },
+            ]
+        });
+    }
+
 });

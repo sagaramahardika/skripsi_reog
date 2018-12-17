@@ -199,8 +199,8 @@ $(document).ready(function () {
         });
     }
 
-    if ( $('table#prodi').length > 0 ) {
-        $('#prodi').DataTable({
+    if ( $('table#admin-prodi').length > 0 ) {
+        $('#admin-prodi').DataTable({
             processing: true,
             serverSide: true,
             ajax: {

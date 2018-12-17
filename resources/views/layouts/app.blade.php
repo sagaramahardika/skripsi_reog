@@ -34,7 +34,7 @@
                         kelas : "{{ route('admin_kelas.all') }}",
                         mahasiswa : "{{ route('mahasiswa.all') }}",
                         matkul : "{{ route('matkul.all') }}",
-                        prodi : "{{ route('prodi.all') }}",
+                        prodi : "{{ route('admin_prodi.all') }}",
                         checkKaprodi : "{{ route('admin_dosen.check_kaprodi') }}"
                     },
                     kaprodi: {
@@ -43,6 +43,7 @@
                         pengajar : "{{ route('submatkul.dosen_submatkul') }}",
                         laporan : "{{ route('submatkul.submatkul_laporan') }}",
                         periode : "{{ route('periode.all') }}",
+                        prodi : "{{ route('prodi.all') }}",
                         submatkul_data : "{{ route('mengajar.submatkul_data') }}"
                     },
                     dosen: {
