@@ -5,46 +5,55 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Mahasiswa;
 use App\Prodi;
-use Auth;
 Use Exception;
 
-class MahasiswaController extends Controller
+class AdminMahasiswaController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth:dosen');
+        $this->middleware('auth:admin');
     }
 
     public function index() {
-        return view('kaprodi.mahasiswa.index');
+        $allProdi = Prodi::all();
+
+        return view( 'admin.mahasiswa.index', [
+            'allProdi' => $allProdi
+        ]);
     }
     
     public function create() {
-        return view('kaprodi.mahasiswa.create');
+        $allProdi = Prodi::all();
+
+        return view( 'admin.mahasiswa.create', [ 
+            'allProdi'   => $allProdi,
+        ]);
     }
 
     public function edit($nim) {
         try {
             $mahasiswa = Mahasiswa::findOrFail($nim);
         } catch ( Exception $e ) {
-            return redirect()->route( 'mahasiswa.index' )
+            return redirect()->route( 'admin_mahasiswa.index' )
                 ->with('error', "Failed to view Mahasiswa with NIM {$nim}");
         }
 
         $allProdi = Prodi::all();
 
-        return view( 'admin.mahasiswa.edit')->with( 'mahasiswa', $mahasiswa );
+        return view( 'admin.mahasiswa.edit', [
+            'allProdi'   => $allProdi,
+        ])->with( 'mahasiswa', $mahasiswa );
     }
 
     public function store( Request $request ) {
-        $kaprodi = Auth::guard('dosen')->user();
         $this->validate($request, [
+            'kd_prodi'      => 'required',
             'nim'           => 'required|digits:8|unique:mahasiswa',
             'nama'          => 'required|string',
             'password'      => 'required|string|confirmed',
         ]);
 
         $mahasiswa = new Mahasiswa();
-        $mahasiswa->kd_prodi = $kaprodi->kd_prodi;
+        $mahasiswa->kd_prodi = $request->input('kd_prodi');
         $mahasiswa->nim = $request->input('nim');
         $mahasiswa->nama = $request->input('nama');
         $mahasiswa->password = bcrypt($request->input('password'));
@@ -53,7 +62,7 @@ class MahasiswaController extends Controller
         $request->session()->flash(
             'success', "mahasiswa {$mahasiswa->nama} successfully added!"
         );
-        return redirect()->route( 'mahasiswa.index' );
+        return redirect()->route( 'admin_.index' );
     }
 
     public function update($nim, Request $request ) {
@@ -63,10 +72,11 @@ class MahasiswaController extends Controller
             $request->session()->flash(
                 'error', "Failed to update mahasiswa with nim {$nim}!"
             );
-            return redirect()->route( 'mahasiswa.index' );
+            return redirect()->route( 'admin_mahasiswa.index' );
         }
 
         $this->validate($request, [
+            'kd_prodi'      => 'required',
             'nim'           => 'required|digits:8|unique:mahasiswa',
             'nama'          => 'required|string',
             'password'      => 'required|string|confirmed',
@@ -82,7 +92,7 @@ class MahasiswaController extends Controller
         $request->session()->flash(
             'success', "Mahasiswa {$current_mahasiswa_nama} successfully updated!"
         );
-        return redirect()->route( 'mahasiswa.index' );
+        return redirect()->route( 'admin_mahasiswa.index' );
     }
 
     public function delete($nim, Request $request) {
@@ -92,7 +102,7 @@ class MahasiswaController extends Controller
             $request->session()->flash(
                 'error', "Failed to delete Mahasiswa with nim {$nim}!"
             );
-            return redirect()->route( 'mahasiswa.index' );
+            return redirect()->route( 'admin_mahasiswa.index' );
         }
 
         $current_mahasiswa_nama = $mahasiswa->nama;
@@ -101,13 +111,12 @@ class MahasiswaController extends Controller
         $request->session()->flash(
             'success', "Mahasiswa {$current_mahasiswa_nama} successfully deleted!"
         );
-        return redirect()->route( 'mahasiswa.index' );
+        return redirect()->route( 'admin_mahasiswa.index' );
     }
 
     // get all mahasiswa for Datatable
     public function all( Request $request ) {
-        $kaprodi = Auth::guard('dosen')->user();
-        $kd_prodi = $kaprodi->kd_prodi;
+        $kd_prodi = $request->input('kd_prodi');
 
         $columns = array(
             0   => 'nim', 
@@ -149,8 +158,8 @@ class MahasiswaController extends Controller
         $data = array();
         if(!empty($mahasiswas)) {
             foreach ($mahasiswas as $mahasiswa) {
-                $edit = route( 'mahasiswa.edit', $mahasiswa->nim );
-                $delete =  route( 'mahasiswa.delete', $mahasiswa->nim );
+                $edit = route( 'admin_mahasiswa.edit', $mahasiswa->nim );
+                $delete =  route( 'admin_mahasiswa.delete', $mahasiswa->nim );
 
                 $nestedData['nim'] = $mahasiswa->nim;
                 $nestedData['nama'] = $mahasiswa->nama;

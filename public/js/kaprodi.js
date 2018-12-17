@@ -211,4 +211,24 @@ $(document).ready(function () {
         });
     }
 
+    if ( $('#mahasiswa-index').length > 0 ) {
+        $('#mahasiswa').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                "url": config.routes.kaprodi.mahasiswa,
+                "dataType": "json",
+                "type": "POST",
+                "data": {
+                    _token: config.token
+                }
+            },
+            columns: [
+                { "data": "nim" },
+                { "data": "nama" },
+                { "data": "options" },
+            ]
+        });
+    }
+
 });

@@ -32,7 +32,7 @@
                         dosen : "{{ route('admin_dosen.all') }}",
                         fakultas : "{{ route('admin_fakultas.all') }}",
                         kelas : "{{ route('admin_kelas.all') }}",
-                        mahasiswa : "{{ route('mahasiswa.all') }}",
+                        mahasiswa : "{{ route('admin_mahasiswa.all') }}",
                         matkul : "{{ route('matkul.all') }}",
                         prodi : "{{ route('admin_prodi.all') }}",
                         checkKaprodi : "{{ route('admin_dosen.check_kaprodi') }}"
@@ -40,6 +40,7 @@
                     kaprodi: {
                         dosen : "{{ route('dosen.all') }}",
                         fakultas : "{{ route('fakultas.all') }}",
+                        mahasiswa : "{{ route('mahasiswa.all') }}",
                         matkul : "{{ route('submatkul.all') }}",
                         pengajar : "{{ route('submatkul.dosen_submatkul') }}",
                         laporan : "{{ route('submatkul.submatkul_laporan') }}",

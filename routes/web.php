@@ -190,35 +190,35 @@ Route::group( ['prefix' => 'admin'], function() {
 
     Route::group( ['prefix' => 'mahasiswa'], function() {
         Route::get('/', [
-            'uses'  => 'MahasiswaController@index',
-            'as'    => 'mahasiswa.index',
+            'uses'  => 'AdminMahasiswaController@index',
+            'as'    => 'admin_mahasiswa.index',
         ]);
         Route::get('/add', [
-            'uses'  => 'MahasiswaController@create',
-            'as'    => 'mahasiswa.create',
+            'uses'  => 'AdminMahasiswaController@create',
+            'as'    => 'admin_mahasiswa.create',
         ]);
         Route::get('/edit/{id}', [
-            'uses'  => 'MahasiswaController@edit',
-            'as'    => 'mahasiswa.edit',
+            'uses'  => 'AdminMahasiswaController@edit',
+            'as'    => 'admin_mahasiswa.edit',
         ]);
         
         Route::post('/', [
-            'uses'  => 'MahasiswaController@all',
-            'as'    => 'mahasiswa.all',
+            'uses'  => 'AdminMahasiswaController@all',
+            'as'    => 'admin_mahasiswa.all',
         ]);
         Route::post('/store', [
-            'uses'  => 'MahasiswaController@store',
-            'as'    => 'mahasiswa.store',
+            'uses'  => 'AdminMahasiswaController@store',
+            'as'    => 'admin_mahasiswa.store',
         ]);
 
         Route::patch('/update/{id}', [
-            'uses'  => 'MahasiswaController@update',
-            'as'    => 'mahasiswa.update',
+            'uses'  => 'AdminMahasiswaController@update',
+            'as'    => 'admin_mahasiswa.update',
         ]);
 
         Route::delete('/delete/{id}', [
-            'uses'  => 'MahasiswaController@delete',
-            'as'    => 'mahasiswa.delete',
+            'uses'  => 'AdminMahasiswaController@delete',
+            'as'    => 'admin_mahasiswa.delete',
         ]);
     });
 
@@ -457,6 +457,40 @@ Route::group( ['prefix' => 'kaprodi'], function() {
         Route::delete('/delete/{id}', [
             'uses'  => 'KaprodiDosenController@delete',
             'as'    => 'dosen.delete',
+        ]);
+    });
+
+    Route::group( ['prefix' => 'mahasiswa'], function() {
+        Route::get('/', [
+            'uses'  => 'MahasiswaController@index',
+            'as'    => 'mahasiswa.index',
+        ]);
+        Route::get('/add', [
+            'uses'  => 'MahasiswaController@create',
+            'as'    => 'mahasiswa.create',
+        ]);
+        Route::get('/edit/{id}', [
+            'uses'  => 'MahasiswaController@edit',
+            'as'    => 'mahasiswa.edit',
+        ]);
+        
+        Route::post('/', [
+            'uses'  => 'MahasiswaController@all',
+            'as'    => 'mahasiswa.all',
+        ]);
+        Route::post('/store', [
+            'uses'  => 'MahasiswaController@store',
+            'as'    => 'mahasiswa.store',
+        ]);
+
+        Route::patch('/update/{id}', [
+            'uses'  => 'MahasiswaController@update',
+            'as'    => 'mahasiswa.update',
+        ]);
+
+        Route::delete('/delete/{id}', [
+            'uses'  => 'MahasiswaController@delete',
+            'as'    => 'mahasiswa.delete',
         ]);
     });
 

@@ -15,19 +15,11 @@ class KaprodiDosenController extends Controller
     }
 
     public function index() {
-        $allProdi = Prodi::all();
-
-        return view( 'kaprodi.dosen.index', [
-            'allProdi'  => $allProdi
-        ]);
+        return view('kaprodi.dosen.index');
     }
 
     public function create() {
-        $allProdi = Prodi::all();
-
-        return view('kaprodi.dosen.create', [
-            'allProdi'  => $allProdi
-        ]);
+        return view('kaprodi.dosen.create');
     }
 
     public function store(Request $request)

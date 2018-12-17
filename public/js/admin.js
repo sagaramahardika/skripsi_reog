@@ -135,7 +135,7 @@ $(document).ready(function () {
     }
 
     if ( $('#mahasiswa-index').length > 0 ) {
-        mahasiswaDataTable = $('#mahasiswa').DataTable({
+        mahasiswaDataTable = $('#admin-mahasiswa').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
