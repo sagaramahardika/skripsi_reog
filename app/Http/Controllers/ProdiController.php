@@ -72,7 +72,7 @@ class ProdiController extends Controller
         $request->session()->flash(
             'success', "Prodi {$prodi->nama_prodi} successfully added!"
         );
-        return redirect()->route( 'kaprodi.index' );
+        return redirect()->route( 'prodi.index' );
     }
 
     public function update($kd_prodi, Request $request ) {
