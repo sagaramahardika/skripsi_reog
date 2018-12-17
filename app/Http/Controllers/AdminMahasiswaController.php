@@ -62,7 +62,7 @@ class AdminMahasiswaController extends Controller
         $request->session()->flash(
             'success', "mahasiswa {$mahasiswa->nama} successfully added!"
         );
-        return redirect()->route( 'admin_.index' );
+        return redirect()->route( 'admin_mahasiswa.index' );
     }
 
     public function update($nim, Request $request ) {
