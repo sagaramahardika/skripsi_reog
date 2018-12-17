@@ -88,7 +88,7 @@
         @endif
 
         <li class="dropdown">
-            <a href="{{ route('rencana.index') }}"> Matakuliah </a>
+            <a href="{{ route('rencana.index') }}"> Kuliah </a>
         </li>
     </ul>
 
