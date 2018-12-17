@@ -16,7 +16,7 @@
                     <div class="panel-heading">Edit Acara {{ $acara->nama_acara }}</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" action="{{ route('admin_acara.update', $acara->id) }}" method="POST">
+                        <form class="form-horizontal" action="{{ route('acara.update', $acara->id) }}" method="POST">
                             <input type="hidden" name="_method" value="PATCH">
                             <input type="hidden" value="{{ Session::token() }}" name="_token" />
 
@@ -67,7 +67,7 @@
 
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">Submit</button>
-                                <a href="{{ route('admin_acara.index') }}" class="btn btn-warning">Cancel</a>
+                                <a href="{{ route('acara.index') }}" class="btn btn-warning">Cancel</a>
                             </div>
                         </form>
                     </div>
