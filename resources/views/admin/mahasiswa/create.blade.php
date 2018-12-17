@@ -12,7 +12,7 @@
                 <div class="panel-heading">Tambah Mahasiswa</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('mahasiswa.store') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('admin_mahasiswa.store') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group">
@@ -85,7 +85,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">Submit</button>
-                                <a href="{{ route('mahasiswa.index') }}" class="btn btn-warning">Cancel</a>
+                                <a href="{{ route('admin_mahasiswa.index') }}" class="btn btn-warning">Cancel</a>
                             </div>
                         </div>
                     </form>

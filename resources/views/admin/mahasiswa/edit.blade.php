@@ -12,7 +12,7 @@
                 <div class="panel-heading">Edit Mahasiswa {{ $mahasiswa->nama }}</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('mahasiswa.update', $mahasiswa->nim ) }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('admin_mahasiswa.update', $mahasiswa->nim ) }}">
                         <input type="hidden" name="_method" value="PATCH">
                         <input type="hidden" value="{{ Session::token() }}" name="_token" />
 
@@ -88,7 +88,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">Submit</button>
-                                <a href="{{ route('mahasiswa.index') }}" class="btn btn-warning">Cancel</a>
+                                <a href="{{ route('admin_mahasiswa.index') }}" class="btn btn-warning">Cancel</a>
                             </div>
                         </div>
                     </form>
