@@ -149,9 +149,4 @@ $(document).ready(function () {
         });
     }
 
-    if ($('#create-dosen').length > 0) {
-        $('#kd_prodi').on('change', function() {
-        });
-    }
-
 });

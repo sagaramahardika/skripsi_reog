@@ -100,6 +100,10 @@ Route::group( ['prefix' => 'admin'], function() {
             'uses'  => 'AdminDosenController@all',
             'as'    => 'admin_dosen.all',
         ]);
+        Route::post('/check-kaprodi', [
+            'uses'  => 'AdminDosenController@checkKaprodi',
+            'as'    => 'admin_dosen.check_kaprodi',
+        ]);
         Route::post('/store', [
             'uses'  => 'AdminDosenController@store',
             'as'    => 'admin_dosen.store',

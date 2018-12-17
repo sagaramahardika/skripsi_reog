@@ -35,6 +35,7 @@
                         mahasiswa : "{{ route('mahasiswa.all') }}",
                         matkul : "{{ route('matkul.all') }}",
                         prodi : "{{ route('prodi.all') }}",
+                        checkKaprodi : "{{ route('admin_dosen.check_kaprodi') }}"
                     },
                     kaprodi: {
                         matkul : "{{ route('submatkul.all') }}",

@@ -4,6 +4,10 @@
     Create Dosen
 @endsection
 
+@section('styles')
+    
+@endsection
+
 @section('content')
 <div class="container" id="create-dosen">
     <div class="row">
@@ -93,14 +97,9 @@
 
                         <div class="form-group">
                             <label for="name" class="col-md-4 control-label">Jabatan</label>
-                            <div class="col-md-2">
-                                <select class="form-control" id="jabatan" name="jabatan" placeholder="Enter Jabatan">
-                                    @for( $i = 0; $i < count($jabatan); $i++ )
-                                        <option value="{{ $jabatan[$i]['value'] }}">
-                                            {{ ucfirst($jabatan[$i]['label']) }}
-                                        </option>
-                                    @endfor
-                                </select>
+                            <div class="col-md-4">
+                                <select class="form-control" id="jabatan" name="jabatan" style="text-transform: capitalize" disabled></select>
+                                <span id="jabatan-note">Pilih prodi terlebih dahulu</span>
 
                                 @if ($errors->has('jabatan'))
                                     <span class="help-block">
@@ -145,4 +144,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/admin.js') }}"></script>
 @endsection

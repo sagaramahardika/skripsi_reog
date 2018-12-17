@@ -58,6 +58,28 @@ $(document).ready(function () {
         });
     }
 
+    if ($('#create-dosen').length > 0) {
+        $('#kd_prodi').on('change', function() {
+            $.ajax({
+                url: config.routes.admin.checkKaprodi,
+                type: 'POST',
+                data: {
+                    kd_prodi: $(this).val(),
+                    _token: config.token
+                },
+                success: function(data) {
+                    console.log(data);
+                    $('#jabatan').empty();
+                    $('#jabatan').prop("disabled", false);
+                    $.each( data, function(index, jabatan){
+                        $('#jabatan').append('<option value="' + jabatan['value'] + '">' + jabatan['label'] + '</a>');
+                    })
+                    $('#jabatan-note').remove();
+                }
+            })
+        });
+    }
+
     if ( $('table#fakultas').length > 0 ) {
         $('#fakultas').DataTable({
             processing: true,

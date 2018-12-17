@@ -23,13 +23,9 @@ class AdminDosenController extends Controller
 
     public function create() {
         $allProdi = Prodi::all();
-        $jabatan[] = array( "value" => 1, "label" => "kaprodi" );
-        $jabatan[] = array( "value" => 2, "label" => "dosen" );
-        //$jabatan[] = array( "value" => 3, "label" => "guest" );
 
         return view('admin.dosen.create', [
-            'allProdi'  => $allProdi,
-            'jabatan'   => $jabatan
+            'allProdi'  => $allProdi
         ]);
     }
 
@@ -201,5 +197,18 @@ class AdminDosenController extends Controller
         );
             
         return response()->json( $json_data );
+    }
+
+    public function checkKaprodi( Request $request ) {
+        $kaprodi = Dosen::where('kd_prodi', $request->input('kd_prodi'))
+        ->where('jabatan', 1)
+        ->first();
+
+        if ( empty($kaprodi) ) {
+            $jabatan[] = array( "value" => 1, "label" => "kaprodi" );
+        }
+
+        $jabatan[] = array( "value" => 2, "label" => "dosen" );
+        return $jabatan;
     }
 }
