@@ -91,10 +91,16 @@ class AdminDosenController extends Controller
         }
 
         $this->validate($request, [
+            'nama'      => 'required|string',
+            'email'     => 'required|string|email',
+            'no_tlpn'   => 'required',
             'jabatan' => 'required',
         ]);
 
         $nama_dosen = $dosen->nama;
+        $dosen->nama = $request->input('nama');
+        $dosen->email = $request->input('email');
+        $dosen->no_tlpn = $request->input('no_tlpn');
         $dosen->jabatan = $request->input('jabatan');
         $dosen->save();
 
