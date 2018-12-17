@@ -190,4 +190,25 @@ $(document).ready(function () {
         });
     }
 
+    if ( $('#dosen-index').length > 0 ) {
+        $('#dosen').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                "url": config.routes.kaprodi.dosen,
+                "dataType": "json",
+                "type": "POST",
+                "data": {
+                    _token: config.token
+                }
+            },
+            columns: [
+                { "data": "nik" },
+                { "data": "nama" },
+                { "data": "jabatan" },
+                { "data": "options" },
+            ]
+        });
+    }
+
 });

@@ -27,7 +27,7 @@ $(document).ready(function () {
     }
 
     if ( $('#dosen-index').length > 0 ) {
-        dosenDataTable = $('#dosen').DataTable({
+        dosenDataTable = $('#admin-dosen').DataTable({
             processing: true,
             serverSide: true,
             ajax: {

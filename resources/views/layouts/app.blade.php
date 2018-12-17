@@ -38,6 +38,7 @@
                         checkKaprodi : "{{ route('admin_dosen.check_kaprodi') }}"
                     },
                     kaprodi: {
+                        dosen : "{{ route('dosen.all') }}",
                         fakultas : "{{ route('fakultas.all') }}",
                         matkul : "{{ route('submatkul.all') }}",
                         pengajar : "{{ route('submatkul.dosen_submatkul') }}",

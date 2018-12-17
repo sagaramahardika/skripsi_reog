@@ -33,6 +33,17 @@
 
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
+                    Dosen <span class="caret"></span>
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li><a href="{{ route('dosen.index') }}"> View </a></li>
+                    <li><a href="{{ route('dosen.create') }}"> Add </a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                     Kelas <span class="caret"></span>
                 </a>
 

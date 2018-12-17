@@ -426,6 +426,40 @@ Route::group( ['prefix' => 'kaprodi'], function() {
         ]);
     });
 
+    Route::group( ['prefix' => 'dosen'], function() {
+        Route::get('/', [
+            'uses'  => 'KaprodiDosenController@index',
+            'as'    => 'dosen.index',
+        ]);
+        Route::get('/add', [
+            'uses'  => 'KaprodiDosenController@create',
+            'as'    => 'dosen.create',
+        ]);
+        Route::get('/edit/{id}', [
+            'uses'  => 'KaprodiDosenController@edit',
+            'as'    => 'dosen.edit',
+        ]);
+        
+        Route::post('/', [
+            'uses'  => 'KaprodiDosenController@all',
+            'as'    => 'dosen.all',
+        ]);
+        Route::post('/store', [
+            'uses'  => 'KaprodiDosenController@store',
+            'as'    => 'dosen.store',
+        ]);
+
+        Route::patch('/update/{id}', [
+            'uses'  => 'KaprodiDosenController@update',
+            'as'    => 'dosen.update',
+        ]);
+
+        Route::delete('/delete/{id}', [
+            'uses'  => 'KaprodiDosenController@delete',
+            'as'    => 'dosen.delete',
+        ]);
+    });
+
     Route::group( ['prefix' => 'matkul'], function() {
         Route::get('/', [
             'uses'  => 'SubMatkulController@index',
